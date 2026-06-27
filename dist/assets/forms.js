@@ -1,4 +1,4 @@
-const recipient = "hello@videoeditorjobs.com";
+const recipient = "sangy@rightjoin.co";
 
 function serializeForm(form) {
   const data = new FormData(form);
