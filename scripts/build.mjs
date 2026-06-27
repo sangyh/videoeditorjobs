@@ -280,8 +280,8 @@ function renderPage(page) {
             Portfolio or LinkedIn
             <input name="portfolio" type="url" placeholder="https://">
           </label>
-          <button class="button primary" type="submit">Prepare email</button>
-          <p class="form-note">Static launch mode: this opens an email draft until the TalentPrism intake endpoint is connected.</p>
+          <button class="button primary" type="submit">Email my interest</button>
+          <p class="form-note">Opens an email to Sangy until direct submissions are connected.</p>
         </form>
       </section>
 
@@ -311,7 +311,7 @@ function renderPage(page) {
             Role page or notes
             <input name="portfolio" type="text" placeholder="URL, pay range, workflow, or deadline">
           </label>
-          <button class="button secondary" type="submit">Prepare email</button>
+          <button class="button secondary" type="submit">Email role interest</button>
           <p class="form-note">Connect this form to TalentPrism when the backend posting flow is ready.</p>
         </form>
       </section>
