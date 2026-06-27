@@ -1,0 +1,12 @@
+{
+  "name": "video-editor-jobs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static SEO launch site for videoeditorjobs.com.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "verify": "node scripts/verify.mjs",
+    "dev": "python3 -m http.server 4173 --directory dist"
+  }
+}
