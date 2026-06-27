@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "vercel-build": "node scripts/build.mjs && ls -la dist",
     "verify": "node scripts/verify.mjs",
     "dev": "python3 -m http.server 4173 --directory dist"
   }
