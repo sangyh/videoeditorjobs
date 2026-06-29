@@ -98,6 +98,11 @@ const appsScriptManifest = JSON.parse(appsScriptManifestText);
 const vercelJson = JSON.parse(vercelJsonText);
 const endpoint = extractEndpoint(homeHtml);
 const locCount = Array.from(sitemap.matchAll(/<loc>/g)).length;
+const crawlRouteSet = new Set(
+  [...pages, ...appPages, ...toolPages, ...blogPosts.map((post) => ({ slug: `blog/${post.slug}` })), ...trustPages]
+    .concat([{ slug: "blog" }, { slug: "search" }])
+    .map((page) => `/${page.slug ? `${page.slug}/` : ""}`)
+);
 
 if (locCount !== expectedSitemapUrls) {
   fail(`sitemap.xml should list ${expectedSitemapUrls} URLs, found ${locCount}`);
@@ -235,6 +240,12 @@ if (!appsScriptManifest.oauthScopes?.includes("https://www.googleapis.com/auth/s
 
 if (vercelJsonText.includes('"X-Robots-Tag"') && vercelJsonText.includes("index, follow")) {
   fail("vercel.json must not set a global X-Robots-Tag: index, follow header");
+}
+
+for (const redirect of vercelJson.redirects || []) {
+  if (crawlRouteSet.has(redirect.source)) {
+    fail(`vercel.json redirects generated crawl route ${redirect.source}`);
+  }
 }
 
 for (const needle of [

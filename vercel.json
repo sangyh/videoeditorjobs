@@ -96,18 +96,13 @@
       "permanent": true
     },
     {
-      "source": "/post-video-editor-job/",
-      "destination": "/hire-video-editor/",
-      "permanent": true
-    },
-    {
       "source": "/post-a-video-editor-job/",
-      "destination": "/hire-video-editor/",
+      "destination": "/post-video-editor-job/",
       "permanent": true
     },
     {
       "source": "/video-editor-job-posting/",
-      "destination": "/hire-video-editor/",
+      "destination": "/post-video-editor-job/",
       "permanent": true
     },
     {
