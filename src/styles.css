@@ -17,6 +17,7 @@
   --shadow: 0 18px 44px oklch(24% 0.026 194 / 12%);
   --radius: 8px;
   --max: 1180px;
+  --page-pad: clamp(1rem, 3vw, 2rem);
   font-family:
     ui-sans-serif,
     system-ui,
@@ -40,6 +41,7 @@ body {
   color: var(--ink);
   font-size: 16px;
   line-height: 1.55;
+  overflow-x: clip;
 }
 
 img,
@@ -57,6 +59,13 @@ input,
 select,
 textarea {
   font: inherit;
+  min-width: 0;
+}
+
+button,
+a,
+summary {
+  touch-action: manipulation;
 }
 
 .skip-link {
@@ -83,13 +92,12 @@ textarea {
   grid-template-columns: auto 1fr auto;
   margin: 0 auto;
   max-width: var(--max);
-  padding: 1rem 2rem;
+  padding: 1rem var(--page-pad);
 }
 
 .brand,
 .site-nav,
-.header-actions,
-.site-footer nav {
+.header-actions {
   align-items: center;
   display: flex;
 }
@@ -97,6 +105,7 @@ textarea {
 .brand {
   font-weight: 850;
   gap: 0.65rem;
+  min-height: 2.75rem;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -111,7 +120,7 @@ textarea {
   height: 2.25rem;
   justify-content: center;
   letter-spacing: 0;
-  width: 2.6rem;
+  width: 2.75rem;
 }
 
 .site-nav {
@@ -127,10 +136,14 @@ textarea {
 .site-nav a,
 .site-footer a,
 .header-cta {
+  align-items: center;
   border-radius: var(--radius);
   color: var(--ink-soft);
+  display: inline-flex;
   font-size: 0.93rem;
   font-weight: 750;
+  justify-content: center;
+  min-height: 2.75rem;
   padding: 0.55rem 0.7rem;
   text-decoration: none;
 }
@@ -155,8 +168,8 @@ textarea {
 .article {
   margin: 0 auto;
   max-width: var(--max);
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: var(--page-pad);
+  padding-right: var(--page-pad);
 }
 
 .hero {
@@ -204,7 +217,7 @@ p {
 }
 
 h1 {
-  font-size: 5.35rem;
+  font-size: clamp(3.05rem, 8vw, 5.35rem);
   letter-spacing: 0;
   line-height: 0.9;
   margin-bottom: 1.25rem;
@@ -214,12 +227,12 @@ h1 {
 .compact-hero h1,
 .app-hero h1,
 .article h1 {
-  font-size: 4.4rem;
+  font-size: clamp(2.65rem, 7vw, 4.4rem);
   max-width: 13ch;
 }
 
 h2 {
-  font-size: 2.25rem;
+  font-size: clamp(1.75rem, 4.2vw, 2.25rem);
   letter-spacing: 0;
   line-height: 1.03;
   margin-bottom: 1rem;
@@ -344,7 +357,7 @@ textarea:focus-visible {
 .band {
   margin: 0 auto;
   max-width: var(--max);
-  padding: 5rem 2rem;
+  padding: 5rem var(--page-pad);
 }
 
 .app-split,
@@ -369,6 +382,7 @@ textarea:focus-visible {
 .intake-form {
   border: 1px solid var(--line);
   border-radius: var(--radius);
+  min-width: 0;
 }
 
 .path-panel {
@@ -574,6 +588,7 @@ textarea:focus-visible {
 .route-link,
 .blog-card a {
   background: var(--surface);
+  min-width: 0;
   min-height: 10rem;
   padding: 1.2rem;
   text-decoration: none;
@@ -776,6 +791,7 @@ textarea:focus-visible {
 .builder-preview {
   border: 1px solid var(--line);
   border-radius: var(--radius);
+  min-width: 0;
   padding: 1.2rem;
 }
 
@@ -797,6 +813,7 @@ textarea:focus-visible {
 }
 
 .brief-builder input,
+.brief-builder select,
 .brief-builder textarea {
   background: var(--paper);
   border: 1px solid var(--line);
@@ -805,6 +822,10 @@ textarea:focus-visible {
   min-height: 3rem;
   padding: 0.72rem 0.8rem;
   width: 100%;
+}
+
+.brief-builder select {
+  appearance: none;
 }
 
 .brief-builder textarea {
@@ -945,9 +966,12 @@ details {
 }
 
 summary {
+  align-items: center;
   cursor: pointer;
+  display: flex;
   font-size: 1.1rem;
   font-weight: 800;
+  min-height: 2.75rem;
 }
 
 details p {
@@ -1019,6 +1043,7 @@ details p {
   border-radius: var(--radius);
   display: grid;
   gap: 0.75rem;
+  min-width: 0;
   min-height: 10rem;
   padding: 1.2rem;
   text-decoration: none;
@@ -1099,24 +1124,114 @@ details p {
 }
 
 .site-footer {
-  align-items: start;
   background: var(--ink);
   color: var(--paper);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--page-pad) max(2.5rem, env(safe-area-inset-bottom));
+}
+
+.footer-inner {
   display: grid;
-  gap: 2rem;
-  grid-template-columns: 1fr auto;
-  padding: 3rem 2rem;
+  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+  margin: 0 auto;
+  max-width: var(--max);
+}
+
+.footer-brand {
+  align-content: start;
+  display: grid;
+  gap: 1rem;
+}
+
+.site-footer strong {
+  color: var(--paper);
+  font-size: clamp(1.75rem, 4vw, 2.45rem);
+  line-height: 0.98;
+  max-width: 10ch;
 }
 
 .site-footer p {
   color: oklch(82% 0.02 112);
   max-width: 58ch;
+  margin-bottom: 0;
 }
 
-.site-footer nav {
+.footer-actions {
+  display: flex;
   flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.footer-link-groups {
+  align-items: start;
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.footer-group {
+  align-content: start;
+  display: grid;
   gap: 0.35rem;
-  justify-content: flex-end;
+}
+
+.footer-group h2 {
+  color: var(--amber);
+  font-size: 0.83rem;
+  line-height: 1.2;
+  margin: 0 0 0.35rem;
+  max-width: none;
+}
+
+.site-footer a {
+  color: var(--paper);
+  justify-content: flex-start;
+  margin-left: -0.7rem;
+  overflow-wrap: anywhere;
+}
+
+.site-footer a:hover {
+  background: oklch(31% 0.028 194);
+}
+
+.footer-cta {
+  border: 1px solid oklch(58% 0.024 194);
+  margin-left: 0 !important;
+}
+
+.footer-cta.primary {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
+}
+
+.footer-cta.primary:hover,
+.footer-cta:hover {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: var(--ink);
+}
+
+@media (pointer: coarse) {
+  .site-nav a,
+  .header-cta,
+  .button,
+  .site-footer a,
+  summary {
+    min-height: 2.875rem;
+  }
+}
+
+@media (hover: hover) {
+  .button:hover {
+    transform: translateY(-1px);
+  }
+}
+
+@media (hover: none) {
+  .button:hover {
+    transform: none;
+  }
 }
 
 .site-footer a {
@@ -1125,14 +1240,29 @@ details p {
 
 @media (max-width: 980px) {
   .site-header {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto 1fr auto;
   }
 
   .site-nav {
     grid-column: 1 / -1;
+    grid-row: 2;
     justify-content: flex-start;
     overflow-x: auto;
     padding-bottom: 0.25rem;
+    scrollbar-width: none;
+  }
+
+  .header-actions {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .site-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .brand span:last-child {
+    display: none;
   }
 
   .hero,
@@ -1162,6 +1292,14 @@ details p {
     position: static;
   }
 
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-link-groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .signal-strip,
   .route-grid,
   .blog-grid,
@@ -1181,24 +1319,54 @@ details p {
   .app-hero,
   .article,
   .band {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
   }
 
   .site-header {
+    display: flex;
+    flex-wrap: wrap;
     gap: 0.75rem;
   }
 
-  .brand span:last-child {
-    display: none;
+  .brand {
+    flex: 0 0 auto;
+    order: 1;
   }
 
   .header-actions {
     gap: 0.35rem;
+    margin-left: auto;
+    order: 2;
   }
 
   .header-cta {
     padding-inline: 0.65rem;
+  }
+
+  .site-nav {
+    display: grid;
+    flex: 1 0 100%;
+    gap: 0.4rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    order: 3;
+    overflow: visible;
+    padding-bottom: 0;
+  }
+
+  .site-nav a {
+    display: none;
+    font-size: 0.86rem;
+    line-height: 1.1;
+    padding: 0.55rem 0.35rem;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .site-nav a:nth-child(1),
+  .site-nav a:nth-child(2),
+  .site-nav a:nth-child(6) {
+    display: inline-flex;
   }
 
   .hero,
@@ -1208,20 +1376,7 @@ details p {
     padding-top: 3.5rem;
   }
 
-  h1 {
-    font-size: 3.4rem;
-    max-width: 10ch;
-  }
-
-  .compact-hero h1,
-  .app-hero h1,
-  .article h1 {
-    font-size: 3.1rem;
-    max-width: 11ch;
-  }
-
   h2 {
-    font-size: 1.85rem;
     max-width: 14ch;
   }
 
@@ -1245,12 +1400,12 @@ details p {
     grid-template-columns: 1fr;
   }
 
-  .site-footer {
-    grid-template-columns: 1fr;
-    padding: 2rem 1rem;
+  .builder-score {
+    align-items: start;
+    flex-direction: column;
   }
 
-  .site-footer nav {
-    justify-content: flex-start;
+  .builder-score strong {
+    text-align: left;
   }
 }

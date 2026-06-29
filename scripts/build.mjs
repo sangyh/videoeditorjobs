@@ -8,6 +8,7 @@ const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const dist = join(root, "dist");
 await loadLocalEnv();
 const intakeEndpoint = process.env.VEJ_INTAKE_ENDPOINT || defaultIntakeEndpoint;
+const assetVersion = "20260629-responsive";
 
 const escapeHtml = (value = "") =>
   String(value)
@@ -217,7 +218,7 @@ function head({ title, description, slug, h1, faq, extraJsonLd = "", robots = "i
   const canonical = toUrl(slug);
   return `<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>${escapeHtml(title)}</title>
     <meta name="description" content="${escapeAttr(description)}">
     <link rel="canonical" href="${canonical}">
@@ -234,7 +235,7 @@ function head({ title, description, slug, h1, faq, extraJsonLd = "", robots = "i
     <meta name="twitter:image" content="${site.origin}/assets/video-editor-jobs-og.svg">
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
     <link rel="alternate" type="application/rss+xml" title="${escapeAttr(site.name)} Blog" href="${site.origin}/rss.xml">
-    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="/assets/styles.css?v=${assetVersion}">
     ${baseJsonLd({ title, description, h1, faq }, canonical)}
     ${extraJsonLd}
     <script>window.VEJ_CONFIG = { intakeEndpoint: ${JSON.stringify(intakeEndpoint)} };</script>
@@ -263,33 +264,51 @@ function shell({ page, body, extraClass = "" }) {
     </header>
     <main id="main">${body}</main>
     ${footer()}
-    <script src="/assets/forms.js" defer></script>
+    <script src="/assets/forms.js?v=${assetVersion}" defer></script>
   </body>
 </html>`;
 }
 
 function footer() {
   return `<footer class="site-footer">
-    <div>
-      <strong>Video Editor Jobs</strong>
-      <p>A focused editor community and hiring intake surface for video editing work.</p>
+    <div class="footer-inner">
+      <section class="footer-brand" aria-label="Video Editor Jobs">
+        <strong>Video Editor Jobs</strong>
+        <p>A focused editor community and hiring intake surface for recurring video work.</p>
+        <div class="footer-actions">
+          <a class="footer-cta primary" href="/editors/">Join as editor</a>
+          <a class="footer-cta" href="/post-video-editor-job/">Post a job</a>
+        </div>
+      </section>
+      <nav class="footer-link-groups" aria-label="Footer navigation">
+        <section class="footer-group" aria-labelledby="footer-start">
+          <h2 id="footer-start">Start</h2>
+          <a href="/editors/">Editors</a>
+          <a href="/hire-video-editor/">Hire</a>
+          <a href="/post-video-editor-job/">Post job</a>
+        </section>
+        <section class="footer-group" aria-labelledby="footer-tools">
+          <h2 id="footer-tools">Tools</h2>
+          <a href="/video-editor-job-brief-builder/">Brief builder</a>
+          <a href="/video-editor-portfolio-checklist/">Portfolio checklist</a>
+          <a href="/video-editing-rate-calculator/">Rate calculator</a>
+          <a href="/video-editor-community-post-generator/">Post generator</a>
+        </section>
+        <section class="footer-group" aria-labelledby="footer-resources">
+          <h2 id="footer-resources">Resources</h2>
+          <a href="/blog/">Blog</a>
+          <a href="/search/">Search</a>
+          <a href="/rss.xml">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </section>
+        <section class="footer-group" aria-labelledby="footer-company">
+          <h2 id="footer-company">Company</h2>
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="mailto:${site.email}">${site.email}</a>
+        </section>
+      </nav>
     </div>
-    <nav aria-label="Footer navigation">
-      <a href="/editors/">Editors</a>
-      <a href="/hire-video-editor/">Hire</a>
-      <a href="/post-video-editor-job/">Post job</a>
-      <a href="/video-editor-job-brief-builder/">Brief builder</a>
-      <a href="/video-editor-portfolio-checklist/">Portfolio checklist</a>
-      <a href="/video-editing-rate-calculator/">Rate calculator</a>
-      <a href="/video-editor-community-post-generator/">Post generator</a>
-      <a href="/blog/">Blog</a>
-      <a href="/search/">Search</a>
-      <a href="/privacy/">Privacy</a>
-      <a href="/terms/">Terms</a>
-      <a href="/rss.xml">RSS</a>
-      <a href="/sitemap.xml">Sitemap</a>
-      <a href="mailto:${site.email}">${site.email}</a>
-    </nav>
   </footer>`;
 }
 
@@ -341,6 +360,7 @@ function editorForm({ compact = false } = {}) {
       <label>
         Experience level
         <select name="experience_level">
+          <option value="">Choose if relevant</option>
           <option>Professional editor</option>
           <option>Senior editor or lead editor</option>
           <option>Junior editor</option>
@@ -351,6 +371,7 @@ function editorForm({ compact = false } = {}) {
       <label>
         Work preference
         <select name="work_preference">
+          <option value="">Choose if relevant</option>
           <option>Remote only</option>
           <option>Remote or hybrid</option>
           <option>Local or studio work</option>
@@ -372,6 +393,7 @@ function editorForm({ compact = false } = {}) {
       <label>
         Typical turnaround
         <select name="turnaround_time">
+          <option value="">Choose if relevant</option>
           <option>Same day when scoped</option>
           <option>1 to 2 days</option>
           <option>3 to 5 days</option>
@@ -382,6 +404,7 @@ function editorForm({ compact = false } = {}) {
       <label>
         Availability
         <select name="availability">
+          <option value="">Choose if relevant</option>
           <option>Available now</option>
           <option>Available within 2 weeks</option>
           <option>Open to part-time projects</option>

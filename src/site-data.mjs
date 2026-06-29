@@ -1720,13 +1720,8 @@ export const trustPages = [
 export const nav = [
   { label: "Editors", href: "/editors/" },
   { label: "Hire", href: "/hire-video-editor/" },
-  { label: "Post job", href: "/post-video-editor-job/" },
   { label: "Brief builder", href: "/video-editor-job-brief-builder/" },
   { label: "Portfolio", href: "/video-editor-portfolio-checklist/" },
   { label: "Rates", href: "/video-editing-rate-calculator/" },
-  { label: "Post ideas", href: "/video-editor-community-post-generator/" },
-  { label: "Community", href: "/video-editor-community/" },
-  { label: "Remote", href: "/remote-video-editor-jobs/" },
-  { label: "Freelance", href: "/freelance-video-editor-jobs/" },
   { label: "Blog", href: "/blog/" },
 ];

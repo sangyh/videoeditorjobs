@@ -169,6 +169,21 @@ function setLoading(form, loading) {
   button.textContent = loading ? "Submitting..." : button.dataset.originalText || button.textContent;
 }
 
+function validateConsent(form) {
+  const consent = form.elements.namedItem("consent");
+  if (!consent) return true;
+
+  if (consent.checked) {
+    consent.setCustomValidity("");
+    return true;
+  }
+
+  consent.setCustomValidity("Please agree to the terms and privacy policy before submitting.");
+  consent.reportValidity();
+  setStatus(form, "Please agree to the terms and privacy policy before submitting.", "error");
+  return false;
+}
+
 function storageAvailable() {
   try {
     const key = `${draftStoragePrefix}test`;
@@ -355,11 +370,15 @@ document.querySelectorAll("form[data-intake-kind]").forEach((form) => {
   restorePortfolioChecklistDraft(form);
 
   form.addEventListener("input", () => writeDraft(form));
-  form.addEventListener("change", () => writeDraft(form));
+  form.addEventListener("change", () => {
+    validateConsent(form);
+    writeDraft(form);
+  });
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    if (!validateConsent(form)) return;
     if (!form.reportValidity()) return;
     if (String(new FormData(form).get("website") || "").trim()) {
       setStatus(form, "Thanks, your submission was received.", "success");
