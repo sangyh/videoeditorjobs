@@ -2,12 +2,12 @@ import { copyFile, mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { appPages, blogPosts, keywords, nav, pages, sampleJobs, site, toolPages, trustPages } from "../src/site-data.mjs";
-import { loadLocalEnv } from "./env.mjs";
+import { defaultIntakeEndpoint, loadLocalEnv } from "./env.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const dist = join(root, "dist");
 await loadLocalEnv();
-const intakeEndpoint = process.env.VEJ_INTAKE_ENDPOINT || "";
+const intakeEndpoint = process.env.VEJ_INTAKE_ENDPOINT || defaultIntakeEndpoint;
 
 const escapeHtml = (value = "") =>
   String(value)

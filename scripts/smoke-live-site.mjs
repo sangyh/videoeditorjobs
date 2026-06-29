@@ -1,12 +1,12 @@
 import { appPages, blogPosts, pages, toolPages, trustPages } from "../src/site-data.mjs";
-import { loadLocalEnv, validateIntakeEndpoint } from "./env.mjs";
+import { defaultIntakeEndpoint, loadLocalEnv, validateIntakeEndpoint } from "./env.mjs";
 
 await loadLocalEnv();
 const args = process.argv.slice(2);
 const requireEndpoint = args.includes("--require-endpoint") || process.env.VEJ_REQUIRE_INTAKE_ENDPOINT === "1";
 const originArg = args.find((arg) => !arg.startsWith("--"));
 const origin = (originArg || process.env.VEJ_SITE_ORIGIN || "https://videoeditorjobs.com").replace(/\/+$/, "");
-const expectedEndpoint = process.env.VEJ_INTAKE_ENDPOINT || "";
+const expectedEndpoint = process.env.VEJ_INTAKE_ENDPOINT || defaultIntakeEndpoint;
 const expectedSitemapUrls = pages.length + appPages.length + toolPages.length + blogPosts.length + trustPages.length + 2;
 const errors = [];
 

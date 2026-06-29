@@ -4,6 +4,8 @@ const root = new URL("../", import.meta.url);
 const endpointPattern = /^https:\/\/script\.google\.com\/macros\/s\/[^/\s]+\/exec$/;
 
 export const expectedScriptVersion = "vej-2026-06-29-50p-french-editor";
+export const defaultIntakeEndpoint =
+  "https://script.google.com/macros/s/AKfycbwdyh29V8B0xaZ58J0-neqUcrQg2ognel8nWT1XcVYjuB0dWOefnhYyRhk19r1hijdJ7A/exec";
 
 function unquote(value) {
   const trimmed = value.trim();
