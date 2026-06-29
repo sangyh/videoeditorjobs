@@ -6,8 +6,17 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "vercel-build": "node scripts/build.mjs && ls -la dist",
+    "check": "npm run build && npm run verify && npm run verify:app && npm run verify:apps-script",
+    "vercel-build": "node scripts/build.mjs && node scripts/verify.mjs && node scripts/verify-app.mjs && ls -la dist",
     "verify": "node scripts/verify.mjs",
+    "verify:app": "node scripts/verify-app.mjs",
+    "verify:apps-script": "node scripts/verify-apps-script-contract.mjs",
+    "launch:ready": "npm run check && node scripts/check-launch-readiness.mjs",
+    "smoke:intake": "node scripts/smoke-intake-endpoint.mjs",
+    "smoke:live": "node scripts/smoke-live-site.mjs",
+    "configure:endpoint": "node scripts/configure-intake-endpoint.mjs",
+    "prepare:apps-script": "node scripts/prepare-apps-script-deploy.mjs",
+    "sync:apps-script": "node scripts/sync-apps-script.mjs",
     "dev": "python3 -m http.server 4173 --directory dist"
   }
 }

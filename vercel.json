@@ -14,17 +14,126 @@
       "source": "/remote-editor-jobs/",
       "destination": "/remote-video-editor-jobs/",
       "permanent": true
-    }
-  ],
-  "headers": [
+    },
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
+      "source": "/video-editor-remote-jobs/",
+      "destination": "/remote-video-editor-jobs/",
+      "permanent": true
+    },
+    {
+      "source": "/freelance-editor-jobs/",
+      "destination": "/freelance-video-editor-jobs/",
+      "permanent": true
+    },
+    {
+      "source": "/youtube-editor-jobs/",
+      "destination": "/youtube-video-editor-jobs/",
+      "permanent": true
+    },
+    {
+      "source": "/assistant-editor-jobs/",
+      "destination": "/assistant-video-editor-jobs/",
+      "permanent": true
+    },
+    {
+      "source": "/entry-level-editor-jobs/",
+      "destination": "/entry-level-video-editor-jobs/",
+      "permanent": true
+    },
+    {
+      "source": "/video-editor-jobs-for-teens/",
+      "destination": "/teen-video-editor-jobs/",
+      "permanent": true
+    },
+    {
+      "source": "/junior-video-editor-jobs/",
+      "destination": "/entry-level-video-editor-jobs/",
+      "permanent": true
+    },
+    {
+      "source": "/local-video-editor-jobs/",
+      "destination": "/video-editor-jobs-near-me/",
+      "permanent": true
+    },
+    {
+      "source": "/video-editing-jobs-near-me/",
+      "destination": "/video-editor-jobs-near-me/",
+      "permanent": true
+    },
+    {
+      "source": "/video-editor-jobs-from-home/",
+      "destination": "/work-from-home-video-editor-jobs/",
+      "permanent": true
+    },
+    {
+      "source": "/video-editor-work-from-home-jobs/",
+      "destination": "/work-from-home-video-editor-jobs/",
+      "permanent": true
+    },
+    {
+      "source": "/on-call-video-editor-jobs/",
+      "destination": "/on-call-travel-video-editor-jobs/",
+      "permanent": true
+    },
+    {
+      "source": "/overnight-video-editor-jobs/",
+      "destination": "/night-shift-video-editor-jobs/",
+      "permanent": true
+    },
+    {
+      "source": "/recent-video-editor-jobs/",
+      "destination": "/video-editor-jobs-last-3-days/",
+      "permanent": true
+    },
+    {
+      "source": "/fresh-video-editor-jobs/",
+      "destination": "/video-editor-jobs-last-3-days/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/how-to-find-jobs-as-a-video-editor/",
+      "destination": "/blog/how-to-get-jobs-as-a-video-editor/",
+      "permanent": true
+    },
+    {
+      "source": "/post-video-editor-job/",
+      "destination": "/hire-video-editor/",
+      "permanent": true
+    },
+    {
+      "source": "/post-a-video-editor-job/",
+      "destination": "/hire-video-editor/",
+      "permanent": true
+    },
+    {
+      "source": "/video-editor-job-posting/",
+      "destination": "/hire-video-editor/",
+      "permanent": true
+    },
+    {
+      "source": "/find-video-editor/",
+      "destination": "/hire-video-editor/",
+      "permanent": true
+    },
+    {
+      "source": "/find-a-video-editor/",
+      "destination": "/hire-video-editor/",
+      "permanent": true
+    },
+    {
+      "source": "/join-video-editor-list/",
+      "destination": "/editors/",
+      "permanent": true
+    },
+    {
+      "source": "/video-editor-signup/",
+      "destination": "/editors/",
+      "permanent": true
+    },
+    {
+      "source": "/video-editor-talent/",
+      "destination": "/editors/",
+      "permanent": true
     }
   ]
 }

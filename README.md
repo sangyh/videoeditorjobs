@@ -1,29 +1,93 @@
 # Video Editor Jobs
 
-Static SEO launch site for `videoeditorjobs.com`.
+Static SEO and intake app for `videoeditorjobs.com`.
 
-The goal of this first version is simple: publish crawlable pages now so Google can discover the domain while the live TalentPrism job backend is still being wired in.
+The goal of this version is to start traction before a full account system exists: publish crawlable SEO pages, collect editor profiles, collect hiring briefs, and route both into a Google Sheet-backed matching queue.
+
+Use [docs/guiding-principles.md](docs/guiding-principles.md) as the ICP and product filter: prioritize early creator businesses, with a beachhead of coaches, consultants, educators, and founder-led personal brands that need recurring long-form-to-short-form editing workflows.
 
 ## What is included
 
 - Homepage targeting `video editor jobs`
-- Category pages for remote, freelance, YouTube, broad video editing, part-time, entry-level, and local editor searches
+- Category and community pages for remote, freelance, YouTube, broad video editing, part-time, entry-level, student, fresh-alert, work-from-home, travel, night-shift, community, and local editor searches
+- `/editors/` intake page for video editors
+- `/hire-video-editor/` intake page for hiring teams
+- `/post-video-editor-job/` hiring-intent page for teams expecting a post-a-job flow
+- `/video-editor-job-brief-builder/` hiring-side brief builder that saves a local draft into the post-job form
+- `/video-editor-portfolio-checklist/` editor-side portfolio checklist that saves a local draft into the editor form
+- `/video-editing-rate-calculator/` pricing tool for scoping editing rates before quoting or posting
+- `/video-editor-community-post-generator/` Reddit, Facebook, and forum post generator with tracked links
+- `/blog/` plus starter SEO articles for editor and hiring intent, including the Ahrefs question cluster around finding video editor jobs
+- `/search/` for site search across category pages, guides, trust pages, and intake routes
+- Noindex thank-you pages for editor and hiring submissions
 - `sitemap.xml`
 - `robots.txt`
 - Canonical URLs
 - Open Graph and Twitter preview metadata
 - JSON-LD for `WebSite`, `Organization`, `CollectionPage`, `ItemList`, and `FAQPage`
-- Static editor and employer intake forms that open email drafts until the TalentPrism endpoint exists
+- Google Sheets-ready intake forms with UTM/source tracking and email fallback
+- Google Sheet dashboard and source summary tabs for launch review
+- Internal notification email and submitter confirmation email from Apps Script
+- Browser-side draft restore for unfinished editor and hiring forms
+- Browser-side handoff from the brief builder into the hiring form
+- Browser-side handoff from the portfolio checklist into the editor form
+- Structured matching fields for editor experience, work preference, capacity, turnaround, hiring scope, deliverables, footage volume, revision process, and reference links
 
 ## Commands
 
 ```bash
 npm run build
 npm run verify
+npm run verify:app
+npm run verify:apps-script
+npm run check
+npm run launch:ready
 npm run dev
+npm run smoke:live -- https://videoeditorjobs.com --require-endpoint
+npm run prepare:apps-script
 ```
 
 `npm run dev` serves `dist/` at `http://localhost:4173`.
+
+`npm run check` runs build, SEO verification, and app-intake verification in sequence.
+
+`npm run launch:ready` runs the full local gate and checks the generated launch bundle, Apps Script sync, Sheet setup docs, sitemap count, noindex utility pages, and endpoint configuration state.
+
+`npm run prepare:apps-script` verifies the Apps Script bundle, manifest, Sheet contract, and expected script version, then prints the exact Google Sheets deployment steps and post-deploy proof commands.
+
+`npm run smoke:live -- https://videoeditorjobs.com --require-endpoint` checks the deployed homepage, intake pages, blog, community page, thank-you noindex pages, sitemap, robots file, and embedded intake endpoint before public posting.
+
+To embed the Google Apps Script endpoint at build time:
+
+```bash
+VEJ_INTAKE_ENDPOINT="https://script.google.com/macros/s/DEPLOYMENT_ID/exec" npm run build
+```
+
+Or save it locally after the Apps Script Web App URL exists:
+
+```bash
+npm run configure:endpoint -- "https://script.google.com/macros/s/DEPLOYMENT_ID/exec"
+```
+
+That writes `.env.local`, which is ignored by git and read by the local build, readiness, and smoke scripts. The endpoint smoke test also checks that the deployed `/exec` health response reports the current Apps Script version.
+
+If `VEJ_INTAKE_ENDPOINT` is not set, forms open an email draft with the structured submission so leads are not lost while the Sheet is being connected.
+
+## Google Sheets intake setup
+
+Use [docs/google-sheets-setup.md](docs/google-sheets-setup.md) for the exact setup and smoke-test steps.
+
+The form payload includes `created_at`, `submission_id`, visitor type, explicit consent fields, form fields, page URL, referrer, UTM parameters, raw JSON payload, and Apps Script triage fields for `source_bucket`, `lead_score`, and `review_reason`.
+
+## Community launch
+
+Use [docs/community-launch-kit.md](docs/community-launch-kit.md) for Reddit, Facebook, and forum post drafts with UTM-tagged links.
+
+Use [docs/community-posting-calendar.md](docs/community-posting-calendar.md) for the two-week posting cadence, community post row seeds, and reply rules.
+
+Use [docs/launch-day-runbook.md](docs/launch-day-runbook.md) for the first 24-hour posting plan, Sheet review workflow, and traction success criteria.
+
+Use [docs/operator-email-templates.md](docs/operator-email-templates.md) for manual follow-ups, missing-detail requests, and editor-hiring intros from the Sheet queue.
 
 ## Deployment
 
@@ -35,6 +99,14 @@ The project is ready for Vercel static hosting:
 4. Redirect `www.videoeditorjobs.com` to `videoeditorjobs.com`.
 5. After DNS propagates, submit `https://videoeditorjobs.com/sitemap.xml` in Google Search Console.
 
+Use [docs/deployment-checklist.md](docs/deployment-checklist.md) for the full deploy, live smoke-test, and Search Console checklist.
+
+Use [docs/search-console-handoff.md](docs/search-console-handoff.md) for sitemap submission, URL inspection, and first Search Console review.
+
+Use [docs/seo-30-day-plan.md](docs/seo-30-day-plan.md) for the first month of blog/category-page iteration from Search Console and Sheet evidence.
+
+Use [docs/final-launch-handoff.md](docs/final-launch-handoff.md) for the last handoff checklist once the Apps Script `/exec` URL is ready.
+
 Recommended DNS shape:
 
 ```text
@@ -44,23 +116,22 @@ www.videoeditorjobs.com  CNAME to host, redirected to apex
 
 Use the exact records from the hosting provider because Vercel, Cloudflare, Netlify, and other hosts issue different values.
 
-## TalentPrism integration notes
+## Future backend integration notes
 
-The current forms are static. When the backend is ready, connect them to a TalentPrism intake endpoint and keep these fields:
+When a full backend is ready, replace the Apps Script endpoint with an authenticated intake endpoint and keep these fields:
 
 - `email`
-- `fit`
-- `portfolio`
+- editor or hiring fields
 - source page URL
 - visitor type, editor or employer
 - consent timestamp
 
-For job listings, do not add `JobPosting` structured data until real jobs exist. Google treats fake or placeholder job structured data as spammy. Keep category pages as `CollectionPage` until TalentPrism is feeding actual roles.
+For job listings, do not add `JobPosting` structured data until real jobs exist. Google treats fake or placeholder job structured data as spammy. Keep category pages as `CollectionPage` until actual roles are feeding public pages.
 
 ## SEO next steps
 
 - Add real job pages as soon as TalentPrism has live roles.
 - Add a Google Search Console verification file or DNS TXT record.
 - Set up Bing Webmaster Tools after Google is verified.
-- Add a simple `/search/` route once real listings exist, matching the `SearchAction` structured data.
-- Replace the static email forms with backend submissions.
+- Expand blog posts from Ahrefs, Search Console queries, and Sheet `page_path` conversion data once early impressions appear.
+- Add dedicated job alert pages once the Sheet starts showing repeatable editor niches or city demand.
