@@ -12,7 +12,7 @@ const CONFIG = {
   confirmationEmailName: "Video Editor Jobs",
 };
 
-const SCRIPT_VERSION = "vej-2026-06-29-tight-18p";
+const SCRIPT_VERSION = "vej-2026-06-30-tight-17p";
 
 const HEADERS = [
   "created_at",
@@ -763,7 +763,6 @@ function ensureSourceSummary() {
     "/",
     "/editors/",
     "/hire-video-editor/",
-    "/post-video-editor-job/",
     "/video-editor-community/",
     "/remote-video-editor-jobs/",
     "/freelance-video-editor-jobs/",

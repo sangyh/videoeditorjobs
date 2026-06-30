@@ -11,8 +11,7 @@ Use [docs/guiding-principles.md](docs/guiding-principles.md) as the ICP and prod
 - Homepage targeting `video editor jobs`
 - A tight crawl set for remote, freelance, YouTube, part-time, community, and creator-workflow searches
 - `/editors/` intake page for video editors
-- `/hire-video-editor/` intake page for hiring teams
-- `/post-video-editor-job/` hiring-intent page for teams expecting a post-a-job flow
+- `/hire-video-editor/` intake page for hiring teams and post-a-job intent
 - `/blog/` plus a small set of guides for editor proof, hiring briefs, rates, and YouTube editor scope
 - `/search/` for noindex site search across the current guides and intake routes
 - Noindex thank-you pages for editor and hiring submissions
@@ -45,7 +44,7 @@ npm run prepare:apps-script
 
 `npm run check` runs build, SEO verification, and app-intake verification in sequence.
 
-`npm run launch:ready` runs the full local gate and checks the generated launch bundle, Apps Script sync, Sheet setup docs, 18-URL sitemap count, noindex utility pages, and endpoint configuration state.
+`npm run launch:ready` runs the full local gate and checks the generated launch bundle, Apps Script sync, Sheet setup docs, 17-URL sitemap count, noindex utility pages, and endpoint configuration state.
 
 `npm run prepare:apps-script` verifies the Apps Script bundle, manifest, Sheet contract, and expected script version, then prints the exact Google Sheets deployment steps and post-deploy proof commands.
 

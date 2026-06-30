@@ -79,19 +79,6 @@ export const appPages = [
       "Send a specific recurring workflow: what you publish, how often, what raw footage exists, what clips you need, and how notes will be handled.",
     formKind: "hiring",
   },
-  {
-    slug: "post-video-editor-job",
-    priority: "0.9",
-    changefreq: "daily",
-    title: "Post a Video Editor Job: Submit a Remote, Freelance, or YouTube Editing Role",
-    description:
-      "Post a recurring creator editing role with budget, content format, deliverables, workflow, references, and revision process.",
-    h1: "Post a video editor job",
-    eyebrow: "For hiring teams",
-    intro:
-      "Use this form when you need an editor for YouTube episodes, podcast clips, short-form repurposing, founder-led content, or a repeat monthly editing package.",
-    formKind: "hiring",
-  },
 ];
 
 export const toolPages = [];
@@ -1572,8 +1559,6 @@ export const trustPages = [
 
 export const nav = [
   { label: "Editors", href: "/editors/" },
-  { label: "Hire", href: "/hire-video-editor/" },
-  { label: "Post job", href: "/post-video-editor-job/" },
   { label: "Community", href: "/video-editor-community/" },
   { label: "Blog", href: "/blog/" },
 ];

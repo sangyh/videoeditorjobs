@@ -537,7 +537,6 @@ function addSourceSummarySheet(workbook) {
     "/",
     "/editors/",
     "/hire-video-editor/",
-    "/post-video-editor-job/",
     "/video-editor-community/",
     "/remote-video-editor-jobs/",
     "/freelance-video-editor-jobs/",
@@ -609,7 +608,7 @@ function addSetupSheet(workbook) {
     ["Tabs", "Dashboard, Source Summary, Editors, Hiring Requests, Matches, Community Posts, and Setup are present."],
     [
       "Apps Script",
-      "Paste docs/google-sheets-apps-script.js into Extensions > Apps Script, save, run setup(), run seedCommunityPosts(), approve Sheets/send-email permissions, then run launchHealthCheck(). Confirm ok: true and scriptVersion: vej-2026-06-29-tight-18p before deploying.",
+      "Paste docs/google-sheets-apps-script.js into Extensions > Apps Script, save, run setup(), run seedCommunityPosts(), approve Sheets/send-email permissions, then run launchHealthCheck(). Confirm ok: true and scriptVersion: vej-2026-06-30-tight-17p before deploying.",
     ],
     [
       "Test Submission",
@@ -617,16 +616,16 @@ function addSetupSheet(workbook) {
     ],
     [
       "Deploy",
-      "Deploy Apps Script as a Web app. Execute as Me. Access Anyone. Copy the /exec URL, open it, and confirm ok: true plus scriptVersion: vej-2026-06-29-tight-18p.",
+      "Deploy Apps Script as a Web app. Execute as Me. Access Anyone. Copy the /exec URL, open it, and confirm ok: true plus scriptVersion: vej-2026-06-30-tight-17p.",
     ],
     ["Environment", "Run npm run configure:endpoint -- <exec-url>, then deploy with VEJ_INTAKE_ENDPOINT set in production."],
     [
       "Smoke Test",
-      "Run npm run smoke:intake after /exec deploy. Confirm health.scriptVersion is vej-2026-06-29-tight-18p and one editor row plus one hiring row land with triage and confirmation results.",
+      "Run npm run smoke:intake after /exec deploy. Confirm health.scriptVersion is vej-2026-06-30-tight-17p and one editor row plus one hiring row land with triage and confirmation results.",
     ],
     [
       "Launch Gate",
-      "Run npm run launch:ready -- --require-endpoint, then npm run smoke:live -- https://videoeditorjobs.com --require-endpoint after deploy. Current local bundle verifies 18 crawlable pages.",
+      "Run npm run launch:ready -- --require-endpoint, then npm run smoke:live -- https://videoeditorjobs.com --require-endpoint after deploy. Current local bundle verifies 17 crawlable pages.",
     ],
     ["Match Suggestions", "Run suggestMatches() in Apps Script to add proposed rows to Matches for manual review."],
     ["Daily Review", "Open Dashboard, Source Summary, and Community Posts. Filter status = new. Sort by priority and lead_score. Review next_action and add review_notes."],

@@ -31,6 +31,7 @@ const cutRoutes = [
   "/teen-video-editor-jobs/",
   "/night-shift-teen-video-editor-jobs/",
   "/french-video-editor-jobs/",
+  "/post-video-editor-job/",
 ];
 
 async function readRoot(...parts) {
@@ -130,7 +131,7 @@ if (canonicalAppsScript !== projectAppsScript) {
 }
 
 for (const needle of [
-  "vej-2026-06-29-tight-18p",
+  "vej-2026-06-30-tight-17p",
   "function launchHealthCheck()",
   "portfolio_examples_share",
   "/part-time-video-editor-jobs/",
@@ -176,7 +177,7 @@ for (const doc of [
   ["Search Console handoff", searchConsoleHandoff],
   ["SEO plan", seoPlan],
 ]) {
-  requireIncludes(doc[1], "18 crawlable URLs", `${doc[0]} tight sitemap count`);
+  requireIncludes(doc[1], "17 crawlable URLs", `${doc[0]} tight sitemap count`);
 }
 
 requireIncludes(searchConsoleHandoff, "Removed From Crawl", "Search Console removed-route guidance");

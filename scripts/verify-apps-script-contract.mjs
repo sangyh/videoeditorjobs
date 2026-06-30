@@ -144,7 +144,6 @@ const requiredSourceSummaryPages = [
   "/",
   "/editors/",
   "/hire-video-editor/",
-  "/post-video-editor-job/",
   "/video-editor-community/",
   "/remote-video-editor-jobs/",
   "/freelance-video-editor-jobs/",
@@ -284,7 +283,7 @@ for (const needle of [
   "Replies needing response",
   expectedScriptVersion,
   "health.scriptVersion",
-  "18 crawlable pages",
+  "17 crawlable pages",
 ]) {
   requireIncludes(workbookScript, needle, `workbook ${needle}`);
 }

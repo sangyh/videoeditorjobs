@@ -72,7 +72,7 @@
     },
     {
       "source": "/on-call-video-editor-jobs/",
-      "destination": "/post-video-editor-job/",
+      "destination": "/hire-video-editor/",
       "permanent": true
     },
     {
@@ -96,13 +96,18 @@
       "permanent": true
     },
     {
+      "source": "/post-video-editor-job/",
+      "destination": "/hire-video-editor/",
+      "permanent": true
+    },
+    {
       "source": "/post-a-video-editor-job/",
-      "destination": "/post-video-editor-job/",
+      "destination": "/hire-video-editor/",
       "permanent": true
     },
     {
       "source": "/video-editor-job-posting/",
-      "destination": "/post-video-editor-job/",
+      "destination": "/hire-video-editor/",
       "permanent": true
     },
     {

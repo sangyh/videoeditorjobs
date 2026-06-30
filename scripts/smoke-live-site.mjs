@@ -28,6 +28,7 @@ const cutRoutes = [
   "/teen-video-editor-jobs/",
   "/night-shift-teen-video-editor-jobs/",
   "/french-video-editor-jobs/",
+  "/post-video-editor-job/",
 ];
 
 function fail(message) {
@@ -86,10 +87,6 @@ const pageChecks = [
   {
     path: "/hire-video-editor/",
     checks: ['form class="intake-form hiring-form" data-intake-kind="hiring"', 'name="brief"', 'name="consent" type="checkbox"'],
-  },
-  {
-    path: "/post-video-editor-job/",
-    checks: ["Post a video editor job", 'form class="intake-form hiring-form" data-intake-kind="hiring"', 'name="brief"'],
   },
   {
     path: "/remote-video-editor-jobs/",

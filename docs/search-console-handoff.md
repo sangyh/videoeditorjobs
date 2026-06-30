@@ -22,7 +22,7 @@ Do not submit the sitemap until the live site passes:
 npm run smoke:live -- https://videoeditorjobs.com --require-endpoint
 ```
 
-The live smoke should confirm the homepage, editor intake, hiring intake, blog, community page, noindex utility pages, `robots.txt`, and the 18 crawlable URLs sitemap are all reachable.
+The live smoke should confirm the homepage, editor intake, hiring intake, blog, community page, noindex utility pages, `robots.txt`, and the 17 crawlable URLs sitemap are all reachable.
 
 ## Submit Sitemap
 
@@ -41,7 +41,7 @@ https://videoeditorjobs.com/sitemap.xml
 Expected live sitemap count:
 
 ```text
-18 crawlable URLs
+17 crawlable URLs
 ```
 
 The search page and thank-you pages are intentionally excluded from the sitemap and should stay `noindex, follow`.
@@ -54,7 +54,6 @@ After sitemap submission, inspect these URLs first:
 https://videoeditorjobs.com/
 https://videoeditorjobs.com/editors/
 https://videoeditorjobs.com/hire-video-editor/
-https://videoeditorjobs.com/post-video-editor-job/
 https://videoeditorjobs.com/remote-video-editor-jobs/
 https://videoeditorjobs.com/freelance-video-editor-jobs/
 https://videoeditorjobs.com/youtube-video-editor-jobs/
@@ -93,6 +92,7 @@ These pages were cut from the launch sitemap because they were too generic, tool
 /french-video-editor-jobs/
 /video-editor-jobs-nyc/
 /video-editor-jobs-manhattan/
+/post-video-editor-job/
 ```
 
 Do not request indexing for these routes. If Search Console has them from an older crawl, let them fall out naturally or use Removals only if a stale page is still live.

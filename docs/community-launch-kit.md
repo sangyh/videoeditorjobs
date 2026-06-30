@@ -234,7 +234,7 @@ Someone mentions event, tour, or travel work:
 Travel editing needs a different brief than normal remote work: travel dates, call times, day rate, lodging/per diem, gear, file backup, internet access, and whether shooting is part of the role. It is not part of the first tight sitemap, but hiring teams can still submit a detailed brief.
 
 Post a job:
-https://videoeditorjobs.com/post-video-editor-job/?utm_source=reddit&utm_medium=comment&utm_campaign=early_hiring_briefs
+https://videoeditorjobs.com/hire-video-editor/?utm_source=reddit&utm_medium=comment&utm_campaign=early_hiring_briefs
 ```
 
 ## DM Follow-Ups

@@ -45,13 +45,13 @@ const cutRoutes = [
   "/french-video-editor-jobs/",
   "/video-editor-jobs-nyc/",
   "/video-editor-jobs-manhattan/",
+  "/post-video-editor-job/",
 ];
 
 const [
   homeHtml,
   editorHtml,
   hiringHtml,
-  postJobHtml,
   blogHtml,
   communityHtml,
   searchHtml,
@@ -73,7 +73,6 @@ const [
   readDist("index.html"),
   readDist("editors", "index.html"),
   readDist("hire-video-editor", "index.html"),
-  readDist("post-video-editor-job", "index.html"),
   readDist("blog", "index.html"),
   readDist("video-editor-community", "index.html"),
   readDist("search", "index.html"),
@@ -105,14 +104,12 @@ requireIncludes(hiringHtml, 'name="deliverables"', "hiring deliverables field");
 requireIncludes(hiringHtml, 'name="revision_process"', "hiring revision process field");
 requireIncludes(hiringHtml, 'name="reference_urls"', "hiring reference URLs field");
 requireIncludes(hiringHtml, 'name="brief"', "hiring brief field");
-requireIncludes(postJobHtml, "<h1>Post a video editor job</h1>", "post job h1");
-requireIncludes(postJobHtml, 'data-intake-kind="hiring"', "post job hiring form");
 
 requireIncludes(homeHtml, "creator teams", "home creator-team positioning");
 requireIncludes(homeHtml, "Manual matching from real submissions", "home manual matching signal");
 requireIncludes(homeHtml, 'href="/editors/"', "home editor CTA");
 requireIncludes(homeHtml, 'href="/hire-video-editor/"', "home hiring CTA");
-requireIncludes(homeHtml, 'href="/post-video-editor-job/"', "home post job CTA");
+requireExcludes(homeHtml, 'href="/post-video-editor-job/"', "home duplicate post-job CTA");
 requireIncludes(homeHtml, 'href="/video-editor-community/"', "home community link");
 
 requireIncludes(blogHtml, "creator teams scoping recurring work", "blog tight positioning");
@@ -173,7 +170,7 @@ if (canonicalAppsScript !== projectAppsScript) {
 }
 
 for (const needle of [
-  "vej-2026-06-29-tight-18p",
+  "vej-2026-06-30-tight-17p",
   "portfolio_examples_share",
   "/part-time-video-editor-jobs/",
   "/blog/freelance-video-editor-rates/",
@@ -192,7 +189,7 @@ for (const doc of [
   ["SEO 30-day plan", seoPlan],
   ["final launch handoff", finalLaunchHandoff],
 ]) {
-  requireIncludes(doc[1], "18 crawlable URLs", `${doc[0]} tight sitemap count`);
+  requireIncludes(doc[1], "17 crawlable URLs", `${doc[0]} tight sitemap count`);
 }
 
 requireIncludes(searchConsoleHandoff, "Removed From Crawl", "search console removed-route guidance");

@@ -251,8 +251,7 @@ function shell({ page, body, extraClass = "" }) {
         ${navMarkup(currentSlug)}
       </nav>
       <div class="header-actions">
-        <a class="header-cta" href="/editors/">Join</a>
-        <a class="header-cta post" href="/post-video-editor-job/">Post job</a>
+        <a class="header-cta post" href="/hire-video-editor/">Post job</a>
       </div>
     </header>
     <main id="main">${body}</main>
@@ -270,15 +269,14 @@ function footer() {
         <p>A focused editor community and hiring intake surface for recurring video work.</p>
         <div class="footer-actions">
           <a class="footer-cta primary" href="/editors/">Join as editor</a>
-          <a class="footer-cta" href="/post-video-editor-job/">Post a job</a>
+          <a class="footer-cta" href="/hire-video-editor/">Post a job</a>
         </div>
       </section>
       <nav class="footer-link-groups" aria-label="Footer navigation">
         <section class="footer-group" aria-labelledby="footer-start">
           <h2 id="footer-start">Start</h2>
           <a href="/editors/">Editors</a>
-          <a href="/hire-video-editor/">Hire</a>
-          <a href="/post-video-editor-job/">Post job</a>
+          <a href="/hire-video-editor/">Post job</a>
         </section>
         <section class="footer-group" aria-labelledby="footer-resources">
           <h2 id="footer-resources">Resources</h2>
@@ -585,10 +583,6 @@ function renderLandingPage(page) {
       <h1>${escapeHtml(page.h1)}</h1>
       <p class="lede">${escapeHtml(page.intro)}</p>
       <p class="intent">${escapeHtml(page.intent)}</p>
-      <div class="hero-actions">
-        <a class="button primary" href="/editors/">Join as an editor</a>
-        <a class="button secondary" href="/hire-video-editor/">Hire an editor</a>
-      </div>
     </div>
     <div class="hero-art" aria-label="Video editing timeline and job board preview">
       <img src="/assets/editor-workstation.svg" alt="Editing timeline beside video editor job listings">
@@ -678,10 +672,6 @@ function renderCollectionPage(page) {
     <h1>${escapeHtml(page.h1)}</h1>
     <p class="lede">${escapeHtml(page.intro)}</p>
     <p class="intent">${escapeHtml(page.intent)}</p>
-    <div class="hero-actions">
-      <a class="button primary" href="/editors/">Join editor alerts</a>
-      <a class="button secondary" href="/hire-video-editor/">Post a role</a>
-    </div>
   </section>
 
   <section class="band editorial">
@@ -914,10 +904,9 @@ function renderBlogPost(post) {
       <h2>${hiringAudience ? "Need an editor?" : "Want better editing work?"}</h2>
       <p>${hiringAudience ? "Send a hiring brief and start the early matching queue." : "Join the editor list and tell us what work fits you."}</p>
     </div>
-    <div class="hero-actions">
-      <a class="button primary" href="/editors/">Join as an editor</a>
-      <a class="button secondary" href="/hire-video-editor/">Hire an editor</a>
-    </div>
+    <a class="button ${hiringAudience ? "secondary" : "primary"}" href="${hiringAudience ? "/hire-video-editor/" : "/editors/"}">${
+      hiringAudience ? "Post job" : "Join as an editor"
+    }</a>
   </section>`;
 
   return `<!doctype html>
@@ -934,8 +923,7 @@ function renderBlogPost(post) {
         ${navMarkup("blog")}
       </nav>
       <div class="header-actions">
-        <a class="header-cta" href="/editors/">Join</a>
-        <a class="header-cta post" href="/post-video-editor-job/">Post job</a>
+        <a class="header-cta post" href="/hire-video-editor/">Post job</a>
       </div>
     </header>
     <main id="main">${body}</main>

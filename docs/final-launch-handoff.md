@@ -4,10 +4,9 @@ Use this as the last checklist before posting in Reddit, Facebook, forums, or Se
 
 ## Current State
 
-- Static app builds 18 crawlable URLs.
+- Static app builds 17 crawlable URLs.
 - `/editors/` collects editor profiles.
-- `/hire-video-editor/` collects hiring briefs.
-- `/post-video-editor-job/` captures hiring teams that search or expect a post-a-job flow.
+- `/hire-video-editor/` collects hiring briefs and post-a-job intent.
 - Crawlable pages are limited to remote, freelance, YouTube, part-time, community, and six high-intent guides.
 - The public pseudo-tools and weak freshness/local/teen/language pages have been cut from generation and sitemap submission.
 - Thank-you pages are `noindex, follow` and excluded from `sitemap.xml`.
@@ -49,7 +48,7 @@ Deploy the Apps Script web app:
 5. Run `setup()`.
 6. Approve Sheets and send-email permissions.
 7. Run `seedCommunityPosts()`.
-8. Run `launchHealthCheck()` and confirm `ok: true` and `scriptVersion: "vej-2026-06-29-tight-18p"`.
+8. Run `launchHealthCheck()` and confirm `ok: true` and `scriptVersion: "vej-2026-06-30-tight-17p"`.
 9. Run `testSubmission()` and confirm it creates one editor row, one hiring row, and at least one `proposed` match row.
 10. Run `cleanupTestSubmissions()` to remove generated test rows and test matches.
 11. Run `suggestMatches()` later whenever new editor and hiring rows need proposed matches.
@@ -71,7 +70,7 @@ npm run smoke:intake
 npm run smoke:live -- https://videoeditorjobs.com --require-endpoint
 ```
 
-Confirm `contract.scriptVersion` from `npm run prepare:apps-script`, `launchHealthCheck().scriptVersion`, and `npm run smoke:intake` `health.scriptVersion` all match `vej-2026-06-29-tight-18p`.
+Confirm `contract.scriptVersion` from `npm run prepare:apps-script`, `launchHealthCheck().scriptVersion`, and `npm run smoke:intake` `health.scriptVersion` all match `vej-2026-06-30-tight-17p`.
 
 Also add the same `/exec` URL to Vercel as the production `VEJ_INTAKE_ENDPOINT` environment variable before the final deploy.
 

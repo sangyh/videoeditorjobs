@@ -4,7 +4,7 @@ This plan turns the blog and category pages into a measured acquisition loop for
 
 ## Goals
 
-- Get the 18 crawlable URLs discovered and indexed.
+- Get the 17 crawlable URLs discovered and indexed.
 - Learn which editor niches, hiring briefs, and search queries produce real submissions.
 - Publish only pages that answer demonstrated search or community demand.
 - Use the Sheet as the conversion truth source.
@@ -22,7 +22,7 @@ npm run smoke:intake
 Actions:
 
 - Submit `https://videoeditorjobs.com/sitemap.xml` in Google Search Console.
-- Inspect the homepage, `/editors/`, `/hire-video-editor/`, `/post-video-editor-job/`, `/remote-video-editor-jobs/`, `/freelance-video-editor-jobs/`, `/youtube-video-editor-jobs/`, `/part-time-video-editor-jobs/`, `/video-editor-community/`, and `/blog/`.
+- Inspect the homepage, `/editors/`, `/hire-video-editor/`, `/remote-video-editor-jobs/`, `/freelance-video-editor-jobs/`, `/youtube-video-editor-jobs/`, `/part-time-video-editor-jobs/`, `/video-editor-community/`, and `/blog/`.
 - Post one editor-focused community thread and one hiring-focused community thread.
 - Reply manually to useful comments with the most specific guide or intake page.
 - Check `Source Summary` daily for `utm_source`, `utm_campaign`, and `page_path`.
