@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { activeBlogPosts, activePages, appPages, site, trustPages } from "../src/site-data.mjs";
+import { activeBlogPosts, activePages, appPages, jobBoardPage, site, trustPages } from "../src/site-data.mjs";
 
 const dist = new URL("../dist/", import.meta.url);
 const errors = [];
@@ -27,6 +27,7 @@ function requireExcludes(html, needle, label) {
 
 const crawlRoutes = [
   ...activePages.map((page) => `/${page.slug ? `${page.slug}/` : ""}`),
+  `/${jobBoardPage.slug}/`,
   ...appPages.map((page) => `/${page.slug}/`),
   "/blog/",
   ...activeBlogPosts.map((post) => `/blog/${post.slug}/`),
@@ -52,6 +53,7 @@ const [
   homeHtml,
   editorHtml,
   hiringHtml,
+  jobsHtml,
   blogHtml,
   communityHtml,
   searchHtml,
@@ -73,6 +75,7 @@ const [
   readDist("index.html"),
   readDist("editors", "index.html"),
   readDist("hire-video-editor", "index.html"),
+  readDist("jobs", "index.html"),
   readDist("blog", "index.html"),
   readDist("video-editor-community", "index.html"),
   readDist("search", "index.html"),
@@ -107,6 +110,8 @@ requireIncludes(hiringHtml, 'name="brief"', "hiring brief field");
 
 requireIncludes(homeHtml, "creator teams", "home creator-team positioning");
 requireIncludes(homeHtml, "Manual matching from real submissions", "home manual matching signal");
+requireIncludes(homeHtml, 'href="/jobs/"', "home jobs link");
+requireIncludes(homeHtml, "Real listings with dates and source links", "home live jobs section");
 requireIncludes(homeHtml, 'href="/editors/"', "home editor CTA");
 requireIncludes(homeHtml, 'href="/hire-video-editor/"', "home hiring CTA");
 requireExcludes(homeHtml, 'href="/post-video-editor-job/"', "home duplicate post-job CTA");
@@ -118,6 +123,9 @@ requireIncludes(blogHtml, "How to hire a video editor", "blog hiring guide");
 requireIncludes(communityHtml, "Video Editor Community", "community h1");
 requireIncludes(communityHtml, 'href="/editors/"', "community editor CTA");
 requireIncludes(communityHtml, 'href="/hire-video-editor/"', "community hiring CTA");
+requireIncludes(jobsHtml, "<h1>Real video and creator-side jobs</h1>", "jobs h1");
+requireIncludes(jobsHtml, "source-attributed jobs", "jobs count summary");
+requireIncludes(jobsHtml, "View original listing", "jobs outbound links");
 
 requireIncludes(searchHtml, '<meta name="robots" content="noindex, follow">', "search noindex");
 requireIncludes(searchHtml, "site-search-input", "search input");
@@ -189,7 +197,7 @@ for (const doc of [
   ["SEO 30-day plan", seoPlan],
   ["final launch handoff", finalLaunchHandoff],
 ]) {
-  requireIncludes(doc[1], "17 crawlable URLs", `${doc[0]} tight sitemap count`);
+  requireIncludes(doc[1], "18 crawlable URLs", `${doc[0]} tight sitemap count`);
 }
 
 requireIncludes(searchConsoleHandoff, "Removed From Crawl", "search console removed-route guidance");

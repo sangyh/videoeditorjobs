@@ -1,6 +1,6 @@
 import { readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
-import { activeBlogPosts, activePages, appPages, site, trustPages } from "../src/site-data.mjs";
+import { activeBlogPosts, activePages, appPages, jobBoardPage, site, trustPages } from "../src/site-data.mjs";
 
 const dist = new URL("../dist/", import.meta.url);
 const errors = [];
@@ -16,6 +16,7 @@ async function exists(path) {
 
 const crawlPages = [
   ...activePages,
+  jobBoardPage,
   ...appPages,
   {
     slug: "blog",
@@ -85,6 +86,7 @@ const llms = await readFile(join(dist.pathname, "llms.txt"), "utf8");
 for (const needle of [
   `# ${site.name}`,
   `${site.origin}/editors/`,
+  `${site.origin}/jobs/`,
   `${site.origin}/hire-video-editor/`,
   `${site.origin}/search/`,
   `${site.origin}/sitemap.xml`,

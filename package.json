@@ -14,6 +14,7 @@
     "launch:ready": "npm run check && node scripts/check-launch-readiness.mjs",
     "smoke:intake": "node scripts/smoke-intake-endpoint.mjs",
     "smoke:live": "node scripts/smoke-live-site.mjs",
+    "refresh:jobs": "node scripts/refresh-jobs.mjs",
     "configure:endpoint": "node scripts/configure-intake-endpoint.mjs",
     "prepare:apps-script": "node scripts/prepare-apps-script-deploy.mjs",
     "sync:apps-script": "node scripts/sync-apps-script.mjs",

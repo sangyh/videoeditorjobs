@@ -1,4 +1,4 @@
-import { activeBlogPosts, activePages, appPages, site, trustPages } from "../src/site-data.mjs";
+import { activeBlogPosts, activePages, appPages, jobBoardPage, site, trustPages } from "../src/site-data.mjs";
 import { defaultIntakeEndpoint, loadLocalEnv, validateIntakeEndpoint } from "./env.mjs";
 
 await loadLocalEnv();
@@ -12,6 +12,7 @@ const errors = [];
 
 const crawlRoutes = [
   ...activePages.map((page) => `/${page.slug ? `${page.slug}/` : ""}`),
+  `/${jobBoardPage.slug}/`,
   ...appPages.map((page) => `/${page.slug}/`),
   "/blog/",
   ...activeBlogPosts.map((post) => `/blog/${post.slug}/`),
@@ -87,6 +88,10 @@ const pageChecks = [
   {
     path: "/hire-video-editor/",
     checks: ['form class="intake-form hiring-form" data-intake-kind="hiring"', 'name="brief"', 'name="consent" type="checkbox"'],
+  },
+  {
+    path: "/jobs/",
+    checks: ["Real video and creator-side jobs", "source-attributed jobs", "View original listing"],
   },
   {
     path: "/remote-video-editor-jobs/",

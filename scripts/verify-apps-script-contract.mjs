@@ -283,7 +283,7 @@ for (const needle of [
   "Replies needing response",
   expectedScriptVersion,
   "health.scriptVersion",
-  "17 crawlable pages",
+  "18 crawlable pages",
 ]) {
   requireIncludes(workbookScript, needle, `workbook ${needle}`);
 }

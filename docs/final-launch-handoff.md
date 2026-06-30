@@ -4,7 +4,7 @@ Use this as the last checklist before posting in Reddit, Facebook, forums, or Se
 
 ## Current State
 
-- Static app builds 17 crawlable URLs.
+- Static app builds 18 crawlable URLs.
 - `/editors/` collects editor profiles.
 - `/hire-video-editor/` collects hiring briefs and post-a-job intent.
 - Crawlable pages are limited to remote, freelance, YouTube, part-time, community, and six high-intent guides.

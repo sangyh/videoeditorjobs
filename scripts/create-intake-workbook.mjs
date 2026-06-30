@@ -625,7 +625,7 @@ function addSetupSheet(workbook) {
     ],
     [
       "Launch Gate",
-      "Run npm run launch:ready -- --require-endpoint, then npm run smoke:live -- https://videoeditorjobs.com --require-endpoint after deploy. Current local bundle verifies 17 crawlable pages.",
+      "Run npm run launch:ready -- --require-endpoint, then npm run smoke:live -- https://videoeditorjobs.com --require-endpoint after deploy. Current local bundle verifies 18 crawlable pages.",
     ],
     ["Match Suggestions", "Run suggestMatches() in Apps Script to add proposed rows to Matches for manual review."],
     ["Daily Review", "Open Dashboard, Source Summary, and Community Posts. Filter status = new. Sort by priority and lead_score. Review next_action and add review_notes."],

@@ -177,7 +177,10 @@ Use these as replies after someone comments, so the thread stays conversational 
 Editor asks if there are live jobs yet:
 
 ```text
-Not a public job feed yet. This is the early intake layer first: editors can join with portfolio, format fit, software, rates, availability, and preferences. As hiring briefs come in, I’m using the Sheet queue to understand which categories and matches are worth building first.
+Yes. There is now a seeded public jobs page with source-attributed listings, dates, and outbound links. It is still early, so the board includes direct video roles first plus creator-side and adjacent creative roles while direct employer submissions ramp up.
+
+Jobs:
+https://videoeditorjobs.com/jobs/?utm_source=reddit&utm_medium=comment&utm_campaign=seeded_jobs
 
 Editor intake:
 https://videoeditorjobs.com/editors/?utm_source=reddit&utm_medium=comment&utm_campaign=early_editor_list

@@ -459,6 +459,96 @@ textarea:focus-visible {
   margin-bottom: 0.75rem;
 }
 
+.live-jobs-preview,
+.job-board-band {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.job-board-summary,
+.job-board-key,
+.job-meta,
+.live-job-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.job-board-summary span,
+.job-board-key span,
+.job-meta span,
+.live-job-card-head span,
+.live-job-card-head time {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink-soft);
+  display: inline-flex;
+  font-size: 0.84rem;
+  font-weight: 760;
+  line-height: 1.2;
+  padding: 0.35rem 0.55rem;
+}
+
+.job-board-summary span:first-child,
+.job-board-key span:first-child,
+.live-job-card.direct .live-job-card-head span {
+  background: oklch(88% 0.095 173);
+  border-color: transparent;
+  color: var(--accent-ink);
+}
+
+.live-job-grid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.live-job-grid.compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.live-job-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 1rem;
+}
+
+.live-job-card.near {
+  border-top: 4px solid var(--blue);
+}
+
+.live-job-card.direct {
+  border-top: 4px solid var(--accent);
+}
+
+.live-job-card.adjacent {
+  border-top: 4px solid var(--amber);
+}
+
+.live-job-card h3 {
+  font-size: 1.08rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.live-job-card p {
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.live-job-card a {
+  align-self: end;
+  color: var(--accent-ink);
+  font-weight: 820;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
 .editorial {
   border-top: 1px solid var(--ink);
   display: grid;
@@ -1311,13 +1401,15 @@ details p {
   .signal-strip,
   .route-grid,
   .blog-grid,
-  .blog-grid.full,
-  .path-grid,
-  .share-grid,
-  .resource-grid,
-  .topic-list {
-    grid-template-columns: 1fr;
-  }
+	  .blog-grid.full,
+	  .path-grid,
+	  .live-job-grid,
+	  .live-job-grid.compact,
+	  .share-grid,
+	  .resource-grid,
+	  .topic-list {
+	    grid-template-columns: 1fr;
+	  }
 }
 
 @media (max-width: 680px) {
@@ -1373,7 +1465,7 @@ details p {
 
   .site-nav a:nth-child(1),
   .site-nav a:nth-child(2),
-  .site-nav a:nth-child(6) {
+  .site-nav a:nth-child(4) {
     display: inline-flex;
   }
 

@@ -5,12 +5,14 @@ import {
   activeBlogPosts,
   activePages,
   appPages,
+  jobBoardPage,
   keywords,
   nav,
   sampleJobs,
   site,
   trustPages,
 } from "../src/site-data.mjs";
+import { jobFeedMeta, liveJobs } from "../src/jobs-data.mjs";
 import { defaultIntakeEndpoint, loadLocalEnv } from "./env.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -30,6 +32,13 @@ const escapeAttr = escapeHtml;
 const toUrl = (slug = "") => `${site.origin}/${slug ? `${slug}/` : ""}`;
 const toPath = (slug = "") => join(dist, slug, "index.html");
 const toRfc822 = (value) => new Date(`${value}T12:00:00.000Z`).toUTCString();
+const toDisplayDate = (value) =>
+  new Intl.DateTimeFormat("en", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${value}T12:00:00.000Z`));
 
 const blogIndexPage = {
   slug: "blog",
@@ -136,6 +145,7 @@ const utilityPages = [
 
 const allCrawlPages = [
   ...activePages,
+  jobBoardPage,
   ...appPages,
   blogIndexPage,
   ...activeBlogPosts.map((post) => ({
@@ -513,6 +523,33 @@ function sampleJobRows() {
     .join("");
 }
 
+function confidenceLabel(confidence) {
+  if (confidence === "direct") return "Direct video role";
+  if (confidence === "near") return "Creator-side role";
+  return "Adjacent creative role";
+}
+
+function jobCards(jobs = liveJobs, limit = liveJobs.length) {
+  return jobs
+    .slice(0, limit)
+    .map(
+      (job) => `<article class="live-job-card ${escapeAttr(job.confidence)}">
+        <div class="live-job-card-head">
+          <span>${escapeHtml(confidenceLabel(job.confidence))}</span>
+          <time datetime="${escapeAttr(job.dateListed)}">${escapeHtml(toDisplayDate(job.dateListed))}</time>
+        </div>
+        <h3>${escapeHtml(job.title)}</h3>
+        <p>${escapeHtml(job.company)} · ${escapeHtml(job.location)}</p>
+        <div class="job-meta">
+          <span>${escapeHtml(job.roleFamily)}</span>
+          <span>${escapeHtml(job.sourceName)}</span>
+        </div>
+        <a href="${escapeAttr(job.sourceUrl)}" rel="nofollow noopener" target="_blank">View original listing</a>
+      </article>`
+    )
+    .join("");
+}
+
 function pageCards(currentSlug) {
   return activePages
     .filter((page) => page.slug && page.slug !== currentSlug)
@@ -626,10 +663,24 @@ function renderLandingPage(page) {
     </div>
   </section>
 
+  <section class="band live-jobs-preview">
+    <div class="section-head">
+      <p>Live jobs</p>
+      <h2>Real listings with dates and source links</h2>
+    </div>
+    <div class="job-board-summary">
+      <span>${liveJobs.length} listings</span>
+      <span>Updated ${escapeHtml(toDisplayDate(jobFeedMeta.generatedAt.slice(0, 10)))}</span>
+      <span>${jobFeedMeta.sourceCount} attributed sources</span>
+    </div>
+    <div class="live-job-grid compact">${jobCards(liveJobs, 6)}</div>
+    <a class="button primary" href="/jobs/">Browse all jobs</a>
+  </section>
+
   <section class="band split">
     <div class="section-head">
       <p>Role examples</p>
-      <h2>Early categories before live listings</h2>
+      <h2>Categories the feed is learning from</h2>
     </div>
     <div class="job-stack">${sampleJobRows()}</div>
   </section>
@@ -717,6 +768,60 @@ function renderCollectionPage(page) {
   ${faqMarkup(page)}`;
 
   return shell({ page, body });
+}
+
+function renderJobsPage() {
+  const directCount = liveJobs.filter((job) => job.confidence === "direct").length;
+  const nearCount = liveJobs.filter((job) => job.confidence === "near").length;
+  const adjacentCount = liveJobs.filter((job) => job.confidence === "adjacent").length;
+  const itemListJsonLd = jsonScript({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: jobBoardPage.h1,
+    itemListElement: liveJobs.map((job, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: job.sourceUrl,
+      name: `${job.title} at ${job.company}`,
+    })),
+  });
+
+  const body = `<section class="compact-hero jobs-hero">
+    <p class="eyebrow">${escapeHtml(jobBoardPage.eyebrow)}</p>
+    <h1>${escapeHtml(jobBoardPage.h1)}</h1>
+    <p class="lede">${escapeHtml(jobBoardPage.intro)}</p>
+    <div class="job-board-summary">
+      <span>${liveJobs.length} source-attributed jobs</span>
+      <span>Generated ${escapeHtml(toDisplayDate(jobFeedMeta.generatedAt.slice(0, 10)))}</span>
+      <span>${jobFeedMeta.sourceCount} sources</span>
+    </div>
+  </section>
+
+  <section class="band job-board-band">
+    <div class="section-head">
+      <p>Browse</p>
+      <h2>Openings listed by date</h2>
+    </div>
+    <div class="job-board-key">
+      <span>${directCount} direct video</span>
+      <span>${nearCount} creator-side</span>
+      <span>${adjacentCount} adjacent creative</span>
+    </div>
+    <div class="live-job-grid">${jobCards(liveJobs)}</div>
+  </section>
+
+  <section class="band editorial">
+    <article>
+      <h2>How this feed is seeded</h2>
+      <p>The refresh pipeline pulls public APIs, RSS feeds, and official company job boards, keeps only source-attributed link-out listings, dedupes by company, title, and location, then ranks direct video editing roles first.</p>
+    </article>
+    <article>
+      <h2>Why some roles are adjacent</h2>
+      <p>Early inventory is intentionally labeled by fit. Direct video editor jobs come first; creator content, social, motion, copy, creative strategy, and creator partnerships are included when they may still attract editors or creator-side operators.</p>
+    </article>
+  </section>`;
+
+  return shell({ page: { ...jobBoardPage, extraJsonLd: itemListJsonLd }, body, extraClass: "jobs-page" });
 }
 
 function renderAppPage(page) {
@@ -1114,6 +1219,7 @@ Sitemap: ${site.origin}/sitemap.xml
 
 function llmsTxt() {
   const primaryRoutes = [
+    ["Jobs", "/jobs/", "Source-attributed video, creator-side, and adjacent creative jobs with date listed."],
     ["Editor intake", "/editors/", "Video editors can join the early talent list."],
     ["Hiring intake", "/hire-video-editor/", "Hiring teams can submit editing briefs and role details."],
     ["Search", "/search/", "Search current guides and intake routes."],
@@ -1195,6 +1301,8 @@ await mkdir(join(dist, "assets"), { recursive: true });
 for (const page of activePages) {
   await writePage(page.slug, page.pageType === "home" ? renderLandingPage(page) : renderCollectionPage(page));
 }
+
+await writePage(jobBoardPage.slug, renderJobsPage());
 
 for (const page of appPages) {
   await writePage(page.slug, renderAppPage(page));

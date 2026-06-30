@@ -4,7 +4,7 @@ This plan turns the blog and category pages into a measured acquisition loop for
 
 ## Goals
 
-- Get the 17 crawlable URLs discovered and indexed.
+- Get the 18 crawlable URLs discovered and indexed.
 - Learn which editor niches, hiring briefs, and search queries produce real submissions.
 - Publish only pages that answer demonstrated search or community demand.
 - Use the Sheet as the conversion truth source.

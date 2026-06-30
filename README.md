@@ -9,6 +9,7 @@ Use [docs/guiding-principles.md](docs/guiding-principles.md) as the ICP and prod
 ## What is included
 
 - Homepage targeting `video editor jobs`
+- `/jobs/` with 50 source-attributed live jobs, date listed, source labels, and outbound application links
 - A tight crawl set for remote, freelance, YouTube, part-time, community, and creator-workflow searches
 - `/editors/` intake page for video editors
 - `/hire-video-editor/` intake page for hiring teams and post-a-job intent
@@ -34,6 +35,7 @@ npm run verify
 npm run verify:app
 npm run verify:apps-script
 npm run check
+npm run refresh:jobs
 npm run launch:ready
 npm run dev
 npm run smoke:live -- https://videoeditorjobs.com --require-endpoint
@@ -44,7 +46,9 @@ npm run prepare:apps-script
 
 `npm run check` runs build, SEO verification, and app-intake verification in sequence.
 
-`npm run launch:ready` runs the full local gate and checks the generated launch bundle, Apps Script sync, Sheet setup docs, 17-URL sitemap count, noindex utility pages, and endpoint configuration state.
+`npm run refresh:jobs` refreshes `src/jobs-data.mjs` from public APIs, RSS feeds, and official company job-board APIs. Use [docs/job-refresh-pipeline.md](docs/job-refresh-pipeline.md) for source rules, cadence, and cache/debug options.
+
+`npm run launch:ready` runs the full local gate and checks the generated launch bundle, Apps Script sync, Sheet setup docs, 18-URL sitemap count, noindex utility pages, and endpoint configuration state.
 
 `npm run prepare:apps-script` verifies the Apps Script bundle, manifest, Sheet contract, and expected script version, then prints the exact Google Sheets deployment steps and post-deploy proof commands.
 
@@ -119,7 +123,7 @@ When a full backend is ready, replace the Apps Script endpoint with an authentic
 - visitor type, editor or employer
 - consent timestamp
 
-For job listings, do not add `JobPosting` structured data until real jobs exist. Google treats fake or placeholder job structured data as spammy. Keep category pages as `CollectionPage` until actual roles are feeding public pages.
+For job listings, keep source attribution and outbound application links visible. The current `/jobs/` page uses an `ItemList` because the site is indexing link-out listings, not hosting full job descriptions.
 
 ## SEO next steps
 

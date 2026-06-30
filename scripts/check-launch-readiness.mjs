@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { activeBlogPosts, activePages, appPages, site, trustPages } from "../src/site-data.mjs";
+import { activeBlogPosts, activePages, appPages, jobBoardPage, site, trustPages } from "../src/site-data.mjs";
 import { defaultIntakeEndpoint, loadLocalEnv, validateIntakeEndpoint } from "./env.mjs";
 
 const root = new URL("../", import.meta.url);
@@ -15,6 +15,7 @@ const warnings = [];
 
 const crawlRoutes = [
   ...activePages.map((page) => `/${page.slug ? `${page.slug}/` : ""}`),
+  `/${jobBoardPage.slug}/`,
   ...appPages.map((page) => `/${page.slug}/`),
   "/blog/",
   ...activeBlogPosts.map((post) => `/blog/${post.slug}/`),
@@ -177,7 +178,7 @@ for (const doc of [
   ["Search Console handoff", searchConsoleHandoff],
   ["SEO plan", seoPlan],
 ]) {
-  requireIncludes(doc[1], "17 crawlable URLs", `${doc[0]} tight sitemap count`);
+  requireIncludes(doc[1], "18 crawlable URLs", `${doc[0]} tight sitemap count`);
 }
 
 requireIncludes(searchConsoleHandoff, "Removed From Crawl", "Search Console removed-route guidance");

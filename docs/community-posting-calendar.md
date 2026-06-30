@@ -63,7 +63,7 @@ Add these rows to `Community Posts` if you want the calendar visible in the Shee
 ## Reply Rules
 
 - Reply with a guide link only when it answers the exact comment.
-- If someone asks whether jobs are live yet, be direct: the site is in early intake mode while hiring briefs are collected.
+- If someone asks whether jobs are live yet, be direct: `/jobs/` has a seeded source-attributed board, and editors can still join the intake list for future direct matches.
 - If someone shares a useful missing field, add it to `quality_notes` and consider whether the form should change.
 - If a community reacts badly to links, continue the discussion without linking and mark the post `paused`.
 - If a hiring team shares a real need, route them to `/hire-video-editor/` and ask for budget, timeline, examples, and revision process.

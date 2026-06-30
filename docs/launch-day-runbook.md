@@ -11,7 +11,7 @@ Before posting anywhere, confirm:
 - `npm run configure:endpoint -- <exec-url>` saves the local endpoint.
 - `npm run launch:ready -- --require-endpoint` passes before the production deploy.
 - `npm run smoke:live -- https://videoeditorjobs.com --require-endpoint` passes against the deployed site.
-- `https://videoeditorjobs.com/sitemap.xml` lists 17 crawlable URLs.
+- `https://videoeditorjobs.com/sitemap.xml` lists 18 crawlable URLs.
 - `/thanks-editor/` and `/thanks-hiring/` return `noindex, follow` and are not in the sitemap.
 - `npm run smoke:intake` creates one editor row and one hiring row.
 - `Dashboard` updates after the smoke rows land.

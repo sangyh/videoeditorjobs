@@ -83,6 +83,19 @@ export const appPages = [
 
 export const toolPages = [];
 
+export const jobBoardPage = {
+  slug: "jobs",
+  priority: "0.95",
+  changefreq: "daily",
+  title: "Video Editor Jobs: Real Creative, Video, and Creator-Side Openings",
+  description:
+    "Browse source-attributed video editor, content creator, creative, social, and creator-side jobs with date listed and outbound application links.",
+  h1: "Real video and creator-side jobs",
+  eyebrow: "Seeded job board",
+  intro:
+    "A source-attributed feed of live creative openings for editors and adjacent creator-side work. Each listing links back to the original source and shows the date it was listed.",
+};
+
 export const pages = [
   {
     slug: "",
@@ -1558,6 +1571,7 @@ export const trustPages = [
 ];
 
 export const nav = [
+  { label: "Jobs", href: "/jobs/" },
   { label: "Editors", href: "/editors/" },
   { label: "Community", href: "/video-editor-community/" },
   { label: "Blog", href: "/blog/" },

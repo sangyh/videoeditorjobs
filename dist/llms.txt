@@ -9,6 +9,7 @@ A focused intake and matching surface for creator teams that need recurring vide
 
 ## Primary Routes
 
+- [Jobs](https://videoeditorjobs.com/jobs/): Source-attributed video, creator-side, and adjacent creative jobs with date listed.
 - [Editor intake](https://videoeditorjobs.com/editors/): Video editors can join the early talent list.
 - [Hiring intake](https://videoeditorjobs.com/hire-video-editor/): Hiring teams can submit editing briefs and role details.
 - [Search](https://videoeditorjobs.com/search/): Search current guides and intake routes.
