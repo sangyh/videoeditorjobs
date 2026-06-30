@@ -8,7 +8,7 @@ const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const dist = join(root, "dist");
 await loadLocalEnv();
 const intakeEndpoint = process.env.VEJ_INTAKE_ENDPOINT || defaultIntakeEndpoint;
-const assetVersion = "20260629-responsive";
+const assetVersion = "20260629-checkbox";
 
 const escapeHtml = (value = "") =>
   String(value)

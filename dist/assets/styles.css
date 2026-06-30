@@ -746,6 +746,14 @@ textarea:focus-visible {
   width: 1.1rem;
 }
 
+.check input[type="checkbox"] {
+  appearance: auto;
+  accent-color: var(--amber);
+  background: var(--paper);
+  cursor: pointer;
+  margin-top: 0.12rem;
+}
+
 .bot-field {
   display: none !important;
 }
