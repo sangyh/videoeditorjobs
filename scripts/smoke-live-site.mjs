@@ -1,14 +1,34 @@
-import { appPages, blogPosts, pages, toolPages, trustPages } from "../src/site-data.mjs";
+import { activeBlogPosts, activePages, appPages, site, trustPages } from "../src/site-data.mjs";
 import { defaultIntakeEndpoint, loadLocalEnv, validateIntakeEndpoint } from "./env.mjs";
 
 await loadLocalEnv();
+
 const args = process.argv.slice(2);
 const requireEndpoint = args.includes("--require-endpoint") || process.env.VEJ_REQUIRE_INTAKE_ENDPOINT === "1";
 const originArg = args.find((arg) => !arg.startsWith("--"));
-const origin = (originArg || process.env.VEJ_SITE_ORIGIN || "https://videoeditorjobs.com").replace(/\/+$/, "");
+const origin = (originArg || process.env.VEJ_SITE_ORIGIN || site.origin).replace(/\/+$/, "");
 const expectedEndpoint = process.env.VEJ_INTAKE_ENDPOINT || defaultIntakeEndpoint;
-const expectedSitemapUrls = pages.length + appPages.length + toolPages.length + blogPosts.length + trustPages.length + 2;
 const errors = [];
+
+const crawlRoutes = [
+  ...activePages.map((page) => `/${page.slug ? `${page.slug}/` : ""}`),
+  ...appPages.map((page) => `/${page.slug}/`),
+  "/blog/",
+  ...activeBlogPosts.map((post) => `/blog/${post.slug}/`),
+  ...trustPages.map((page) => `/${page.slug}/`),
+];
+
+const cutRoutes = [
+  "/video-editor-job-brief-builder/",
+  "/video-editor-portfolio-checklist/",
+  "/video-editing-rate-calculator/",
+  "/video-editor-community-post-generator/",
+  "/video-editor-jobs-last-3-days/",
+  "/on-call-travel-video-editor-jobs/",
+  "/teen-video-editor-jobs/",
+  "/night-shift-teen-video-editor-jobs/",
+  "/french-video-editor-jobs/",
+];
 
 function fail(message) {
   errors.push(message);
@@ -36,6 +56,12 @@ function requireIncludes(text, needle, label) {
   }
 }
 
+function requireExcludes(text, needle, label) {
+  if (text.includes(needle)) {
+    fail(`Unexpected ${label}`);
+  }
+}
+
 function assertNoIndexHeaderConflict(response, label) {
   const robotsHeader = response.headers.get("x-robots-tag");
   if (robotsHeader && /\bindex\b/i.test(robotsHeader) && !/\bnoindex\b/i.test(robotsHeader)) {
@@ -51,17 +77,7 @@ function extractEndpoint(html) {
 const pageChecks = [
   {
     path: "/",
-    checks: [
-      "Video Editor Jobs",
-      'href="/editors/"',
-      'href="/hire-video-editor/"',
-      'href="/post-video-editor-job/"',
-      'href="/video-editor-job-brief-builder/"',
-      'href="/video-editor-portfolio-checklist/"',
-      'href="/video-editing-rate-calculator/"',
-      'href="/video-editor-community-post-generator/"',
-      'href="/blog/"',
-    ],
+    checks: ["Video Editor Jobs", "creator teams", "Manual matching from real submissions", 'href="/editors/"', 'href="/hire-video-editor/"'],
   },
   {
     path: "/editors/",
@@ -76,80 +92,53 @@ const pageChecks = [
     checks: ["Post a video editor job", 'form class="intake-form hiring-form" data-intake-kind="hiring"', 'name="brief"'],
   },
   {
-    path: "/video-editor-job-brief-builder/",
-    checks: ["Video Editor Job Brief Builder", 'id="brief-builder-form"', "vej:brief-builder:hiring"],
+    path: "/remote-video-editor-jobs/",
+    checks: ["Remote Video Editor Jobs", "What remote hiring teams screen for", 'href="/editors/"'],
   },
   {
-    path: "/video-editor-portfolio-checklist/",
-    checks: ["Video Editor Portfolio Checklist", 'id="portfolio-checklist-form"', "vej:portfolio-checklist:editor"],
+    path: "/freelance-video-editor-jobs/",
+    checks: ["Freelance Video Editor Jobs", "Freelance signals that matter", 'href="/hire-video-editor/"'],
   },
   {
-    path: "/video-editing-rate-calculator/",
-    checks: ["Video Editing Rate Calculator", 'id="rate-calculator-form"', "utm_campaign=rate_calculator"],
+    path: "/youtube-video-editor-jobs/",
+    checks: ["YouTube Video Editor Jobs", "What YouTube teams care about", 'href="/editors/"'],
   },
   {
-    path: "/video-editor-community-post-generator/",
-    checks: ["Video Editor Community Post Generator", 'id="community-post-form"', "community_post_generator"],
-  },
-  {
-    path: "/blog/",
-    checks: ["Video Editor Jobs Blog", "How to hire a video editor", "Where to find video editor jobs"],
+    path: "/part-time-video-editor-jobs/",
+    checks: ["Part-Time Video Editor Jobs", "Where part-time editing works", 'href="/hire-video-editor/"'],
   },
   {
     path: "/video-editor-community/",
     checks: ["Video Editor Community", 'href="/editors/"', 'href="/hire-video-editor/"'],
   },
   {
-    path: "/on-call-travel-video-editor-jobs/",
-    checks: ["On-Call Travel Video Editor Jobs", "travel dates", 'href="/editors/"'],
+    path: "/blog/",
+    checks: ["Video Editor Jobs Blog", "creator teams scoping recurring work", "How to hire a video editor"],
   },
   {
-    path: "/teen-video-editor-jobs/",
-    checks: ["Teen Video Editor Jobs", "portfolio-building", 'href="/editors/"'],
+    path: "/blog/video-editor-portfolio-examples/",
+    checks: ["Video editor portfolio examples", "Match examples to the role", 'href="/editors/"'],
   },
   {
-    path: "/remote-video-editing-jobs/",
-    checks: ["Remote Video Editing Jobs", "Remote editing is a workflow", 'href="/editors/"'],
-  },
-  {
-    path: "/night-shift-teen-video-editor-jobs/",
-    checks: ["Night Shift Teen Video Editor Jobs", "Safer fits for young editors", 'href="/editors/"'],
-  },
-  {
-    path: "/french-video-editor-jobs/",
-    checks: ["French Video Editor Jobs", "bilingual English-French", 'href="/editors/"'],
-  },
-  {
-    path: "/video-editor-jobs-nyc/",
-    checks: ["Video Editor Jobs in NYC", "Manhattan", 'href="/editors/"'],
-  },
-  {
-    path: "/video-editor-jobs-manhattan/",
-    checks: ["Video Editor Jobs in Manhattan", "Manhattan listings", 'href="/editors/"'],
-  },
-  {
-    path: "/blog/how-to-get-jobs-as-a-video-editor/",
-    checks: ["How to get jobs as a video editor", "Build matched samples", 'href="/editors/"'],
-  },
-  {
-    path: "/blog/how-to-find-video-editor-jobs/",
-    checks: ["How to find video editor jobs", "Use specific search terms", 'href="/editors/"'],
-  },
-  {
-    path: "/video-editor-jobs-last-3-days/",
-    checks: ["Video Editor Jobs Last 3 Days", "early intake mode", 'href="/editors/"'],
+    path: "/blog/how-to-hire-a-video-editor/",
+    checks: ["How to hire a video editor", "Define the editing job", 'href="/hire-video-editor/"'],
   },
 ];
 
 let homeHtml = "";
+let blogHtml = "";
 for (const page of pageChecks) {
   const { text } = await fetchText(page.path);
-  if (page.path === "/") {
-    homeHtml = text;
-  }
+  if (page.path === "/") homeHtml = text;
+  if (page.path === "/blog/") blogHtml = text;
   for (const needle of page.checks) {
     requireIncludes(text, needle, `${page.path} ${needle}`);
   }
+}
+
+for (const route of cutRoutes.slice(0, 4)) {
+  requireExcludes(homeHtml, `href="${route}"`, `home cut route ${route}`);
+  requireExcludes(blogHtml, `href="${route}"`, `blog cut route ${route}`);
 }
 
 const endpoint = extractEndpoint(homeHtml);
@@ -179,7 +168,7 @@ if (requireEndpoint) {
   }
 }
 
-for (const path of ["/thanks-editor/", "/thanks-hiring/"]) {
+for (const path of ["/search/", "/thanks-editor/", "/thanks-hiring/"]) {
   const { response, text } = await fetchText(path);
   requireIncludes(text, '<meta name="robots" content="noindex, follow">', `${path} noindex meta`);
   assertNoIndexHeaderConflict(response, path);
@@ -187,42 +176,20 @@ for (const path of ["/thanks-editor/", "/thanks-hiring/"]) {
 
 const sitemapResult = await fetchText("/sitemap.xml");
 const locCount = Array.from(sitemapResult.text.matchAll(/<loc>/g)).length;
-if (locCount !== expectedSitemapUrls) {
-  fail(`sitemap.xml should list ${expectedSitemapUrls} URLs, found ${locCount}`);
+if (locCount !== crawlRoutes.length) {
+  fail(`sitemap.xml should list ${crawlRoutes.length} URLs, found ${locCount}`);
 }
 
-for (const route of [
-  "/editors/",
-  "/hire-video-editor/",
-  "/post-video-editor-job/",
-  "/video-editor-job-brief-builder/",
-  "/video-editor-portfolio-checklist/",
-  "/video-editing-rate-calculator/",
-  "/video-editor-community-post-generator/",
-  "/blog/",
-  "/video-editor-community/",
-  "/on-call-travel-video-editor-jobs/",
-  "/teen-video-editor-jobs/",
-  "/remote-video-editing-jobs/",
-  "/night-shift-teen-video-editor-jobs/",
-  "/french-video-editor-jobs/",
-  "/video-editor-jobs-nyc/",
-  "/video-editor-jobs-manhattan/",
-  "/blog/how-to-get-jobs-as-a-video-editor/",
-  "/blog/how-to-find-video-editor-jobs/",
-  "/video-editor-jobs-last-3-days/",
-]) {
-  requireIncludes(sitemapResult.text, `<loc>https://videoeditorjobs.com${route}</loc>`, `sitemap route ${route}`);
+for (const route of crawlRoutes) {
+  requireIncludes(sitemapResult.text, `<loc>${site.origin}${route}</loc>`, `sitemap route ${route}`);
 }
 
-for (const route of ["/thanks-editor/", "/thanks-hiring/"]) {
-  if (sitemapResult.text.includes(`<loc>https://videoeditorjobs.com${route}</loc>`)) {
-    fail(`sitemap.xml should not include ${route}`);
-  }
+for (const route of ["/search/", "/thanks-editor/", "/thanks-hiring/", ...cutRoutes]) {
+  requireExcludes(sitemapResult.text, `<loc>${site.origin}${route}</loc>`, `sitemap excluded route ${route}`);
 }
 
 const robotsResult = await fetchText("/robots.txt");
-requireIncludes(robotsResult.text, "Sitemap: https://videoeditorjobs.com/sitemap.xml", "robots sitemap URL");
+requireIncludes(robotsResult.text, `Sitemap: ${site.origin}/sitemap.xml`, "robots sitemap URL");
 
 if (errors.length) {
   console.error(errors.join("\n"));
@@ -237,7 +204,7 @@ console.log(
       endpointConfigured: Boolean(endpoint),
       endpointRequired: requireEndpoint,
       sitemapUrls: locCount,
-      checkedRoutes: [...pageChecks.map((page) => page.path), "/thanks-editor/", "/thanks-hiring/", "/sitemap.xml", "/robots.txt"],
+      checkedRoutes: [...pageChecks.map((page) => page.path), "/search/", "/thanks-editor/", "/thanks-hiring/", "/sitemap.xml", "/robots.txt"],
     },
     null,
     2

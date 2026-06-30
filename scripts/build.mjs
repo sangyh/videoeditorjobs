@@ -1,7 +1,16 @@
 import { copyFile, mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { appPages, blogPosts, keywords, nav, pages, sampleJobs, site, toolPages, trustPages } from "../src/site-data.mjs";
+import {
+  activeBlogPosts,
+  activePages,
+  appPages,
+  keywords,
+  nav,
+  sampleJobs,
+  site,
+  trustPages,
+} from "../src/site-data.mjs";
 import { defaultIntakeEndpoint, loadLocalEnv } from "./env.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -27,7 +36,8 @@ const blogIndexPage = {
   priority: "0.8",
   changefreq: "weekly",
   title: "Video Editor Jobs Blog",
-  description: "Guides for finding video editor jobs, hiring editors, writing briefs, building portfolios, and understanding editing workflows.",
+  description:
+    "Tight guides for video editors and creator teams around portfolios, recurring workflows, briefs, rates, and YouTube editing roles.",
   h1: "Video Editor Jobs Blog",
 };
 
@@ -36,7 +46,7 @@ const searchPage = {
   priority: "0.45",
   changefreq: "weekly",
   title: "Search Video Editor Jobs",
-  description: "Search Video Editor Jobs pages, hiring guides, editor resources, local pages, and community intake routes.",
+  description: "Search the current Video Editor Jobs intake pages, creator workflow guides, and hiring resources.",
   h1: "Search Video Editor Jobs",
 };
 
@@ -49,8 +59,8 @@ const utilityPages = [
     eyebrow: "Submission received",
     intro:
       "Your profile is in the review queue. We will use your portfolio, editing fit, availability, and source details to understand where you fit best.",
-    primaryCta: ["Browse job pages", "/new-video-editor-jobs/"],
-    secondaryCta: ["Read portfolio guide", "/blog/video-editor-portfolio-guide/"],
+    primaryCta: ["Review your profile", "/editors/"],
+    secondaryCta: ["See portfolio examples", "/blog/video-editor-portfolio-examples/"],
     nextSteps: [
       "Keep your portfolio link current and easy to scan.",
       "Reply quickly if we reach out about a matching brief.",
@@ -73,19 +83,9 @@ const utilityPages = [
         text: "A practical guide editors can use even before the job board has public listings.",
       },
       {
-        label: "Share fresh job alerts",
-        href: "/video-editor-jobs-last-3-days/?utm_source=referral&utm_medium=thank_you&utm_campaign=fresh_jobs_share",
-        text: "Send editors to the fresh-alert page so they can join before public listings are live.",
-      },
-      {
-        label: "Share with newer editors",
-        href: "/teen-video-editor-jobs/?utm_source=referral&utm_medium=thank_you&utm_campaign=early_career_share",
-        text: "A safer early-career route for teen, student, and portfolio-building editors.",
-      },
-      {
-        label: "Share travel editor work",
-        href: "/on-call-travel-video-editor-jobs/?utm_source=referral&utm_medium=thank_you&utm_campaign=travel_editor_share",
-        text: "Useful for editors who want field, event, tour, or fast-turnaround travel work.",
+        label: "Share portfolio examples",
+        href: "/blog/video-editor-portfolio-examples/?utm_source=referral&utm_medium=thank_you&utm_campaign=portfolio_examples_share",
+        text: "Useful for editors who need to show matched proof instead of sending a generic reel.",
       },
     ],
   },
@@ -126,11 +126,6 @@ const utilityPages = [
         text: "Give another hiring team the structure editors need before judging a role.",
       },
       {
-        label: "Share travel editor guidance",
-        href: "/on-call-travel-video-editor-jobs/?utm_source=referral&utm_medium=thank_you&utm_campaign=travel_hiring_share",
-        text: "Useful when a team needs on-call, event, tour, or field editing help.",
-      },
-      {
         label: "Send the community page",
         href: "/video-editor-community/?utm_source=referral&utm_medium=thank_you&utm_campaign=community_share",
         text: "A neutral page for people who want to understand both sides of the early market.",
@@ -140,16 +135,14 @@ const utilityPages = [
 ];
 
 const allCrawlPages = [
-  ...pages,
+  ...activePages,
   ...appPages,
-  ...toolPages,
   blogIndexPage,
-  ...blogPosts.map((post) => ({
+  ...activeBlogPosts.map((post) => ({
     ...post,
     slug: `blog/${post.slug}`,
   })),
   ...trustPages,
-  searchPage,
 ];
 
 function jsonScript(entry) {
@@ -287,16 +280,10 @@ function footer() {
           <a href="/hire-video-editor/">Hire</a>
           <a href="/post-video-editor-job/">Post job</a>
         </section>
-        <section class="footer-group" aria-labelledby="footer-tools">
-          <h2 id="footer-tools">Tools</h2>
-          <a href="/video-editor-job-brief-builder/">Brief builder</a>
-          <a href="/video-editor-portfolio-checklist/">Portfolio checklist</a>
-          <a href="/video-editing-rate-calculator/">Rate calculator</a>
-          <a href="/video-editor-community-post-generator/">Post generator</a>
-        </section>
         <section class="footer-group" aria-labelledby="footer-resources">
           <h2 id="footer-resources">Resources</h2>
           <a href="/blog/">Blog</a>
+          <a href="/video-editor-community/">Community</a>
           <a href="/search/">Search</a>
           <a href="/rss.xml">RSS</a>
           <a href="/sitemap.xml">Sitemap</a>
@@ -529,7 +516,7 @@ function sampleJobRows() {
 }
 
 function pageCards(currentSlug) {
-  return pages
+  return activePages
     .filter((page) => page.slug && page.slug !== currentSlug)
     .map(
       (page) => `<a class="route-link" href="/${page.slug}/">
@@ -541,7 +528,7 @@ function pageCards(currentSlug) {
 }
 
 function blogCards(limit = 3) {
-  return blogPosts
+  return activeBlogPosts
     .slice(0, limit)
     .map(
       (post) => `<article class="blog-card">
@@ -555,8 +542,8 @@ function blogCards(limit = 3) {
     .join("");
 }
 
-function blogCardsFor(filterFn, limit = blogPosts.length) {
-  return blogPosts
+function blogCardsFor(filterFn, limit = activeBlogPosts.length) {
+  return activeBlogPosts
     .filter(filterFn)
     .slice(0, limit)
     .map(
@@ -611,7 +598,7 @@ function renderLandingPage(page) {
   <section class="signal-strip" aria-label="Launch search signals">
     <span>Editor profiles first</span>
     <span>Hiring briefs in a separate queue</span>
-    <span>SEO pages plus blog growth</span>
+    <span>Manual matching from real submissions</span>
   </section>
 
   <section class="band app-split" id="join">
@@ -667,7 +654,7 @@ function renderLandingPage(page) {
   <section class="band blog-band">
     <div class="section-head">
       <p>Blog</p>
-      <h2>SEO that helps both sides of the market</h2>
+      <h2>Guides that support better matches</h2>
     </div>
     <div class="blog-grid">${blogCards(3)}</div>
   </section>
@@ -675,7 +662,7 @@ function renderLandingPage(page) {
   <section class="band routes">
     <div class="section-head">
       <p>Browse</p>
-      <h2>Related video editor job pages</h2>
+      <h2>The few routes worth testing first</h2>
     </div>
     <div class="route-grid">${pageCards(page.slug)}</div>
   </section>
@@ -732,7 +719,7 @@ function renderCollectionPage(page) {
   <section class="band routes">
     <div class="section-head">
       <p>Browse</p>
-      <h2>Related video editor job pages</h2>
+      <h2>Other traction routes</h2>
     </div>
     <div class="route-grid">${pageCards(page.slug)}</div>
   </section>
@@ -799,832 +786,19 @@ function renderAppPage(page) {
   return shell({ page, body, extraClass: "app-page" });
 }
 
-function briefBuilderJsonLd(page) {
-  return jsonScript({
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: page.h1,
-    applicationCategory: "BusinessApplication",
-    operatingSystem: "Web",
-    url: toUrl(page.slug),
-    description: page.description,
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
-  });
-}
-
-function renderBriefBuilderPage(page) {
-  const fields = [
-    ["role_type", "Role type", "YouTube editor, short-form social editor, remote freelance editor"],
-    ["content_format", "Content format", "Long-form YouTube, TikTok clips, podcast, paid social ads"],
-    ["deliverables", "Deliverables", "1 long-form edit plus 3 shorts each week"],
-    ["footage_volume", "Source footage", "90 minutes raw footage, two-camera podcast, product clips"],
-    ["budget", "Budget or rate", "$800/video, $60/hr, $3k/month, $75k salary"],
-    ["timeline", "Timeline", "First draft by Friday, ongoing weekly cadence"],
-    ["software", "Software and handoff", "Premiere, Resolve, Frame.io, Google Drive, Descript"],
-    ["revision_process", "Revision process", "Two rounds in Frame.io, producer gives final notes"],
-    ["reference_urls", "Reference links", "Example channels, videos, ads, portfolios, style references"],
-    ["brief", "What a great editor should understand", "Pacing, captions, retention hooks, brand tone, thumbnails"],
-  ];
-
-  const checklist = [
-    "Role type",
-    "Content format",
-    "Deliverables",
-    "Footage volume",
-    "Budget",
-    "Timeline",
-    "Software",
-    "Revision process",
-    "References",
-    "Success criteria",
-  ];
-
-  const body = `<section class="compact-hero builder-hero">
-    <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
-    <h1>${escapeHtml(page.h1)}</h1>
-    <p class="lede">${escapeHtml(page.intro)}</p>
-    <p class="intent">${escapeHtml(page.intent)}</p>
-  </section>
-
-  <section class="band builder-layout">
-    <form class="brief-builder" id="brief-builder-form">
-      <div class="section-head">
-        <p>Build</p>
-        <h2>Fill the fields editors use to judge fit</h2>
-      </div>
-      <div class="builder-field-grid">
-        ${fields
-          .map(
-            ([name, label, placeholder], index) => `<label>
-              ${escapeHtml(label)}
-              ${
-                index >= 7
-                  ? `<textarea name="${name}" rows="3" placeholder="${escapeAttr(placeholder)}"></textarea>`
-                  : `<input name="${name}" placeholder="${escapeAttr(placeholder)}">`
-              }
-            </label>`
-          )
-          .join("")}
-      </div>
-    </form>
-
-    <aside class="builder-preview" aria-label="Generated brief preview">
-      <div class="builder-score">
-        <span id="brief-score">0%</span>
-        <strong id="brief-score-label">Needs detail</strong>
-      </div>
-      <ul class="builder-checklist" id="brief-checklist">
-        ${checklist.map((item) => `<li data-check="${escapeAttr(item)}">${escapeHtml(item)}</li>`).join("")}
-      </ul>
-      <div class="brief-output" id="brief-output">
-        <h2>Generated brief</h2>
-        <p>Add the details on the left and this preview will turn them into a cleaner editor brief.</p>
-      </div>
-      <div class="hero-actions">
-        <button class="button primary" id="save-brief-button" type="button">Use this brief</button>
-        <a class="button secondary" href="/blog/video-editor-job-description-template/">See template</a>
-      </div>
-      <p class="builder-note" id="builder-note">The builder saves only to this browser until you choose to submit the hiring form.</p>
-    </aside>
-  </section>
-
-  <section class="band editorial">
-    <article>
-      <h2>Why this works better than a vague post</h2>
-      <p>Editors need enough context to decide whether their portfolio, speed, software, and rate fit the work. A clear brief reduces mismatched applications and makes stronger editors more likely to reply.</p>
-    </article>
-    <article>
-      <h2>What to do after the score improves</h2>
-      <p>Use the generated brief as a starting point, then submit the hiring request. The post-job form routes budget, workflow, references, and review details into the hiring queue.</p>
-    </article>
-  </section>
-
-  ${faqMarkup(page)}
-
-  <script>
-    const builderForm = document.getElementById("brief-builder-form");
-    const scoreValue = document.getElementById("brief-score");
-    const scoreLabel = document.getElementById("brief-score-label");
-    const checklistItems = Array.from(document.querySelectorAll("#brief-checklist li"));
-    const output = document.getElementById("brief-output");
-    const saveButton = document.getElementById("save-brief-button");
-    const note = document.getElementById("builder-note");
-    const storageKey = "vej:brief-builder:hiring";
-    const fieldLabels = ${JSON.stringify(Object.fromEntries(fields.map(([name, label]) => [name, label]))).replaceAll("</", "<\\/")};
-    const checkMap = [
-      ["Role type", ["role_type"]],
-      ["Content format", ["content_format"]],
-      ["Deliverables", ["deliverables"]],
-      ["Footage volume", ["footage_volume"]],
-      ["Budget", ["budget"]],
-      ["Timeline", ["timeline"]],
-      ["Software", ["software"]],
-      ["Revision process", ["revision_process"]],
-      ["References", ["reference_urls"]],
-      ["Success criteria", ["brief"]],
-    ];
-
-    function value(name) {
-      return String(new FormData(builderForm).get(name) || "").trim();
-    }
-
-    function fieldValues() {
-      return Object.keys(fieldLabels).reduce((acc, name) => {
-        acc[name] = value(name);
-        return acc;
-      }, {});
-    }
-
-    function escapeText(text) {
-      return String(text || "").replace(/[&<>"']/g, (char) => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;",
-      })[char]);
-    }
-
-    function generatedBrief(values) {
-      const rows = [
-        ["Role", values.role_type],
-        ["Content format", values.content_format],
-        ["Deliverables", values.deliverables],
-        ["Source footage", values.footage_volume],
-        ["Budget or rate", values.budget],
-        ["Timeline", values.timeline],
-        ["Software and handoff", values.software],
-        ["Revision process", values.revision_process],
-        ["Reference links", values.reference_urls],
-        ["What a great editor should understand", values.brief],
-      ].filter(([, detail]) => detail);
-
-      return rows.map(([label, detail]) => label + ": " + detail).join("\\n");
-    }
-
-    function renderBuilder() {
-      const values = fieldValues();
-      const passed = checkMap.filter(([, names]) => names.some((name) => values[name])).map(([label]) => label);
-      const score = Math.round((passed.length / checkMap.length) * 100);
-      const brief = generatedBrief(values);
-
-      scoreValue.textContent = score + "%";
-      scoreLabel.textContent = score >= 80 ? "Ready to post" : score >= 50 ? "Getting clearer" : "Needs detail";
-
-      checklistItems.forEach((item) => {
-        item.dataset.complete = passed.includes(item.dataset.check) ? "true" : "false";
-      });
-
-      output.innerHTML = brief
-        ? '<h2>Generated brief</h2><pre>' + escapeText(brief) + '</pre>'
-        : '<h2>Generated brief</h2><p>Add the details on the left and this preview will turn them into a cleaner editor brief.</p>';
-    }
-
-    builderForm.addEventListener("input", renderBuilder);
-    saveButton.addEventListener("click", () => {
-      const values = fieldValues();
-      const brief = generatedBrief(values);
-      if (!brief) {
-        note.textContent = "Add at least one detail before continuing.";
-        return;
-      }
-
-      window.localStorage.setItem(
-        storageKey,
-        JSON.stringify({
-          created_at: new Date().toISOString(),
-          fields: {
-            ...values,
-            brief,
-          },
-        })
-      );
-      window.location.href = "/post-video-editor-job/?utm_source=site&utm_medium=tool&utm_campaign=brief_builder";
-    });
-
-    renderBuilder();
-  </script>`;
-
-  return shell({ page, body, extraClass: "tool-page" }).replace("</head>", `${briefBuilderJsonLd(page)}\n</head>`);
-}
-
-function renderPortfolioChecklistPage(page) {
-  const fields = [
-    ["portfolio_url", "Portfolio link", "https://yourportfolio.com or a curated playlist"],
-    ["primary_fit", "Primary editing fit", "YouTube editor, short-form social, podcast, brand, agency"],
-    ["software", "Software and workflow", "Premiere, Resolve, Final Cut, After Effects, Frame.io"],
-    ["experience_level", "Experience level", "Professional editor, junior editor, assistant editor"],
-    ["work_preference", "Work preference", "Remote, freelance, part-time, full-time, local, travel"],
-    ["rate_range", "Rate range", "$50/hr, $800/video, day rate, monthly retainer"],
-    ["weekly_capacity", "Weekly capacity", "10 hours/week, 2 videos/week, full-time"],
-    ["turnaround_time", "Typical turnaround", "Same day, 1 to 2 days, 3 to 5 days, 1 week"],
-    ["availability", "Availability", "Available now, within 2 weeks, open to projects"],
-    ["notes", "Best work examples and proof", "Paste 2 to 4 clips and say what each one proves"],
-  ];
-
-  const checklist = [
-    "Portfolio link",
-    "Primary fit",
-    "Software",
-    "Experience level",
-    "Work preference",
-    "Rate range",
-    "Capacity",
-    "Turnaround",
-    "Availability",
-    "Proof notes",
-  ];
-
-  const body = `<section class="compact-hero builder-hero">
-    <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
-    <h1>${escapeHtml(page.h1)}</h1>
-    <p class="lede">${escapeHtml(page.intro)}</p>
-    <p class="intent">${escapeHtml(page.intent)}</p>
-  </section>
-
-  <section class="band builder-layout">
-    <form class="brief-builder" id="portfolio-checklist-form">
-      <div class="section-head">
-        <p>Check</p>
-        <h2>Make your editor profile easier to review</h2>
-      </div>
-      <div class="builder-field-grid">
-        ${fields
-          .map(
-            ([name, label, placeholder], index) => `<label>
-              ${escapeHtml(label)}
-              ${
-                index >= 9
-                  ? `<textarea name="${name}" rows="3" placeholder="${escapeAttr(placeholder)}"></textarea>`
-                  : `<input name="${name}" placeholder="${escapeAttr(placeholder)}">`
-              }
-            </label>`
-          )
-          .join("")}
-      </div>
-    </form>
-
-    <aside class="builder-preview" aria-label="Generated editor profile preview">
-      <div class="builder-score">
-        <span id="portfolio-score">0%</span>
-        <strong id="portfolio-score-label">Needs proof</strong>
-      </div>
-      <ul class="builder-checklist" id="portfolio-checklist">
-        ${checklist.map((item) => `<li data-check="${escapeAttr(item)}">${escapeHtml(item)}</li>`).join("")}
-      </ul>
-      <div class="brief-output" id="portfolio-output">
-        <h2>Profile preview</h2>
-        <p>Add your details on the left and this preview will turn them into clearer editor intake notes.</p>
-      </div>
-      <div class="hero-actions">
-        <button class="button primary" id="save-portfolio-button" type="button">Use this profile</button>
-        <a class="button secondary" href="/blog/video-editor-portfolio-examples/">See examples</a>
-      </div>
-      <p class="builder-note" id="portfolio-note">The checklist saves only to this browser until you choose to submit the editor form.</p>
-    </aside>
-  </section>
-
-  <section class="band editorial">
-    <article>
-      <h2>Why editors get skipped</h2>
-      <p>Hiring teams often move past portfolios that do not show the right format, pace, turnaround, workflow, or availability. The goal is not more clips. It is clearer proof for the work you want.</p>
-    </article>
-    <article>
-      <h2>What to do after the score improves</h2>
-      <p>Use the generated notes as a starting point, then join the editor list. The editor intake routes portfolio, fit, capacity, rate, and availability into the review queue.</p>
-    </article>
-  </section>
-
-  ${faqMarkup(page)}
-
-  <script>
-    const portfolioForm = document.getElementById("portfolio-checklist-form");
-    const portfolioScoreValue = document.getElementById("portfolio-score");
-    const portfolioScoreLabel = document.getElementById("portfolio-score-label");
-    const portfolioChecklistItems = Array.from(document.querySelectorAll("#portfolio-checklist li"));
-    const portfolioOutput = document.getElementById("portfolio-output");
-    const savePortfolioButton = document.getElementById("save-portfolio-button");
-    const portfolioNote = document.getElementById("portfolio-note");
-    const portfolioStorageKey = "vej:portfolio-checklist:editor";
-    const portfolioFieldLabels = ${JSON.stringify(Object.fromEntries(fields.map(([name, label]) => [name, label]))).replaceAll("</", "<\\/")};
-    const portfolioCheckMap = [
-      ["Portfolio link", ["portfolio_url"]],
-      ["Primary fit", ["primary_fit"]],
-      ["Software", ["software"]],
-      ["Experience level", ["experience_level"]],
-      ["Work preference", ["work_preference"]],
-      ["Rate range", ["rate_range"]],
-      ["Capacity", ["weekly_capacity"]],
-      ["Turnaround", ["turnaround_time"]],
-      ["Availability", ["availability"]],
-      ["Proof notes", ["notes"]],
-    ];
-
-    function portfolioValue(name) {
-      return String(new FormData(portfolioForm).get(name) || "").trim();
-    }
-
-    function portfolioValues() {
-      return Object.keys(portfolioFieldLabels).reduce((acc, name) => {
-        acc[name] = portfolioValue(name);
-        return acc;
-      }, {});
-    }
-
-    function escapePortfolioText(text) {
-      return String(text || "").replace(/[&<>"']/g, (char) => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;",
-      })[char]);
-    }
-
-    function generatedProfile(values) {
-      const rows = [
-        ["Portfolio", values.portfolio_url],
-        ["Primary editing fit", values.primary_fit],
-        ["Software and workflow", values.software],
-        ["Experience level", values.experience_level],
-        ["Work preference", values.work_preference],
-        ["Rate range", values.rate_range],
-        ["Weekly capacity", values.weekly_capacity],
-        ["Typical turnaround", values.turnaround_time],
-        ["Availability", values.availability],
-        ["Best examples and proof", values.notes],
-      ].filter(([, detail]) => detail);
-
-      return rows.map(([label, detail]) => label + ": " + detail).join("\\n");
-    }
-
-    function renderPortfolioChecklist() {
-      const values = portfolioValues();
-      const passed = portfolioCheckMap.filter(([, names]) => names.some((name) => values[name])).map(([label]) => label);
-      const score = Math.round((passed.length / portfolioCheckMap.length) * 100);
-      const profile = generatedProfile(values);
-
-      portfolioScoreValue.textContent = score + "%";
-      portfolioScoreLabel.textContent = score >= 80 ? "Ready to join" : score >= 50 ? "Getting clearer" : "Needs proof";
-
-      portfolioChecklistItems.forEach((item) => {
-        item.dataset.complete = passed.includes(item.dataset.check) ? "true" : "false";
-      });
-
-      portfolioOutput.innerHTML = profile
-        ? '<h2>Profile preview</h2><pre>' + escapePortfolioText(profile) + '</pre>'
-        : '<h2>Profile preview</h2><p>Add your details on the left and this preview will turn them into clearer editor intake notes.</p>';
-    }
-
-    portfolioForm.addEventListener("input", renderPortfolioChecklist);
-    savePortfolioButton.addEventListener("click", () => {
-      const values = portfolioValues();
-      const profile = generatedProfile(values);
-      if (!profile) {
-        portfolioNote.textContent = "Add at least one detail before continuing.";
-        return;
-      }
-
-      window.localStorage.setItem(
-        portfolioStorageKey,
-        JSON.stringify({
-          created_at: new Date().toISOString(),
-          fields: {
-            ...values,
-            notes: profile,
-          },
-        })
-      );
-      window.location.href = "/editors/?utm_source=site&utm_medium=tool&utm_campaign=portfolio_checklist";
-    });
-
-    renderPortfolioChecklist();
-  </script>`;
-
-  return shell({ page, body, extraClass: "tool-page" }).replace("</head>", `${briefBuilderJsonLd(page)}\n</head>`);
-}
-
-function renderRateCalculatorPage(page) {
-  const body = `<section class="compact-hero builder-hero">
-    <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
-    <h1>${escapeHtml(page.h1)}</h1>
-    <p class="lede">${escapeHtml(page.intro)}</p>
-    <p class="intent">${escapeHtml(page.intent)}</p>
-  </section>
-
-  <section class="band builder-layout">
-    <form class="brief-builder" id="rate-calculator-form">
-      <div class="section-head">
-        <p>Estimate</p>
-        <h2>Scope the editing work before quoting</h2>
-      </div>
-      <div class="builder-field-grid">
-        <label>
-          Project type
-          <select name="project_type">
-            <option value="short_form">Short-form social clips</option>
-            <option value="youtube">Long-form YouTube</option>
-            <option value="podcast">Podcast or multicam episode</option>
-            <option value="paid_social">Paid social ad variants</option>
-            <option value="brand">Brand or product video</option>
-          </select>
-        </label>
-        <label>
-          Raw footage minutes
-          <input name="footage_minutes" type="number" min="5" max="1000" step="5" value="90">
-        </label>
-        <label>
-          Finished video minutes
-          <input name="finished_minutes" type="number" min="1" max="240" step="1" value="12">
-        </label>
-        <label>
-          Deliverables
-          <input name="deliverables_count" type="number" min="1" max="40" step="1" value="1">
-        </label>
-        <label>
-          Complexity
-          <select name="complexity">
-            <option value="simple">Simple clean edit</option>
-            <option value="standard" selected>Standard storytelling edit</option>
-            <option value="advanced">Advanced pacing, captions, graphics</option>
-            <option value="premium">Premium brand polish or ad variants</option>
-          </select>
-        </label>
-        <label>
-          Turnaround
-          <select name="turnaround">
-            <option value="relaxed">Flexible timeline</option>
-            <option value="standard" selected>Standard turnaround</option>
-            <option value="rush">Rush delivery</option>
-          </select>
-        </label>
-        <label>
-          Revision rounds
-          <input name="revision_rounds" type="number" min="0" max="6" step="1" value="2">
-        </label>
-        <label>
-          Editor level
-          <select name="editor_level">
-            <option value="junior">Junior editor</option>
-            <option value="professional" selected>Professional editor</option>
-            <option value="senior">Senior or lead editor</option>
-          </select>
-        </label>
-      </div>
-    </form>
-
-    <aside class="builder-preview" aria-label="Editing rate estimate">
-      <div class="builder-score rate-score">
-        <span id="rate-estimate">$0</span>
-        <strong id="rate-label">Estimated project range</strong>
-      </div>
-      <div class="rate-breakdown" id="rate-breakdown"></div>
-      <div class="brief-output" id="rate-output">
-        <h2>Quote note</h2>
-        <p>Change the scope to create a practical pricing note for an editor profile or hiring brief.</p>
-      </div>
-      <div class="hero-actions">
-        <a class="button primary" id="rate-editor-link" href="/editors/?utm_source=site&utm_medium=tool&utm_campaign=rate_calculator">Join as editor</a>
-        <a class="button secondary" id="rate-hiring-link" href="/video-editor-job-brief-builder/?utm_source=site&utm_medium=tool&utm_campaign=rate_calculator">Build hiring brief</a>
-      </div>
-      <p class="builder-note">Use the estimate as a starting point. Real pricing still depends on scope, taste, speed, and editor experience.</p>
-    </aside>
-  </section>
-
-  <section class="band editorial">
-    <article>
-      <h2>Why ranges are better than guesses</h2>
-      <p>A useful rate conversation starts with scope. Footage volume, edit length, variants, turnaround, and revisions usually explain more than a flat hourly number.</p>
-    </article>
-    <article>
-      <h2>What to do with the estimate</h2>
-      <p>Editors can use the range to clarify rate expectations. Hiring teams can use it to avoid posting a role with an empty or unrealistic budget field.</p>
-    </article>
-  </section>
-
-  ${faqMarkup(page)}
-
-  <script>
-    const rateForm = document.getElementById("rate-calculator-form");
-    const rateEstimate = document.getElementById("rate-estimate");
-    const rateLabel = document.getElementById("rate-label");
-    const rateBreakdown = document.getElementById("rate-breakdown");
-    const rateOutput = document.getElementById("rate-output");
-    const rateEditorLink = document.getElementById("rate-editor-link");
-    const rateHiringLink = document.getElementById("rate-hiring-link");
-    const projectMultipliers = {
-      short_form: 0.72,
-      youtube: 1,
-      podcast: 0.9,
-      paid_social: 1.22,
-      brand: 1.35,
-    };
-    const complexityMultipliers = {
-      simple: 0.82,
-      standard: 1,
-      advanced: 1.32,
-      premium: 1.62,
-    };
-    const turnaroundMultipliers = {
-      relaxed: 0.92,
-      standard: 1,
-      rush: 1.35,
-    };
-    const levelRates = {
-      junior: 38,
-      professional: 68,
-      senior: 105,
-    };
-
-    function rateNumber(name, fallback) {
-      const value = Number(new FormData(rateForm).get(name));
-      return Number.isFinite(value) ? value : fallback;
-    }
-
-    function rateValue(name) {
-      return String(new FormData(rateForm).get(name) || "");
-    }
-
-    function money(value) {
-      return "$" + Math.round(value).toLocaleString("en-US");
-    }
-
-    function renderRateCalculator() {
-      const footage = rateNumber("footage_minutes", 90);
-      const finished = rateNumber("finished_minutes", 12);
-      const deliverables = rateNumber("deliverables_count", 1);
-      const revisions = rateNumber("revision_rounds", 2);
-      const projectType = rateValue("project_type");
-      const complexity = rateValue("complexity");
-      const turnaround = rateValue("turnaround");
-      const editorLevel = rateValue("editor_level");
-
-      const reviewHours = Math.max(1, footage / 55);
-      const editHours = Math.max(2, finished * 0.9);
-      const deliverableHours = Math.max(0, deliverables - 1) * 0.9;
-      const revisionHours = Math.max(0, revisions) * 0.75;
-      const baseHours = reviewHours + editHours + deliverableHours + revisionHours;
-      const multiplier = projectMultipliers[projectType] * complexityMultipliers[complexity] * turnaroundMultipliers[turnaround];
-      const estimatedHours = Math.max(3, baseHours * multiplier);
-      const rate = levelRates[editorLevel];
-      const low = estimatedHours * rate * 0.82;
-      const high = estimatedHours * rate * 1.22;
-      const midpoint = (low + high) / 2;
-      const query = new URLSearchParams({
-        utm_source: "site",
-        utm_medium: "tool",
-        utm_campaign: "rate_calculator",
-        rate_estimate: Math.round(midpoint).toString(),
-      });
-
-      rateEstimate.textContent = money(low) + "-" + money(high);
-      rateLabel.textContent = Math.round(estimatedHours) + " estimated hours";
-      rateBreakdown.innerHTML = [
-        ["Review", reviewHours],
-        ["Edit", editHours],
-        ["Deliverables", deliverableHours],
-        ["Revisions", revisionHours],
-      ]
-        .map(([label, hours]) => '<div><span>' + label + '</span><strong>' + hours.toFixed(1) + 'h</strong></div>')
-        .join("");
-
-      const note = [
-        "Estimated project range: " + money(low) + "-" + money(high),
-        "Estimated hours: " + Math.round(estimatedHours),
-        "Scope: " + footage + " raw minutes, " + finished + " finished minutes, " + deliverables + " deliverable(s), " + revisions + " revision round(s).",
-      ].join("\\n");
-
-      rateOutput.innerHTML = '<h2>Quote note</h2><pre>' + note + '</pre>';
-      rateEditorLink.href = "/editors/?" + query.toString();
-      rateHiringLink.href = "/video-editor-job-brief-builder/?" + query.toString();
-    }
-
-    rateForm.addEventListener("input", renderRateCalculator);
-    rateForm.addEventListener("change", renderRateCalculator);
-    renderRateCalculator();
-  </script>`;
-
-  return shell({ page, body, extraClass: "tool-page" }).replace("</head>", `${briefBuilderJsonLd(page)}\n</head>`);
-}
-
-function renderCommunityPostGeneratorPage(page) {
-  const body = `<section class="compact-hero builder-hero">
-    <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
-    <h1>${escapeHtml(page.h1)}</h1>
-    <p class="lede">${escapeHtml(page.intro)}</p>
-    <p class="intent">${escapeHtml(page.intent)}</p>
-  </section>
-
-  <section class="band builder-layout">
-    <form class="brief-builder" id="community-post-form">
-      <div class="section-head">
-        <p>Draft</p>
-        <h2>Start with a useful community question</h2>
-      </div>
-      <div class="builder-field-grid">
-        <label>
-          Platform
-          <select name="platform">
-            <option value="reddit">Reddit</option>
-            <option value="facebook">Facebook group</option>
-            <option value="forum">Forum</option>
-          </select>
-        </label>
-        <label>
-          Audience
-          <select name="audience">
-            <option value="editors">Editors</option>
-            <option value="hiring">Hiring teams</option>
-            <option value="both">Editors and hiring teams</option>
-          </select>
-        </label>
-        <label>
-          Angle
-          <select name="angle">
-            <option value="portfolio">Portfolio feedback</option>
-            <option value="rates">Rates and pricing</option>
-            <option value="job_brief">Job post quality</option>
-            <option value="remote">Remote workflow</option>
-            <option value="community">Community feedback</option>
-          </select>
-        </label>
-        <label>
-          Target page
-          <select name="target_page">
-            <option value="/video-editor-portfolio-checklist/">Portfolio checklist</option>
-            <option value="/video-editing-rate-calculator/">Rate calculator</option>
-            <option value="/video-editor-job-brief-builder/">Brief builder</option>
-            <option value="/editors/">Editor intake</option>
-            <option value="/post-video-editor-job/">Post job</option>
-            <option value="/video-editor-community/">Community page</option>
-          </select>
-        </label>
-        <label>
-          Community name
-          <input name="community_name" placeholder="r/editors, Facebook group name, forum name">
-        </label>
-        <label>
-          One specific ask
-          <input name="specific_ask" placeholder="What makes a video editor portfolio easier to trust?">
-        </label>
-      </div>
-    </form>
-
-    <aside class="builder-preview" aria-label="Generated community post">
-      <div class="builder-score rate-score">
-        <span id="community-platform">Reddit</span>
-        <strong id="community-label">Feedback-first post</strong>
-      </div>
-      <div class="brief-output" id="community-post-output">
-        <h2>Post draft</h2>
-        <p>Choose an angle and this tool will create a community-safe starting point with a tracked link.</p>
-      </div>
-      <div class="brief-output" id="community-link-output">
-        <h2>Tracked link</h2>
-        <p>The tracked URL will appear here.</p>
-      </div>
-      <div class="hero-actions">
-        <a class="button primary" id="community-target-link" href="/video-editor-community/?utm_source=site&utm_medium=tool&utm_campaign=community_post_generator">Open target page</a>
-        <a class="button secondary" href="/video-editor-community/">Community page</a>
-      </div>
-      <p class="builder-note">Review the rules before posting. Use this as a starting point, then adapt it to the community tone.</p>
-    </aside>
-  </section>
-
-  <section class="band editorial">
-    <article>
-      <h2>Why feedback posts work better</h2>
-      <p>Early community growth should ask for specific input, not announce a generic job board. Better comments reveal what editors and hiring teams actually need.</p>
-    </article>
-    <article>
-      <h2>What to record after posting</h2>
-      <p>Add the post URL, replies, submissions, quality notes, and next action to the Community Posts sheet so the next post gets sharper.</p>
-    </article>
-  </section>
-
-  ${faqMarkup(page)}
-
-  <script>
-    const communityForm = document.getElementById("community-post-form");
-    const communityPlatform = document.getElementById("community-platform");
-    const communityLabel = document.getElementById("community-label");
-    const communityPostOutput = document.getElementById("community-post-output");
-    const communityLinkOutput = document.getElementById("community-link-output");
-    const communityTargetLink = document.getElementById("community-target-link");
-    const angleQuestions = {
-      portfolio: "What makes a video editor portfolio easier to trust quickly?",
-      rates: "What pricing details should be clear before quoting video editing work?",
-      job_brief: "What makes a video editing job post specific enough to apply to?",
-      remote: "What remote editing workflow details prevent confusion later?",
-      community: "What would make a video-editor-only job board actually useful?",
-    };
-    const targetLabels = {
-      "/video-editor-portfolio-checklist/": "portfolio checklist",
-      "/video-editing-rate-calculator/": "rate calculator",
-      "/video-editor-job-brief-builder/": "brief builder",
-      "/editors/": "editor list",
-      "/post-video-editor-job/": "post-job form",
-      "/video-editor-community/": "community page",
-    };
-
-    function communityValue(name) {
-      return String(new FormData(communityForm).get(name) || "").trim();
-    }
-
-    function sentenceFor(values) {
-      if (values.audience === "hiring") {
-        return "I am trying to make video editor job briefs less vague for teams hiring editors.";
-      }
-      if (values.audience === "both") {
-        return "I am trying to understand what would make a video-editor-only job board useful for both editors and hiring teams.";
-      }
-      return "I am trying to make a video-editor-only job board more useful for editors looking for better-fit work.";
-    }
-
-    function platformTone(platform) {
-      if (platform === "facebook") return "Hi all -";
-      if (platform === "forum") return "Hey everyone,";
-      return "Quick question for editors:";
-    }
-
-    function renderCommunityPost() {
-      const values = {
-        platform: communityValue("platform"),
-        audience: communityValue("audience"),
-        angle: communityValue("angle"),
-        target_page: communityValue("target_page"),
-        community_name: communityValue("community_name"),
-        specific_ask: communityValue("specific_ask"),
-      };
-      const source = values.platform === "facebook" ? "facebook" : values.platform === "forum" ? "forum" : "reddit";
-      const medium = values.platform === "facebook" ? "group" : "community";
-      const question = values.specific_ask || angleQuestions[values.angle];
-      const url = new URL(values.target_page, window.location.origin);
-      url.searchParams.set("utm_source", source);
-      url.searchParams.set("utm_medium", medium);
-      url.searchParams.set("utm_campaign", "community_post_generator");
-      url.searchParams.set("utm_content", values.angle);
-      if (values.community_name) {
-        url.searchParams.set("ref", values.community_name.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, ""));
-      }
-
-      const draft = [
-        platformTone(values.platform),
-        "",
-        sentenceFor(values),
-        "",
-        question,
-        "",
-        "I put together a small " + targetLabels[values.target_page] + " here if it helps frame the feedback: " + url.toString(),
-        "",
-        "Not trying to spam the group - mainly looking for specific feedback so the early version is actually useful.",
-      ].join("\\n");
-
-      communityPlatform.textContent = values.platform === "facebook" ? "Facebook" : values.platform === "forum" ? "Forum" : "Reddit";
-      communityLabel.textContent = values.audience === "hiring" ? "Hiring-side post" : values.audience === "both" ? "Two-sided post" : "Editor-side post";
-      communityPostOutput.innerHTML = '<h2>Post draft</h2><pre>' + draft.replace(/[&<>"']/g, (char) => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;",
-      })[char]) + '</pre>';
-      communityLinkOutput.innerHTML = '<h2>Tracked link</h2><pre>' + url.toString() + '</pre>';
-      communityTargetLink.href = url.toString();
-    }
-
-    communityForm.addEventListener("input", renderCommunityPost);
-    communityForm.addEventListener("change", renderCommunityPost);
-    renderCommunityPost();
-  </script>`;
-
-  return shell({ page, body, extraClass: "tool-page" }).replace("</head>", `${briefBuilderJsonLd(page)}\n</head>`);
-}
-
-function renderToolPage(page) {
-  if (page.pageType === "community-post-generator") return renderCommunityPostGeneratorPage(page);
-  if (page.pageType === "rate-calculator") return renderRateCalculatorPage(page);
-  if (page.pageType === "portfolio-checklist") return renderPortfolioChecklistPage(page);
-  return renderBriefBuilderPage(page);
-}
-
 function renderBlogIndex() {
   const page = {
     slug: "blog",
     title: "Video Editor Jobs Blog: Editor Career and Hiring Guides",
     description:
-      "Guides for finding video editor jobs, hiring editors, writing briefs, building portfolios, setting rates, and understanding editing workflows.",
+      "Focused guides for finding video editor jobs, hiring editors, writing briefs, building portfolios, setting rates, and understanding creator editing workflows.",
     h1: "Video Editor Jobs Blog",
   };
 
   const body = `<section class="compact-hero">
     <p class="eyebrow">Blog</p>
     <h1>${page.h1}</h1>
-    <p class="lede">A resource library for the two sides of the market: editors looking for better work and teams trying to write better briefs.</p>
+    <p class="lede">A small resource library for the two sides of the market: editors proving fit and creator teams scoping recurring work.</p>
   </section>
 
   <section class="band resource-hub" aria-label="Resource hub">
@@ -1638,30 +812,10 @@ function renderBlogIndex() {
         <strong>Get found for the work you actually want</strong>
         <p>Portfolio examples, remote job search, rates, outreach, and early editor list guidance.</p>
       </a>
-      <a class="resource-panel editor-tool" href="/video-editor-portfolio-checklist/">
-        <span>Tool</span>
-        <strong>Check whether your portfolio is ready</strong>
-        <p>Score your clips, software, rate, capacity, turnaround, and best-fit editor profile.</p>
-      </a>
-      <a class="resource-panel rates" href="/video-editing-rate-calculator/">
-        <span>Tool</span>
-        <strong>Estimate a practical editing rate range</strong>
-        <p>Use scope, footage, deliverables, complexity, turnaround, and revisions to frame pricing.</p>
-      </a>
-      <a class="resource-panel community-tool" href="/video-editor-community-post-generator/">
-        <span>Tool</span>
-        <strong>Draft community-safe feedback posts</strong>
-        <p>Create Reddit, Facebook, and forum post drafts with tracked links for the launch loop.</p>
-      </a>
       <a class="resource-panel hiring" href="/hire-video-editor/">
         <span>Hiring teams</span>
         <strong>Write a brief editors can evaluate</strong>
         <p>Job descriptions, interview questions, YouTube editor briefs, workflow, budget, and revision process.</p>
-      </a>
-      <a class="resource-panel tool" href="/video-editor-job-brief-builder/">
-        <span>Tool</span>
-        <strong>Build a clearer editor brief before posting</strong>
-        <p>Score the details editors expect: budget, footage, deliverables, references, software, and revisions.</p>
       </a>
       <a class="resource-panel community" href="/video-editor-community/">
         <span>Community</span>
@@ -1705,7 +859,7 @@ function renderBlogIndex() {
       <p>All guides</p>
       <h2>Every current resource</h2>
     </div>
-    <div class="blog-grid full">${blogCards(blogPosts.length)}</div>
+    <div class="blog-grid full">${blogCards(activeBlogPosts.length)}</div>
   </section>`;
 
   return shell({ page, body });
@@ -1824,14 +978,14 @@ function renderSearchPage() {
   const body = `<section class="compact-hero search-hero">
     <p class="eyebrow">Search</p>
     <h1>${escapeHtml(searchPage.h1)}</h1>
-    <p class="lede">Find category pages, local pages, hiring resources, editor guides, and the right intake route.</p>
+    <p class="lede">Find the current intake pages, creator-workflow routes, hiring resources, and editor proof guides.</p>
   </section>
 
   <section class="band search-band">
     <form class="search-panel" role="search">
       <label>
         Search the site
-        <input id="site-search-input" name="q" type="search" autocomplete="off" placeholder="remote, YouTube, Chicago, rates, hire">
+        <input id="site-search-input" name="q" type="search" autocomplete="off" placeholder="remote, YouTube, portfolio, brief, hire">
       </label>
     </form>
     <div class="search-results" id="site-search-results" aria-live="polite"></div>
@@ -1860,7 +1014,7 @@ function renderSearchPage() {
               (item) => '<a class="search-result" href="' + item.url + '"><span>' + item.type + '</span><strong>' + item.title + '</strong><p>' + item.description + '</p></a>'
             )
             .join("")
-        : '<p class="empty-search">No matching pages yet. Try remote, freelance, YouTube, rates, portfolio, hire, or a city.</p>';
+        : '<p class="empty-search">No matching pages yet. Try remote, freelance, YouTube, portfolio, brief, hire, or community.</p>';
     }
 
     input.value = params.get("q") || "";
@@ -1877,7 +1031,7 @@ function renderSearchPage() {
     });
   </script>`;
 
-  return shell({ page: searchPage, body });
+  return shell({ page: { ...searchPage, robots: "noindex, follow" }, body });
 }
 
 function renderTrustPage(page) {
@@ -1974,17 +1128,17 @@ function llmsTxt() {
   const primaryRoutes = [
     ["Editor intake", "/editors/", "Video editors can join the early talent list."],
     ["Hiring intake", "/hire-video-editor/", "Hiring teams can submit editing briefs and role details."],
-    ["Search", "/search/", "Search category pages, guides, local pages, and intake routes."],
+    ["Search", "/search/", "Search current guides and intake routes."],
     ["Blog", "/blog/", "Guides for editors and hiring teams."],
     ["Sitemap", "/sitemap.xml", "XML sitemap for crawl discovery."],
     ["RSS", "/rss.xml", "RSS feed for blog posts."],
   ];
 
-  const categoryRoutes = pages
+  const categoryRoutes = activePages
     .filter((page) => page.slug)
     .map((page) => `- [${page.h1}](${toUrl(page.slug)}): ${page.description}`);
 
-  const blogRoutes = blogPosts.map((post) => `- [${post.h1}](${toUrl(`blog/${post.slug}`)}): ${post.excerpt}`);
+  const blogRoutes = activeBlogPosts.map((post) => `- [${post.h1}](${toUrl(`blog/${post.slug}`)}): ${post.excerpt}`);
 
   return `# ${site.name}
 
@@ -2014,7 +1168,7 @@ ${site.email}
 }
 
 function rss() {
-  const items = blogPosts
+  const items = activeBlogPosts
     .map((post) => {
       const url = toUrl(`blog/${post.slug}`);
       return `<item>
@@ -2050,7 +1204,7 @@ async function writePage(slug, html) {
 await rm(dist, { recursive: true, force: true });
 await mkdir(join(dist, "assets"), { recursive: true });
 
-for (const page of pages) {
+for (const page of activePages) {
   await writePage(page.slug, page.pageType === "home" ? renderLandingPage(page) : renderCollectionPage(page));
 }
 
@@ -2058,14 +1212,10 @@ for (const page of appPages) {
   await writePage(page.slug, renderAppPage(page));
 }
 
-for (const page of toolPages) {
-  await writePage(page.slug, renderToolPage(page));
-}
-
 await writePage("blog", renderBlogIndex());
 await writePage("search", renderSearchPage());
 
-for (const post of blogPosts) {
+for (const post of activeBlogPosts) {
   await writePage(`blog/${post.slug}`, renderBlogPost(post));
 }
 

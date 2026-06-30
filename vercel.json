@@ -32,67 +32,67 @@
     },
     {
       "source": "/assistant-editor-jobs/",
-      "destination": "/assistant-video-editor-jobs/",
+      "destination": "/editors/",
       "permanent": true
     },
     {
       "source": "/entry-level-editor-jobs/",
-      "destination": "/entry-level-video-editor-jobs/",
+      "destination": "/editors/",
       "permanent": true
     },
     {
       "source": "/video-editor-jobs-for-teens/",
-      "destination": "/teen-video-editor-jobs/",
+      "destination": "/editors/",
       "permanent": true
     },
     {
       "source": "/junior-video-editor-jobs/",
-      "destination": "/entry-level-video-editor-jobs/",
+      "destination": "/editors/",
       "permanent": true
     },
     {
       "source": "/local-video-editor-jobs/",
-      "destination": "/video-editor-jobs-near-me/",
+      "destination": "/editors/",
       "permanent": true
     },
     {
       "source": "/video-editing-jobs-near-me/",
-      "destination": "/video-editor-jobs-near-me/",
+      "destination": "/editors/",
       "permanent": true
     },
     {
       "source": "/video-editor-jobs-from-home/",
-      "destination": "/work-from-home-video-editor-jobs/",
+      "destination": "/remote-video-editor-jobs/",
       "permanent": true
     },
     {
       "source": "/video-editor-work-from-home-jobs/",
-      "destination": "/work-from-home-video-editor-jobs/",
+      "destination": "/remote-video-editor-jobs/",
       "permanent": true
     },
     {
       "source": "/on-call-video-editor-jobs/",
-      "destination": "/on-call-travel-video-editor-jobs/",
+      "destination": "/post-video-editor-job/",
       "permanent": true
     },
     {
       "source": "/overnight-video-editor-jobs/",
-      "destination": "/night-shift-video-editor-jobs/",
+      "destination": "/part-time-video-editor-jobs/",
       "permanent": true
     },
     {
       "source": "/recent-video-editor-jobs/",
-      "destination": "/video-editor-jobs-last-3-days/",
+      "destination": "/editors/",
       "permanent": true
     },
     {
       "source": "/fresh-video-editor-jobs/",
-      "destination": "/video-editor-jobs-last-3-days/",
+      "destination": "/editors/",
       "permanent": true
     },
     {
       "source": "/blog/how-to-find-jobs-as-a-video-editor/",
-      "destination": "/blog/how-to-get-jobs-as-a-video-editor/",
+      "destination": "/blog/where-to-find-video-editor-jobs/",
       "permanent": true
     },
     {

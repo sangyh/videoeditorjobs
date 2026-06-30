@@ -13,10 +13,10 @@ npm run prepare:apps-script
 
 Expected:
 
-- Build reports `Built 50 pages in dist/`.
-- SEO verifier reports `Verified 50 pages`.
-- App verifier reports intake routes, tracking, fallback behavior, and traction sitemap routes.
-- Launch readiness reports synced Apps Script files, 50 sitemap URLs, and whether the intake endpoint is embedded.
+- Build reports `Built 18 pages in dist/`.
+- SEO verifier reports `Verified 18 pages`.
+- App verifier reports the tight intake app, cut-route exclusions, and the 18 crawlable URLs sitemap.
+- Launch readiness reports synced Apps Script files, 18 sitemap URLs, and whether the intake endpoint is embedded.
 - Apps Script deploy prep reports the spreadsheet URL, manifest access of `ANYONE_ANONYMOUS`, 51 intake headers, 20 community post headers, and the exact functions to run in Apps Script.
 
 ## Vercel Environment
@@ -60,24 +60,19 @@ https://videoeditorjobs.com/
 https://videoeditorjobs.com/editors/
 https://videoeditorjobs.com/hire-video-editor/
 https://videoeditorjobs.com/post-video-editor-job/
-https://videoeditorjobs.com/video-editor-job-brief-builder/
-https://videoeditorjobs.com/video-editor-portfolio-checklist/
-https://videoeditorjobs.com/video-editing-rate-calculator/
-https://videoeditorjobs.com/video-editor-community-post-generator/
+https://videoeditorjobs.com/remote-video-editor-jobs/
+https://videoeditorjobs.com/freelance-video-editor-jobs/
+https://videoeditorjobs.com/youtube-video-editor-jobs/
+https://videoeditorjobs.com/part-time-video-editor-jobs/
+https://videoeditorjobs.com/video-editor-community/
 https://videoeditorjobs.com/blog/
 https://videoeditorjobs.com/blog/where-to-find-video-editor-jobs/
-https://videoeditorjobs.com/video-editor-jobs-near-me/
-https://videoeditorjobs.com/work-from-home-video-editor-jobs/
-https://videoeditorjobs.com/remote-video-editing-jobs/
-https://videoeditorjobs.com/travel-video-editor-jobs/
-https://videoeditorjobs.com/night-shift-video-editor-jobs/
-https://videoeditorjobs.com/night-shift-teen-video-editor-jobs/
-https://videoeditorjobs.com/student-video-editor-jobs/
-https://videoeditorjobs.com/new-video-editor-jobs/
-https://videoeditorjobs.com/video-editor-jobs-last-3-days/
-https://videoeditorjobs.com/video-editor-community/
-https://videoeditorjobs.com/assistant-video-editor-jobs/
-https://videoeditorjobs.com/french-video-editor-jobs/
+https://videoeditorjobs.com/blog/video-editor-portfolio-examples/
+https://videoeditorjobs.com/blog/how-to-hire-a-video-editor/
+https://videoeditorjobs.com/blog/video-editor-job-description-template/
+https://videoeditorjobs.com/blog/freelance-video-editor-rates/
+https://videoeditorjobs.com/blog/youtube-video-editor-job-description/
+https://videoeditorjobs.com/search/
 https://videoeditorjobs.com/thanks-editor/
 https://videoeditorjobs.com/thanks-hiring/
 https://videoeditorjobs.com/sitemap.xml
@@ -94,8 +89,8 @@ For the live pages, confirm:
 
 - The title and H1 match the route.
 - Forms are visible on `/editors/` and `/hire-video-editor/`.
-- `sitemap.xml` lists 50 URLs.
-- `sitemap.xml` does not include `/thanks-editor/` or `/thanks-hiring/`.
+- `sitemap.xml` lists 18 crawlable URLs.
+- `sitemap.xml` does not include `/search/`, `/thanks-editor/`, `/thanks-hiring/`, or the cut pseudo-tool routes.
 - Thank-you pages include `noindex, follow`.
 - Thank-you pages do not receive a conflicting `X-Robots-Tag: index, follow` header.
 - `robots.txt` points to `https://videoeditorjobs.com/sitemap.xml`.
@@ -117,7 +112,7 @@ https://videoeditorjobs.com/sitemap.xml
 
 Do not submit a relative sitemap path. Always verify the live sitemap response first.
 
-After submission, use URL Inspection for the homepage, `/editors/`, `/hire-video-editor/`, `/post-video-editor-job/`, `/video-editor-job-brief-builder/`, `/video-editor-portfolio-checklist/`, `/video-editing-rate-calculator/`, `/video-editor-community-post-generator/`, `/blog/`, `/video-editor-community/`, `/video-editor-jobs-last-3-days/`, `/on-call-travel-video-editor-jobs/`, `/teen-video-editor-jobs/`, `/remote-video-editing-jobs/`, `/night-shift-teen-video-editor-jobs/`, `/video-editor-jobs-nyc/`, `/video-editor-jobs-manhattan/`, `/blog/how-to-find-video-editor-jobs/`, `/blog/how-to-get-jobs-as-a-video-editor/`, `/blog/video-editor-portfolio-examples/`, `/blog/video-editor-interview-questions/`, `/blog/youtube-video-editor-job-description/`, and `/blog/how-to-price-video-editing-work/`.
+After submission, use URL Inspection for the homepage, `/editors/`, `/hire-video-editor/`, `/post-video-editor-job/`, `/remote-video-editor-jobs/`, `/freelance-video-editor-jobs/`, `/youtube-video-editor-jobs/`, `/part-time-video-editor-jobs/`, `/video-editor-community/`, `/blog/`, `/blog/where-to-find-video-editor-jobs/`, `/blog/video-editor-portfolio-examples/`, `/blog/how-to-hire-a-video-editor/`, `/blog/video-editor-job-description-template/`, `/blog/freelance-video-editor-rates/`, and `/blog/youtube-video-editor-job-description/`.
 
 Use `docs/seo-30-day-plan.md` to turn Search Console queries and Sheet conversion data into the next blog post, category page, or form improvement.
 

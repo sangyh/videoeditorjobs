@@ -34,41 +34,23 @@ https://videoeditorjobs.com/hire-video-editor/?utm_source=forum&utm_medium=commu
 Community feedback page:
 https://videoeditorjobs.com/video-editor-community/?utm_source=community&utm_medium=feedback&utm_campaign=early_community
 
-Work-from-home editor page:
-https://videoeditorjobs.com/work-from-home-video-editor-jobs/?utm_source=community&utm_medium=reply&utm_campaign=seo_resource
+Remote editor page:
+https://videoeditorjobs.com/remote-video-editor-jobs/?utm_source=community&utm_medium=reply&utm_campaign=seo_resource
 
-Remote video editing page:
-https://videoeditorjobs.com/remote-video-editing-jobs/?utm_source=community&utm_medium=reply&utm_campaign=seo_resource
+Freelance editor page:
+https://videoeditorjobs.com/freelance-video-editor-jobs/?utm_source=community&utm_medium=reply&utm_campaign=seo_resource
 
-Travel and on-call editor page:
-https://videoeditorjobs.com/travel-video-editor-jobs/?utm_source=community&utm_medium=reply&utm_campaign=seo_resource
+YouTube editor page:
+https://videoeditorjobs.com/youtube-video-editor-jobs/?utm_source=community&utm_medium=reply&utm_campaign=seo_resource
 
-On-call travel editor page:
-https://videoeditorjobs.com/on-call-travel-video-editor-jobs/?utm_source=community&utm_medium=reply&utm_campaign=seo_resource
-
-Night-shift editor page:
-https://videoeditorjobs.com/night-shift-video-editor-jobs/?utm_source=community&utm_medium=reply&utm_campaign=seo_resource
-
-Night-shift teen editor page:
-https://videoeditorjobs.com/night-shift-teen-video-editor-jobs/?utm_source=community&utm_medium=reply&utm_campaign=seo_resource
-
-Student and early-career editor page:
-https://videoeditorjobs.com/student-video-editor-jobs/?utm_source=community&utm_medium=reply&utm_campaign=seo_resource
-
-Teen editor page:
-https://videoeditorjobs.com/teen-video-editor-jobs/?utm_source=community&utm_medium=reply&utm_campaign=seo_resource
-
-Fresh editing alerts page:
-https://videoeditorjobs.com/new-video-editor-jobs/?utm_source=community&utm_medium=reply&utm_campaign=seo_resource
-
-Last-3-days editor jobs page:
-https://videoeditorjobs.com/video-editor-jobs-last-3-days/?utm_source=community&utm_medium=reply&utm_campaign=seo_resource
+Part-time recurring editor page:
+https://videoeditorjobs.com/part-time-video-editor-jobs/?utm_source=community&utm_medium=reply&utm_campaign=seo_resource
 
 Where to find video editor jobs guide:
 https://videoeditorjobs.com/blog/where-to-find-video-editor-jobs/?utm_source=community&utm_medium=reply&utm_campaign=blog_guide
 
-How to get jobs as a video editor guide:
-https://videoeditorjobs.com/blog/how-to-get-jobs-as-a-video-editor/?utm_source=community&utm_medium=reply&utm_campaign=blog_guide
+Portfolio examples guide:
+https://videoeditorjobs.com/blog/video-editor-portfolio-examples/?utm_source=community&utm_medium=reply&utm_campaign=blog_guide
 
 Thank-you page editor invite:
 https://videoeditorjobs.com/editors/?utm_source=referral&utm_medium=thank_you&utm_campaign=editor_invite
@@ -79,20 +61,11 @@ https://videoeditorjobs.com/hire-video-editor/?utm_source=referral&utm_medium=th
 Thank-you page hiring resource:
 https://videoeditorjobs.com/blog/how-to-hire-a-video-editor/?utm_source=referral&utm_medium=thank_you&utm_campaign=hiring_resource_share
 
-Thank-you page fresh jobs share:
-https://videoeditorjobs.com/video-editor-jobs-last-3-days/?utm_source=referral&utm_medium=thank_you&utm_campaign=fresh_jobs_share
-
-Thank-you page early-career share:
-https://videoeditorjobs.com/teen-video-editor-jobs/?utm_source=referral&utm_medium=thank_you&utm_campaign=early_career_share
-
-Thank-you page travel editor share:
-https://videoeditorjobs.com/on-call-travel-video-editor-jobs/?utm_source=referral&utm_medium=thank_you&utm_campaign=travel_editor_share
+Thank-you page portfolio examples share:
+https://videoeditorjobs.com/blog/video-editor-portfolio-examples/?utm_source=referral&utm_medium=thank_you&utm_campaign=portfolio_examples_share
 
 Thank-you page job template share:
 https://videoeditorjobs.com/blog/video-editor-job-description-template/?utm_source=referral&utm_medium=thank_you&utm_campaign=job_template_share
-
-Thank-you page travel hiring share:
-https://videoeditorjobs.com/on-call-travel-video-editor-jobs/?utm_source=referral&utm_medium=thank_you&utm_campaign=travel_hiring_share
 
 Thank-you page community share:
 https://videoeditorjobs.com/video-editor-community/?utm_source=referral&utm_medium=thank_you&utm_campaign=community_share
@@ -206,8 +179,8 @@ Editor asks if there are live jobs yet:
 ```text
 Not a public job feed yet. This is the early intake layer first: editors can join with portfolio, format fit, software, rates, availability, and preferences. As hiring briefs come in, I’m using the Sheet queue to understand which categories and matches are worth building first.
 
-Fresh alerts page:
-https://videoeditorjobs.com/video-editor-jobs-last-3-days/?utm_source=reddit&utm_medium=comment&utm_campaign=seo_resource
+Editor intake:
+https://videoeditorjobs.com/editors/?utm_source=reddit&utm_medium=comment&utm_campaign=early_editor_list
 ```
 
 Editor asks what makes the list different:
@@ -231,37 +204,37 @@ https://videoeditorjobs.com/hire-video-editor/?utm_source=reddit&utm_medium=comm
 Someone asks about beginner or teen editors:
 
 ```text
-For newer editors, I’d separate portfolio-building work from professional roles and be clear about pay, rights, schedule, and expectations. I made a dedicated early-career page for that route.
+For newer editors, I’d separate portfolio-building work from professional roles and be clear about pay, rights, schedule, and expectations. For this first version I’m collecting editor profiles first, then only adding new early-career pages if the Sheet shows real demand.
 
-Teen / early-career page:
-https://videoeditorjobs.com/teen-video-editor-jobs/?utm_source=reddit&utm_medium=comment&utm_campaign=seo_resource
+Editor intake:
+https://videoeditorjobs.com/editors/?utm_source=reddit&utm_medium=comment&utm_campaign=early_editor_list
 ```
 
 Someone asks about teen editing work around school or evening hours:
 
 ```text
-For younger editors, I’d be careful with anything framed as night-shift work. The safer path is evening or weekend projects with written scope, clear pay or credit, revision limits, portfolio rights, and a clear adult point of contact.
+For younger editors, I’d be careful with anything framed as night-shift work. The safer path is evening or weekend projects with written scope, clear pay or credit, revision limits, portfolio rights, and a clear adult point of contact. I’m not publishing a separate page for that until there is enough real demand to handle it responsibly.
 
-Night-shift teen editor page:
-https://videoeditorjobs.com/night-shift-teen-video-editor-jobs/?utm_source=reddit&utm_medium=comment&utm_campaign=seo_resource
+Portfolio examples:
+https://videoeditorjobs.com/blog/video-editor-portfolio-examples/?utm_source=reddit&utm_medium=comment&utm_campaign=blog_guide
 ```
 
 Someone asks about remote editing work:
 
 ```text
-Remote editing is less about location and more about workflow: how footage moves, how notes are handled, what timezone overlap is needed, and how fast exports are reviewed. I split out a remote video editing page for that search intent.
+Remote editing is less about location and more about workflow: how footage moves, how notes are handled, what timezone overlap is needed, and how fast exports are reviewed.
 
-Remote video editing page:
-https://videoeditorjobs.com/remote-video-editing-jobs/?utm_source=reddit&utm_medium=comment&utm_campaign=seo_resource
+Remote editor page:
+https://videoeditorjobs.com/remote-video-editor-jobs/?utm_source=reddit&utm_medium=comment&utm_campaign=seo_resource
 ```
 
 Someone mentions event, tour, or travel work:
 
 ```text
-Travel editing needs a different brief than normal remote work: travel dates, call times, day rate, lodging/per diem, gear, file backup, internet access, and whether shooting is part of the role. I split that into a separate page.
+Travel editing needs a different brief than normal remote work: travel dates, call times, day rate, lodging/per diem, gear, file backup, internet access, and whether shooting is part of the role. It is not part of the first tight sitemap, but hiring teams can still submit a detailed brief.
 
-On-call travel editor page:
-https://videoeditorjobs.com/on-call-travel-video-editor-jobs/?utm_source=reddit&utm_medium=comment&utm_campaign=seo_resource
+Post a job:
+https://videoeditorjobs.com/post-video-editor-job/?utm_source=reddit&utm_medium=comment&utm_campaign=early_hiring_briefs
 ```
 
 ## DM Follow-Ups

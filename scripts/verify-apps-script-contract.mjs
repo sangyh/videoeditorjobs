@@ -141,39 +141,22 @@ const expectedCommunityPostSeedIds = [
 
 const requiredSourceSummarySources = ["reddit", "facebook", "forum", "community", "referral", "organic", "direct", "apps_script", "smoke", "manual"];
 const requiredSourceSummaryPages = [
+  "/",
   "/editors/",
   "/hire-video-editor/",
   "/post-video-editor-job/",
-  "/video-editor-job-brief-builder/",
-  "/video-editor-portfolio-checklist/",
-  "/video-editing-rate-calculator/",
-  "/video-editor-community-post-generator/",
   "/video-editor-community/",
   "/remote-video-editor-jobs/",
-  "/remote-video-editing-jobs/",
-  "/work-from-home-video-editor-jobs/",
   "/freelance-video-editor-jobs/",
   "/youtube-video-editor-jobs/",
-  "/travel-video-editor-jobs/",
-  "/on-call-travel-video-editor-jobs/",
-  "/night-shift-video-editor-jobs/",
-  "/night-shift-teen-video-editor-jobs/",
-  "/teen-video-editor-jobs/",
-  "/student-video-editor-jobs/",
-  "/video-editor-jobs-last-3-days/",
-  "/new-video-editor-jobs/",
-  "/assistant-video-editor-jobs/",
-  "/french-video-editor-jobs/",
-  "/video-editor-jobs-nyc/",
-  "/video-editor-jobs-manhattan/",
+  "/part-time-video-editor-jobs/",
+  "/blog/",
   "/blog/where-to-find-video-editor-jobs/",
-  "/blog/how-to-find-video-editor-jobs/",
-  "/blog/how-to-get-jobs-as-a-video-editor/",
   "/blog/video-editor-portfolio-examples/",
   "/blog/how-to-hire-a-video-editor/",
-  "/blog/video-editor-interview-questions/",
+  "/blog/video-editor-job-description-template/",
+  "/blog/freelance-video-editor-rates/",
   "/blog/youtube-video-editor-job-description/",
-  "/blog/how-to-price-video-editing-work/",
 ];
 
 const [canonicalCode, projectCode, manifestText, smokeScript, workbookScript] = await Promise.all([
@@ -301,7 +284,7 @@ for (const needle of [
   "Replies needing response",
   expectedScriptVersion,
   "health.scriptVersion",
-  "50 crawlable pages",
+  "18 crawlable pages",
 ]) {
   requireIncludes(workbookScript, needle, `workbook ${needle}`);
 }

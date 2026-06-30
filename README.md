@@ -2,23 +2,19 @@
 
 Static SEO and intake app for `videoeditorjobs.com`.
 
-The goal of this version is to start traction before a full account system exists: publish crawlable SEO pages, collect editor profiles, collect hiring briefs, and route both into a Google Sheet-backed matching queue.
+The goal of this version is to start traction before a full account system exists: collect editor profiles, collect hiring briefs, publish only the crawlable pages that support the creator-workflow wedge, and route both sides into a Google Sheet-backed matching queue.
 
 Use [docs/guiding-principles.md](docs/guiding-principles.md) as the ICP and product filter: prioritize early creator businesses, with a beachhead of coaches, consultants, educators, and founder-led personal brands that need recurring long-form-to-short-form editing workflows.
 
 ## What is included
 
 - Homepage targeting `video editor jobs`
-- Category and community pages for remote, freelance, YouTube, broad video editing, part-time, entry-level, student, fresh-alert, work-from-home, travel, night-shift, community, and local editor searches
+- A tight crawl set for remote, freelance, YouTube, part-time, community, and creator-workflow searches
 - `/editors/` intake page for video editors
 - `/hire-video-editor/` intake page for hiring teams
 - `/post-video-editor-job/` hiring-intent page for teams expecting a post-a-job flow
-- `/video-editor-job-brief-builder/` hiring-side brief builder that saves a local draft into the post-job form
-- `/video-editor-portfolio-checklist/` editor-side portfolio checklist that saves a local draft into the editor form
-- `/video-editing-rate-calculator/` pricing tool for scoping editing rates before quoting or posting
-- `/video-editor-community-post-generator/` Reddit, Facebook, and forum post generator with tracked links
-- `/blog/` plus starter SEO articles for editor and hiring intent, including the Ahrefs question cluster around finding video editor jobs
-- `/search/` for site search across category pages, guides, trust pages, and intake routes
+- `/blog/` plus a small set of guides for editor proof, hiring briefs, rates, and YouTube editor scope
+- `/search/` for noindex site search across the current guides and intake routes
 - Noindex thank-you pages for editor and hiring submissions
 - `sitemap.xml`
 - `robots.txt`
@@ -29,8 +25,6 @@ Use [docs/guiding-principles.md](docs/guiding-principles.md) as the ICP and prod
 - Google Sheet dashboard and source summary tabs for launch review
 - Internal notification email and submitter confirmation email from Apps Script
 - Browser-side draft restore for unfinished editor and hiring forms
-- Browser-side handoff from the brief builder into the hiring form
-- Browser-side handoff from the portfolio checklist into the editor form
 - Structured matching fields for editor experience, work preference, capacity, turnaround, hiring scope, deliverables, footage volume, revision process, and reference links
 
 ## Commands
@@ -51,7 +45,7 @@ npm run prepare:apps-script
 
 `npm run check` runs build, SEO verification, and app-intake verification in sequence.
 
-`npm run launch:ready` runs the full local gate and checks the generated launch bundle, Apps Script sync, Sheet setup docs, sitemap count, noindex utility pages, and endpoint configuration state.
+`npm run launch:ready` runs the full local gate and checks the generated launch bundle, Apps Script sync, Sheet setup docs, 18-URL sitemap count, noindex utility pages, and endpoint configuration state.
 
 `npm run prepare:apps-script` verifies the Apps Script bundle, manifest, Sheet contract, and expected script version, then prints the exact Google Sheets deployment steps and post-deploy proof commands.
 

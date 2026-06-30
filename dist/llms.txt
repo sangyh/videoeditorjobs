@@ -1,6 +1,6 @@
 # Video Editor Jobs
 
-A focused community and job board for video editors, post-production specialists, creator teams, agencies, and brands hiring editing talent.
+A focused intake and matching surface for creator teams that need recurring video editing workflows.
 
 ## Audience
 
@@ -11,7 +11,7 @@ A focused community and job board for video editors, post-production specialists
 
 - [Editor intake](https://videoeditorjobs.com/editors/): Video editors can join the early talent list.
 - [Hiring intake](https://videoeditorjobs.com/hire-video-editor/): Hiring teams can submit editing briefs and role details.
-- [Search](https://videoeditorjobs.com/search/): Search category pages, guides, local pages, and intake routes.
+- [Search](https://videoeditorjobs.com/search/): Search current guides and intake routes.
 - [Blog](https://videoeditorjobs.com/blog/): Guides for editors and hiring teams.
 - [Sitemap](https://videoeditorjobs.com/sitemap.xml): XML sitemap for crawl discovery.
 - [RSS](https://videoeditorjobs.com/rss.xml): RSS feed for blog posts.
@@ -19,46 +19,19 @@ A focused community and job board for video editors, post-production specialists
 ## SEO Category Routes
 
 - [Remote Video Editor Jobs](https://videoeditorjobs.com/remote-video-editor-jobs/): Remote video editor jobs for YouTube, social video, podcasts, brand content, agencies, and creator teams. Join early remote editing alerts.
-- [Remote Video Editing Jobs](https://videoeditorjobs.com/remote-video-editing-jobs/): Remote video editing jobs, video editor jobs remote, and work-from-home editing roles for YouTube, social, podcasts, brands, and agencies.
 - [Freelance Video Editor Jobs](https://videoeditorjobs.com/freelance-video-editor-jobs/): Freelance video editor jobs for creators, brands, agencies, podcasts, social channels, and production teams looking for contract editing help.
 - [YouTube Video Editor Jobs](https://videoeditorjobs.com/youtube-video-editor-jobs/): YouTube video editor jobs for creator teams, education channels, podcasts, newsletters, and brands building long-form video channels.
-- [Video Editing Jobs](https://videoeditorjobs.com/video-editing-jobs/): Browse video editing jobs across post-production, social media, YouTube, brand content, agencies, podcasts, and assistant editor roles.
-- [Entry-Level Video Editor Jobs](https://videoeditorjobs.com/entry-level-video-editor-jobs/): Entry-level video editor jobs, assistant editor roles, junior editor opportunities, and portfolio tips for editors building early career momentum.
-- [Student Video Editor Jobs](https://videoeditorjobs.com/student-video-editor-jobs/): Student video editor jobs, junior editing opportunities, assistant editor roles, internships, and portfolio-building work for early-career editors.
-- [Teen Video Editor Jobs](https://videoeditorjobs.com/teen-video-editor-jobs/): Teen video editor jobs, student editing work, portfolio-building projects, and safer ways for young editors to find paid creative work.
 - [Part-Time Video Editor Jobs](https://videoeditorjobs.com/part-time-video-editor-jobs/): Part-time video editor jobs for creators, agencies, small businesses, podcasts, and brands that need consistent editing without a full-time hire.
-- [Video Editor Jobs Near Me](https://videoeditorjobs.com/video-editor-jobs-near-me/): Find video editor jobs near you across studios, agencies, production teams, brands, schools, churches, events, and hybrid creator workflows.
-- [Work From Home Video Editor Jobs](https://videoeditorjobs.com/work-from-home-video-editor-jobs/): Work from home video editor jobs for YouTube, social video, podcasts, brands, agencies, education teams, and creator-led businesses.
-- [Travel Video Editor Jobs](https://videoeditorjobs.com/travel-video-editor-jobs/): Travel video editor jobs and on-call editing roles for events, tours, creators, brands, field production teams, and social-first content crews.
-- [On-Call Travel Video Editor Jobs](https://videoeditorjobs.com/on-call-travel-video-editor-jobs/): On-call travel video editor jobs for events, tours, creator trips, conferences, brand activations, sports, and field production teams.
-- [Night Shift Video Editor Jobs](https://videoeditorjobs.com/night-shift-video-editor-jobs/): Night shift video editor jobs for fast-turnaround social clips, events, media teams, international workflows, and editors who prefer evening schedules.
-- [Night Shift Teen Video Editor Jobs](https://videoeditorjobs.com/night-shift-teen-video-editor-jobs/): Night shift teen video editor jobs, evening editing work, student editing opportunities, and safer early-career ways to build a video editing portfolio.
-- [New Video Editor Jobs](https://videoeditorjobs.com/new-video-editor-jobs/): Join alerts for new video editor jobs, recently posted remote editing roles, freelance editing work, YouTube editor jobs, and hiring briefs.
-- [Video Editor Jobs Last 3 Days](https://videoeditorjobs.com/video-editor-jobs-last-3-days/): Video editor jobs from the last 3 days, recent editing alerts, fresh remote editor opportunities, and early hiring briefs for editors.
 - [Video Editor Community](https://videoeditorjobs.com/video-editor-community/): Join the Video Editor Jobs community for early editor profiles, hiring briefs, remote editing work, freelance projects, and useful editing resources.
-- [Assistant Video Editor Jobs](https://videoeditorjobs.com/assistant-video-editor-jobs/): Assistant video editor jobs for junior editors, post-production assistants, media managers, and entry-level editors building workflow experience.
-- [French Video Editor Jobs](https://videoeditorjobs.com/french-video-editor-jobs/): French video editor jobs for bilingual editors, French-language creators, localization teams, subtitles, social clips, YouTube channels, brands, and agencies.
-- [Video Editor Jobs in Los Angeles](https://videoeditorjobs.com/video-editor-jobs-los-angeles/): Video editor jobs in Los Angeles for creators, studios, agencies, podcasts, brands, and post-production teams.
-- [Video Editor Jobs in New York](https://videoeditorjobs.com/video-editor-jobs-new-york/): Video editor jobs in New York for media teams, agencies, brands, creators, podcasts, and post-production workflows.
-- [Video Editor Jobs in NYC](https://videoeditorjobs.com/video-editor-jobs-nyc/): Video editor jobs in NYC and Manhattan for media teams, creators, agencies, brands, podcasts, events, and hybrid post-production workflows.
-- [Video Editor Jobs in Manhattan](https://videoeditorjobs.com/video-editor-jobs-manhattan/): Video editor jobs in Manhattan for media teams, agencies, creators, events, podcasts, startups, and hybrid NYC post-production workflows.
-- [Video Editor Jobs in Atlanta](https://videoeditorjobs.com/video-editor-jobs-atlanta/): Video editor jobs in Atlanta for production teams, creators, agencies, brands, podcasts, and local content teams.
-- [Video Editor Jobs in Chicago](https://videoeditorjobs.com/video-editor-jobs-chicago/): Video editor jobs in Chicago for agencies, brands, creators, nonprofits, production teams, podcasts, and local hybrid editing workflows.
 
 ## Blog Guides
 
-- [How to find remote video editor jobs](https://videoeditorjobs.com/blog/how-to-find-remote-video-editor-jobs/): Remote editing work is easiest to win when your proof matches the team's content format and your process makes collaboration feel low-risk.
 - [Where to find video editor jobs](https://videoeditorjobs.com/blog/where-to-find-video-editor-jobs/): The best video editor opportunities are split across job boards, private communities, creator teams, agencies, referrals, and local production networks.
-- [How to find video editor jobs](https://videoeditorjobs.com/blog/how-to-find-video-editor-jobs/): Finding better editing work is less about one job board and more about matching your search, portfolio, and outreach to the format teams need.
-- [How to get jobs as a video editor](https://videoeditorjobs.com/blog/how-to-get-jobs-as-a-video-editor/): The easiest editor jobs to win are the ones where your portfolio, process, and outreach all match the work the hiring team already needs.
-- [Video editor portfolio guide](https://videoeditorjobs.com/blog/video-editor-portfolio-guide/): A portfolio should make fit obvious. The strongest editor profiles show the exact kind of editing a hiring team needs next.
 - [How to hire a video editor](https://videoeditorjobs.com/blog/how-to-hire-a-video-editor/): The fastest way to hire a strong editor is to write a brief that filters for the actual workflow, not just taste.
 - [Video editor job description template](https://videoeditorjobs.com/blog/video-editor-job-description-template/): Most editing job posts are too vague. This structure helps editors self-select before either side wastes time.
 - [Freelance video editor rates](https://videoeditorjobs.com/blog/freelance-video-editor-rates/): Rates make more sense when tied to deliverables, source footage, timeline, revision load, and the level of creative ownership required.
 - [Video editor portfolio examples](https://videoeditorjobs.com/blog/video-editor-portfolio-examples/): A strong portfolio is not one giant reel. It is a small set of matched examples that prove you can handle the exact editing workflow a team needs.
-- [Video editor interview questions](https://videoeditorjobs.com/blog/video-editor-interview-questions/): Good editor interviews test process as much as taste: how someone handles footage, notes, deadlines, revisions, and unclear creative direction.
 - [YouTube video editor job description](https://videoeditorjobs.com/blog/youtube-video-editor-job-description/): YouTube editor roles need more than software requirements. The post should explain channel format, pacing, cadence, references, analytics expectations, and review workflow.
-- [How to price video editing work](https://videoeditorjobs.com/blog/how-to-price-video-editing-work/): Pricing gets clearer when both sides define the real job: deliverables, footage volume, revision rounds, deadline pressure, and creative ownership.
 
 ## Contact
 

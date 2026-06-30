@@ -4,7 +4,7 @@ This plan turns the blog and category pages into a measured acquisition loop for
 
 ## Goals
 
-- Get the 50 crawlable URLs discovered and indexed.
+- Get the 18 crawlable URLs discovered and indexed.
 - Learn which editor niches, hiring briefs, and search queries produce real submissions.
 - Publish only pages that answer demonstrated search or community demand.
 - Use the Sheet as the conversion truth source.
@@ -22,7 +22,7 @@ npm run smoke:intake
 Actions:
 
 - Submit `https://videoeditorjobs.com/sitemap.xml` in Google Search Console.
-- Inspect the homepage, `/editors/`, `/hire-video-editor/`, `/blog/`, `/video-editor-community/`, `/video-editor-jobs-last-3-days/`, `/on-call-travel-video-editor-jobs/`, `/teen-video-editor-jobs/`, `/remote-video-editing-jobs/`, `/night-shift-teen-video-editor-jobs/`, and `/french-video-editor-jobs/`.
+- Inspect the homepage, `/editors/`, `/hire-video-editor/`, `/post-video-editor-job/`, `/remote-video-editor-jobs/`, `/freelance-video-editor-jobs/`, `/youtube-video-editor-jobs/`, `/part-time-video-editor-jobs/`, `/video-editor-community/`, and `/blog/`.
 - Post one editor-focused community thread and one hiring-focused community thread.
 - Reply manually to useful comments with the most specific guide or intake page.
 - Check `Source Summary` daily for `utm_source`, `utm_campaign`, and `page_path`.
@@ -53,7 +53,7 @@ Page improvements to prioritize:
 
 Decision rule:
 
-- If the same query appears at least twice and no page answers it directly, add it to the next content queue.
+- If the same query appears at least twice and no page answers it directly, add it to the content parking lot. Publish only when Search Console, Sheet rows, or community replies show it could create real supply or hiring demand.
 
 ## Week 3: Publish From Evidence
 
@@ -61,7 +61,7 @@ Pick one new post or page from actual data. Good candidates:
 
 - A niche with at least 3 editor submissions
 - A hiring question repeated in comments or briefs
-- A Search Console query with impressions and no exact page
+- A Search Console query with impressions and no exact page, plus a plausible editor or hiring conversion path
 - A page path with traffic but low conversion
 
 Prefer these content types:
@@ -69,14 +69,13 @@ Prefer these content types:
 - Hiring-side guide if briefs are vague
 - Editor-side portfolio/rates guide if editors ask how to stand out
 - Niche category page if a job type repeats
-- City page only if location demand appears in the Sheet or Search Console
+- City page only if location demand appears in the Sheet or Search Console and the current community can actually serve it
 
 Current blog guide clusters to watch:
 
 - `video editor portfolio examples`
-- `video editor interview questions`
 - `youtube video editor job description`
-- `how to price video editing work`
+- `freelance video editor rates`
 
 Every new page should include:
 

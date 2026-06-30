@@ -29,7 +29,7 @@ The Apps Script will create tabs and headers automatically when you run `setup()
 
 You can rerun `setup()` after future form or script changes. Existing rows are preserved, and any missing header columns are appended to the end of the relevant tab.
 
-Live status as of June 29, 2026: the connected Google Sheet already has `Editors`, `Hiring Requests`, `Matches`, `Dashboard`, `Source Summary`, and `Community Posts`. Run `setup()` after pasting the latest Apps Script to refresh tracker and dashboard formulas, then run `seedCommunityPosts()` to add any missing starter or two-week calendar planned posts. Run `launchHealthCheck()` before deploying; it should return `ok: true`, `scriptVersion: "vej-2026-06-29-50p-french-editor"`, `expectedSeeds: 11`, `presentSeeds: 11`, and no missing headers or seed IDs. The two intake tabs have the current 51-column schema, including triage fields, `consent`, `consent_at`, `consent_text`, and the structured matching fields for experience, capacity, scope, deliverables, footage volume, revision process, and references. Running `setup()` is still useful as the first Apps Script permission check and is safe to rerun.
+Live status as of June 29, 2026: the connected Google Sheet already has `Editors`, `Hiring Requests`, `Matches`, `Dashboard`, `Source Summary`, and `Community Posts`. Run `setup()` after pasting the latest Apps Script to refresh tracker and dashboard formulas, then run `seedCommunityPosts()` to add any missing starter or two-week calendar planned posts. Run `launchHealthCheck()` before deploying; it should return `ok: true`, `scriptVersion: "vej-2026-06-29-tight-18p"`, `expectedSeeds: 11`, `presentSeeds: 11`, and no missing headers or seed IDs. The public launch sitemap is now limited to 18 crawlable URLs. The two intake tabs have the current 51-column schema, including triage fields, `consent`, `consent_at`, `consent_text`, and the structured matching fields for experience, capacity, scope, deliverables, footage volume, revision process, and references. Running `setup()` is still useful as the first Apps Script permission check and is safe to rerun.
 
 ```text
 created_at
@@ -165,7 +165,7 @@ Email failures do not block the Sheet row. The endpoint response reports notific
 14. Who has access: `Anyone`.
 15. Copy the Web app URL ending in `/exec`.
 
-After deployment, open the `/exec` URL in a browser. The `doGet()` health check should return JSON with `ok: true`, `scriptVersion: "vej-2026-06-29-50p-french-editor"`, the configured spreadsheet ID, and the expected sheet names. Confirm that version matches `contract.scriptVersion` from `npm run prepare:apps-script`.
+After deployment, open the `/exec` URL in a browser. The `doGet()` health check should return JSON with `ok: true`, `scriptVersion: "vej-2026-06-29-tight-18p"`, the configured spreadsheet ID, and the expected sheet names. Confirm that version matches `contract.scriptVersion` from `npm run prepare:apps-script`.
 
 The same code is mirrored in `apps-script/Code.js` with `apps-script/appsscript.json` for project-style or `clasp` deployment. Run `npm run sync:apps-script` after editing `docs/google-sheets-apps-script.js`.
 
@@ -204,7 +204,7 @@ npm run smoke:intake
 Expected result:
 
 - JSON output includes `ok: true`.
-- JSON output includes `health.scriptVersion: "vej-2026-06-29-50p-french-editor"`.
+- JSON output includes `health.scriptVersion: "vej-2026-06-29-tight-18p"`.
 - JSON output includes `triage.source_bucket` and `triage.lead_score`.
 - JSON output includes `confirmation.sent`.
 - One smoke row appears in `Editors`.

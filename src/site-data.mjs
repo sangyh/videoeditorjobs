@@ -4,51 +4,33 @@ export const site = {
   origin: "https://videoeditorjobs.com",
   email: "hello@videoeditorjobs.com",
   description:
-    "A focused community and job board for video editors, post-production specialists, creator teams, agencies, and brands hiring editing talent.",
+    "A focused intake and matching surface for creator teams that need recurring video editing workflows.",
   launchDate: "2026-06-26",
 };
 
 export const keywords = [
   "video editor jobs",
   "remote video editor jobs",
-  "remote video editing jobs",
-  "video editor jobs remote",
   "freelance video editor jobs",
   "YouTube video editor jobs",
   "part-time video editor jobs",
-  "entry-level video editor jobs",
-  "student video editor jobs",
-  "teen video editor jobs",
   "hire a video editor",
   "post video editor job",
   "video editor job description",
   "video editor portfolio",
   "video editor rates",
-  "new video editor jobs",
-  "video editor jobs last 3 days",
-  "video editor community",
-  "video editor jobs near me",
-  "work from home video editor jobs",
-  "travel video editor jobs",
-  "on call travel video editor jobs",
-  "night shift video editor jobs",
-  "night shift teen video editor jobs",
-  "assistant video editor jobs",
-  "french video editor jobs",
-  "video editor jobs Los Angeles",
-  "video editor jobs New York",
-  "video editor jobs NYC",
-  "video editor jobs Manhattan",
-  "video editor jobs Atlanta",
-  "video editor jobs Chicago",
+  "creator video editor",
+  "podcast video editor",
+  "short-form video editor",
+  "YouTube shorts editor",
 ];
 
 export const sampleJobs = [
   {
-    title: "Short-form video editor",
+    title: "Long-form to clips editor",
     type: "Remote",
-    fit: "Reels, TikTok, YouTube Shorts, creator teams",
-    signals: ["fast turnaround", "caption styling", "social hooks"],
+    fit: "Coaches, founders, educators, podcasts",
+    signals: ["weekly cadence", "clip selection", "caption taste"],
   },
   {
     title: "YouTube channel editor",
@@ -57,16 +39,16 @@ export const sampleJobs = [
     signals: ["story pacing", "retention edits", "thumbnail collaboration"],
   },
   {
-    title: "Brand video editor",
+    title: "Podcast repurposing editor",
     type: "Contract",
-    fit: "B2B, ecommerce, product launches, paid social",
-    signals: ["motion basics", "ad variants", "stakeholder review"],
+    fit: "Founder shows, expert interviews, coaching calls",
+    signals: ["audio cleanup", "multicam rhythm", "shorts packages"],
   },
   {
-    title: "Assistant editor",
-    type: "Entry level",
-    fit: "Post houses, agencies, production teams",
-    signals: ["media management", "proxy workflows", "Premiere or Resolve"],
+    title: "Recurring social editor",
+    type: "Part-time",
+    fit: "Monthly content packages for creator-led businesses",
+    signals: ["brand consistency", "turnaround", "review discipline"],
   },
 ];
 
@@ -77,24 +59,24 @@ export const appPages = [
     changefreq: "daily",
     title: "Join as a Video Editor: Remote, Freelance, YouTube, and Agency Work",
     description:
-      "Join the early Video Editor Jobs talent list. Share your portfolio, editing niches, software stack, rates, availability, and preferred work.",
+      "Join the early Video Editor Jobs talent list for recurring creator, podcast, YouTube, and short-form editing work.",
     h1: "Join the editor list",
     eyebrow: "For video editors",
     intro:
-      "Get discovered for the kind of editing work you actually want: creator channels, short-form social, podcasts, paid social, brands, agencies, studios, and remote teams.",
+      "Get considered for creator teams that need reliable weekly editing, long-form to short-form repurposing, podcast clips, YouTube episodes, and recurring content packages.",
     formKind: "editor",
   },
   {
     slug: "hire-video-editor",
     priority: "0.95",
     changefreq: "daily",
-    title: "Hire a Video Editor: Find Freelance, Remote, YouTube, and Social Editors",
+    title: "Hire a Video Editor for Recurring Creator Content",
     description:
-      "Submit a video editor role or editing project. Share budget, workflow, content format, deadline, software, and portfolio requirements.",
+      "Submit a creator editing brief with budget, workflow, deliverables, cadence, references, review process, and portfolio requirements.",
     h1: "Hire a video editor",
     eyebrow: "For hiring teams",
     intro:
-      "Send a real brief, not a vague job post. We collect the details editors need to judge fit and help you reach qualified editing talent faster.",
+      "Send a specific recurring workflow: what you publish, how often, what raw footage exists, what clips you need, and how notes will be handled.",
     formKind: "hiring",
   },
   {
@@ -103,145 +85,16 @@ export const appPages = [
     changefreq: "daily",
     title: "Post a Video Editor Job: Submit a Remote, Freelance, or YouTube Editing Role",
     description:
-      "Post a video editor job or editing project with budget, content format, deliverables, workflow, timeline, references, and revision process.",
+      "Post a recurring creator editing role with budget, content format, deliverables, workflow, references, and revision process.",
     h1: "Post a video editor job",
     eyebrow: "For hiring teams",
     intro:
-      "Use this brief form when you need an editor for YouTube, short-form social, podcasts, brand work, agency projects, remote roles, freelance work, or local production support.",
+      "Use this form when you need an editor for YouTube episodes, podcast clips, short-form repurposing, founder-led content, or a repeat monthly editing package.",
     formKind: "hiring",
   },
 ];
 
-export const toolPages = [
-  {
-    slug: "video-editor-job-brief-builder",
-    priority: "0.84",
-    changefreq: "weekly",
-    title: "Video Editor Job Brief Builder: Write a Better Editor Job Post",
-    description:
-      "Use the free Video Editor Jobs brief builder to write a clearer video editor job post with budget, deliverables, footage, workflow, references, and revisions.",
-    h1: "Video Editor Job Brief Builder",
-    eyebrow: "Hiring tool",
-    intro:
-      "Turn a vague editor request into a brief that tells editors what they need to know before they apply, quote, or recommend someone better suited.",
-    intent:
-      "This tool supports hiring-intent SEO and gives community posts a useful destination before asking teams to submit a full hiring brief.",
-    pageType: "brief-builder",
-    faq: [
-      {
-        question: "What should a video editor job brief include?",
-        answer:
-          "A useful brief should include content format, deliverables, source footage volume, budget, timeline, software, review process, references, and what a great editor should already understand.",
-      },
-      {
-        question: "Can I use this for freelance and remote editor jobs?",
-        answer:
-          "Yes. The builder works for freelance, remote, YouTube, short-form, podcast, agency, brand, assistant editor, and full-time editing roles.",
-      },
-      {
-        question: "Does the builder submit my job automatically?",
-        answer:
-          "No. It creates a local draft in your browser. You choose whether to continue to the post-job form and submit the hiring request.",
-      },
-    ],
-  },
-  {
-    slug: "video-editor-portfolio-checklist",
-    priority: "0.84",
-    changefreq: "weekly",
-    title: "Video Editor Portfolio Checklist: Get Ready for Editing Jobs",
-    description:
-      "Use the free Video Editor Jobs portfolio checklist to sharpen your editor profile with matched clips, software, rates, availability, turnaround, and work preferences.",
-    h1: "Video Editor Portfolio Checklist",
-    eyebrow: "Editor tool",
-    intro:
-      "Check whether your portfolio gives hiring teams enough proof to understand your editing fit, speed, tools, rates, availability, and best work formats.",
-    intent:
-      "This tool supports editor-intent SEO and gives Reddit, Facebook, and forum replies a useful destination before asking editors to join the list.",
-    pageType: "portfolio-checklist",
-    faq: [
-      {
-        question: "What should a video editor portfolio include?",
-        answer:
-          "A strong portfolio should include clips matched to the work you want, a clear primary editing fit, software and workflow details, rate or pricing context, availability, turnaround expectations, and notes about the formats you edit best.",
-      },
-      {
-        question: "Can I join the editor list before my portfolio is perfect?",
-        answer:
-          "Yes. The checklist helps you see what is missing, but editors can still join early if their portfolio, preferred formats, and availability are clear enough to review.",
-      },
-      {
-        question: "Does the checklist submit my editor profile automatically?",
-        answer:
-          "No. It creates a local draft in your browser. You choose whether to continue to the editor intake and submit your profile.",
-      },
-    ],
-  },
-  {
-    slug: "video-editing-rate-calculator",
-    priority: "0.82",
-    changefreq: "weekly",
-    title: "Video Editing Rate Calculator: Estimate Editor Project Pricing",
-    description:
-      "Use the free Video Editor Jobs rate calculator to estimate video editing project pricing from footage, deliverables, turnaround, complexity, and revision scope.",
-    h1: "Video Editing Rate Calculator",
-    eyebrow: "Pricing tool",
-    intro:
-      "Estimate a practical editing range before quoting a project or submitting a hiring brief. The calculator is a planning tool, not a guarantee of market price.",
-    intent:
-      "This tool supports pricing-intent SEO and turns rate conversations into clearer editor profiles and hiring briefs.",
-    pageType: "rate-calculator",
-    faq: [
-      {
-        question: "How much should video editing cost?",
-        answer:
-          "Editing cost depends on footage volume, deliverables, complexity, turnaround, revisions, software needs, and the editor's experience. Simple short-form work can be priced very differently from long-form YouTube, podcasts, paid social variants, or brand campaigns.",
-      },
-      {
-        question: "Should editors quote hourly or per project?",
-        answer:
-          "Hourly rates are useful when the scope is uncertain. Project rates work better when the deliverables, footage volume, review process, and deadline are clear.",
-      },
-      {
-        question: "Can hiring teams use this before posting a job?",
-        answer:
-          "Yes. Use the estimate to make the budget field more specific, then submit a hiring brief with deliverables, references, source footage, and revision process.",
-      },
-    ],
-  },
-  {
-    slug: "video-editor-community-post-generator",
-    priority: "0.78",
-    changefreq: "weekly",
-    title: "Video Editor Community Post Generator: Reddit, Facebook, and Forum Prompts",
-    description:
-      "Use the free Video Editor Jobs community post generator to draft useful Reddit, Facebook, and forum feedback posts with tracked links for editor and hiring communities.",
-    h1: "Video Editor Community Post Generator",
-    eyebrow: "Community tool",
-    intro:
-      "Draft feedback-first community posts that ask a real question, respect group rules, and send people to the most relevant Video Editor Jobs page with campaign tracking.",
-    intent:
-      "This tool supports the Reddit, Facebook, and forum launch loop by turning community replies into measurable editor profiles, hiring briefs, and content ideas.",
-    pageType: "community-post-generator",
-    faq: [
-      {
-        question: "What should I post in video editing communities?",
-        answer:
-          "Ask a specific feedback question about portfolios, job post quality, rates, workflow, or hiring briefs. Avoid dropping a generic launch link without context.",
-      },
-      {
-        question: "Can I use this for Reddit and Facebook groups?",
-        answer:
-          "Yes, but only when the post fits the community rules. Use the generated draft as a starting point and edit it to match the group norms.",
-      },
-      {
-        question: "Why use tracked links?",
-        answer:
-          "Tracked links help compare which communities, questions, and landing pages produce useful editor profiles or hiring briefs in the Source Summary sheet.",
-      },
-    ],
-  },
-];
+export const toolPages = [];
 
 export const pages = [
   {
@@ -1720,8 +1573,29 @@ export const trustPages = [
 export const nav = [
   { label: "Editors", href: "/editors/" },
   { label: "Hire", href: "/hire-video-editor/" },
-  { label: "Brief builder", href: "/video-editor-job-brief-builder/" },
-  { label: "Portfolio", href: "/video-editor-portfolio-checklist/" },
-  { label: "Rates", href: "/video-editing-rate-calculator/" },
+  { label: "Post job", href: "/post-video-editor-job/" },
+  { label: "Community", href: "/video-editor-community/" },
   { label: "Blog", href: "/blog/" },
 ];
+
+export const activePageSlugs = [
+  "",
+  "remote-video-editor-jobs",
+  "freelance-video-editor-jobs",
+  "youtube-video-editor-jobs",
+  "part-time-video-editor-jobs",
+  "video-editor-community",
+];
+
+export const activeBlogPostSlugs = [
+  "where-to-find-video-editor-jobs",
+  "video-editor-portfolio-examples",
+  "how-to-hire-a-video-editor",
+  "video-editor-job-description-template",
+  "freelance-video-editor-rates",
+  "youtube-video-editor-job-description",
+];
+
+export const activePages = pages.filter((page) => activePageSlugs.includes(page.slug));
+export const activeBlogPosts = blogPosts.filter((post) => activeBlogPostSlugs.includes(post.slug));
+export const activeToolPages = [];

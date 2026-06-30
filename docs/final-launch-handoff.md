@@ -4,15 +4,12 @@ Use this as the last checklist before posting in Reddit, Facebook, forums, or Se
 
 ## Current State
 
-- Static app builds 50 crawlable pages.
+- Static app builds 18 crawlable URLs.
 - `/editors/` collects editor profiles.
 - `/hire-video-editor/` collects hiring briefs.
 - `/post-video-editor-job/` captures hiring teams that search or expect a post-a-job flow.
-- `/video-editor-job-brief-builder/` helps hiring teams turn vague requests into a draft brief before submitting.
-- `/video-editor-portfolio-checklist/` helps editors turn portfolio details into a stronger editor intake draft.
-- `/video-editing-rate-calculator/` helps both sides scope budget/rate conversations before joining or posting.
-- `/video-editor-community-post-generator/` helps draft feedback-first Reddit, Facebook, and forum posts with tracked links.
-- Blog, category, city, community, and early-career pages are generated into `dist/`.
+- Crawlable pages are limited to remote, freelance, YouTube, part-time, community, and six high-intent guides.
+- The public pseudo-tools and weak freshness/local/teen/language pages have been cut from generation and sitemap submission.
 - Thank-you pages are `noindex, follow` and excluded from `sitemap.xml`.
 - Community launch copy and tracked links live in `docs/community-launch-kit.md`.
 - The two-week community posting schedule lives in `docs/community-posting-calendar.md`.
@@ -36,7 +33,7 @@ Verified live readback:
 - `Hiring Requests` has 51 columns.
 - `Editors!AW1:AY1` is `source_bucket`, `lead_score`, `review_reason`.
 - `Hiring Requests!AW1:AY1` is `source_bucket`, `lead_score`, `review_reason`.
-- `Source Summary` includes `brief_builder`, `portfolio_checklist`, `rate_calculator`, `community_post_generator`, `/french-video-editor-jobs/`, `fresh_jobs_share`, `early_career_share`, `travel_editor_share`, `job_template_share`, `travel_hiring_share`, and `community_share`.
+- `Source Summary` includes the live traction campaigns and active page paths only, including `portfolio_examples_share`, `job_template_share`, and `community_share`.
 - Run `setup()` with the latest Apps Script to add or refresh `Community Posts` before community posting.
 - Run `seedCommunityPosts()` to create the starter Reddit, Facebook, forum, and two-week calendar planned posts.
 
@@ -52,7 +49,7 @@ Deploy the Apps Script web app:
 5. Run `setup()`.
 6. Approve Sheets and send-email permissions.
 7. Run `seedCommunityPosts()`.
-8. Run `launchHealthCheck()` and confirm `ok: true` and `scriptVersion: "vej-2026-06-29-50p-french-editor"`.
+8. Run `launchHealthCheck()` and confirm `ok: true` and `scriptVersion: "vej-2026-06-29-tight-18p"`.
 9. Run `testSubmission()` and confirm it creates one editor row, one hiring row, and at least one `proposed` match row.
 10. Run `cleanupTestSubmissions()` to remove generated test rows and test matches.
 11. Run `suggestMatches()` later whenever new editor and hiring rows need proposed matches.
@@ -74,7 +71,7 @@ npm run smoke:intake
 npm run smoke:live -- https://videoeditorjobs.com --require-endpoint
 ```
 
-Confirm `contract.scriptVersion` from `npm run prepare:apps-script`, `launchHealthCheck().scriptVersion`, and `npm run smoke:intake` `health.scriptVersion` all match `vej-2026-06-29-50p-french-editor`.
+Confirm `contract.scriptVersion` from `npm run prepare:apps-script`, `launchHealthCheck().scriptVersion`, and `npm run smoke:intake` `health.scriptVersion` all match `vej-2026-06-29-tight-18p`.
 
 Also add the same `/exec` URL to Vercel as the production `VEJ_INTAKE_ENDPOINT` environment variable before the final deploy.
 

@@ -38,12 +38,12 @@ After each post:
 
 | Day | Platform | Audience | Angle | Target URL | Success Signal |
 | --- | --- | --- | --- | --- | --- |
-| 8 | Reddit | Editors | Remote editing workflow, not just location | `https://videoeditorjobs.com/remote-video-editing-jobs/?utm_source=reddit&utm_medium=community&utm_campaign=seo_resource` | Remote editors submit availability and tools |
-| 9 | Facebook | Editors | Pricing and revision load | `https://videoeditorjobs.com/blog/how-to-price-video-editing-work/?utm_source=facebook&utm_medium=group&utm_campaign=blog_guide` | Rate questions, rate ranges, or pricing objections |
-| 10 | Reddit comment | Hiring teams | Interview questions for editors | `https://videoeditorjobs.com/blog/video-editor-interview-questions/?utm_source=reddit&utm_medium=comment&utm_campaign=blog_guide` | Hiring teams ask about screening or portfolio review |
-| 11 | Forum | Editors | Early-career editor safety and scope | `https://videoeditorjobs.com/teen-video-editor-jobs/?utm_source=forum&utm_medium=community&utm_campaign=seo_resource` | Student or junior editors ask follow-up questions |
+| 8 | Reddit | Editors | Remote editing workflow, not just location | `https://videoeditorjobs.com/remote-video-editor-jobs/?utm_source=reddit&utm_medium=community&utm_campaign=seo_resource` | Remote editors submit availability and tools |
+| 9 | Facebook | Editors | Pricing and revision load | `https://videoeditorjobs.com/blog/freelance-video-editor-rates/?utm_source=facebook&utm_medium=group&utm_campaign=blog_guide` | Rate questions, rate ranges, or pricing objections |
+| 10 | Reddit comment | Hiring teams | Job description template answer | `https://videoeditorjobs.com/blog/video-editor-job-description-template/?utm_source=reddit&utm_medium=comment&utm_campaign=blog_guide` | Hiring teams ask about scope or portfolio review |
+| 11 | Forum | Editors | Portfolio proof for recurring work | `https://videoeditorjobs.com/blog/video-editor-portfolio-examples/?utm_source=forum&utm_medium=community&utm_campaign=blog_guide` | Editors ask how to show niche fit |
 | 12 | Reddit | Hiring teams | YouTube editor job description | `https://videoeditorjobs.com/blog/youtube-video-editor-job-description/?utm_source=reddit&utm_medium=community&utm_campaign=blog_guide` | YouTube or creator hiring briefs |
-| 13 | Facebook comment | Editors | Fresh editing alerts and early list | `https://videoeditorjobs.com/video-editor-jobs-last-3-days/?utm_source=facebook&utm_medium=comment&utm_campaign=seo_resource` | Editors ask whether jobs are live yet |
+| 13 | Facebook comment | Editors | Part-time recurring editor work | `https://videoeditorjobs.com/part-time-video-editor-jobs/?utm_source=facebook&utm_medium=comment&utm_campaign=seo_resource` | Editors share capacity or recurring-package preferences |
 | 14 | Internal review | Both | Decide next page or form change | `Source Summary` | Choose one evidence-backed improvement |
 
 ## Community Posts Rows To Seed
@@ -57,7 +57,7 @@ Add these rows to `Community Posts` if you want the calendar visible in the Shee
 | `cal-reddit-hiring-brief-001` | planned | reddit | hiring | useful hiring briefs | What details do editors need before judging a video editing gig? | `https://videoeditorjobs.com/hire-video-editor/?utm_source=reddit&utm_medium=community&utm_campaign=early_hiring_briefs` | reddit | community | early_hiring_briefs | find hiring-side community |
 | `cal-forum-job-fields-001` | planned | forum | both | job post field feedback | Which editing-specific details should every job post include? | `https://videoeditorjobs.com/video-editor-community/?utm_source=forum&utm_medium=community&utm_campaign=early_community` | forum | community | early_community | find relevant thread |
 | `cal-reddit-portfolio-001` | planned | reddit | editors | portfolio examples | What portfolio examples make an editor easier to hire? | `https://videoeditorjobs.com/blog/video-editor-portfolio-examples/?utm_source=reddit&utm_medium=comment&utm_campaign=blog_guide` | reddit | comment | blog_guide | use as reply only |
-| `cal-facebook-pricing-001` | planned | facebook | both | pricing and revisions | How do you price video editing when revision load is unclear? | `https://videoeditorjobs.com/blog/how-to-price-video-editing-work/?utm_source=facebook&utm_medium=group&utm_campaign=blog_guide` | facebook | group | blog_guide | review group rules |
+| `cal-facebook-pricing-001` | planned | facebook | both | pricing and revisions | How do you price video editing when revision load is unclear? | `https://videoeditorjobs.com/blog/freelance-video-editor-rates/?utm_source=facebook&utm_medium=group&utm_campaign=blog_guide` | facebook | group | blog_guide | review group rules |
 | `cal-reddit-youtube-brief-001` | planned | reddit | hiring | YouTube editor brief | What should a YouTube editor job description include beyond software? | `https://videoeditorjobs.com/blog/youtube-video-editor-job-description/?utm_source=reddit&utm_medium=community&utm_campaign=blog_guide` | reddit | community | blog_guide | find creator community |
 
 ## Reply Rules

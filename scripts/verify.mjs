@@ -1,6 +1,6 @@
 import { readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
-import { appPages, blogPosts, pages, site, toolPages, trustPages } from "../src/site-data.mjs";
+import { activeBlogPosts, activePages, appPages, site, trustPages } from "../src/site-data.mjs";
 
 const dist = new URL("../dist/", import.meta.url);
 const errors = [];
@@ -15,23 +15,16 @@ async function exists(path) {
 }
 
 const crawlPages = [
-  ...pages,
+  ...activePages,
   ...appPages,
-  ...toolPages,
   {
     slug: "blog",
     title: "Video Editor Jobs Blog: Editor Career and Hiring Guides",
     description:
-      "Guides for finding video editor jobs, hiring editors, writing briefs, building portfolios, setting rates, and understanding editing workflows.",
+      "Focused guides for finding video editor jobs, hiring editors, writing briefs, building portfolios, setting rates, and understanding creator editing workflows.",
     h1: "Video Editor Jobs Blog",
   },
-  {
-    slug: "search",
-    title: "Search Video Editor Jobs",
-    description: "Search Video Editor Jobs pages, hiring guides, editor resources, local pages, and community intake routes.",
-    h1: "Search Video Editor Jobs",
-  },
-  ...blogPosts.map((post) => ({
+  ...activeBlogPosts.map((post) => ({
     ...post,
     slug: `blog/${post.slug}`,
   })),
@@ -81,7 +74,7 @@ if (!rss.includes(`<title>${site.name} Blog</title>`)) {
   errors.push("rss.xml missing channel title");
 }
 
-for (const post of blogPosts) {
+for (const post of activeBlogPosts) {
   const url = `${site.origin}/blog/${post.slug}/`;
   if (!rss.includes(`<guid isPermaLink="true">${url}</guid>`)) {
     errors.push(`RSS missing ${url}`);

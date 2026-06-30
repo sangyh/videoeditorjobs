@@ -2,8 +2,6 @@ const fallbackRecipient = "sangy@rightjoin.co";
 const config = window.VEJ_CONFIG || {};
 const draftStoragePrefix = "vej:intake-draft:";
 const trackingStoragePrefix = "vej:tracking:";
-const briefBuilderStorageKey = "vej:brief-builder:hiring";
-const portfolioChecklistStorageKey = "vej:portfolio-checklist:editor";
 const consentText =
   "I agree to be contacted about video editor jobs, hiring matches, and community updates, and I accept the terms and privacy policy.";
 const trackingKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "ref"];
@@ -252,70 +250,9 @@ function restoreDraft(form) {
   }
 }
 
-function restoreBriefBuilderDraft(form) {
-  if (!storageAvailable()) return;
-  const kind = form.getAttribute("data-intake-kind") || "general";
-  if (kind !== "hiring") return;
-
-  let stored;
-  try {
-    stored = JSON.parse(window.localStorage.getItem(briefBuilderStorageKey) || "null");
-  } catch {
-    return;
-  }
-
-  if (!stored?.fields || typeof stored.fields !== "object") return;
-  let restored = false;
-
-  for (const [name, value] of Object.entries(stored.fields)) {
-    const field = form.elements.namedItem(name);
-    if (!field || !value || String(field.value || "").trim()) continue;
-    field.value = String(value);
-    restored = true;
-  }
-
-  if (restored) {
-    setStatus(form, "Brief builder draft loaded. Review the details before submitting.", "info");
-  }
-}
-
-function restorePortfolioChecklistDraft(form) {
-  if (!storageAvailable()) return;
-  const kind = form.getAttribute("data-intake-kind") || "general";
-  if (kind !== "editor") return;
-
-  let stored;
-  try {
-    stored = JSON.parse(window.localStorage.getItem(portfolioChecklistStorageKey) || "null");
-  } catch {
-    return;
-  }
-
-  if (!stored?.fields || typeof stored.fields !== "object") return;
-  let restored = false;
-
-  for (const [name, value] of Object.entries(stored.fields)) {
-    const field = form.elements.namedItem(name);
-    if (!field || !value || String(field.value || "").trim()) continue;
-    field.value = String(value);
-    restored = true;
-  }
-
-  if (restored) {
-    setStatus(form, "Portfolio checklist draft loaded. Review the details before submitting.", "info");
-  }
-}
-
 function clearDraft(form) {
   if (!storageAvailable()) return;
   window.localStorage.removeItem(draftKey(form));
-  const kind = form.getAttribute("data-intake-kind") || "general";
-  if (kind === "hiring") {
-    window.localStorage.removeItem(briefBuilderStorageKey);
-  }
-  if (kind === "editor") {
-    window.localStorage.removeItem(portfolioChecklistStorageKey);
-  }
 }
 
 function openEmailFallback(form, payload) {
@@ -366,8 +303,6 @@ document.querySelectorAll("form[data-intake-kind]").forEach((form) => {
   const button = form.querySelector('button[type="submit"]');
   if (button) button.dataset.originalText = button.textContent;
   restoreDraft(form);
-  restoreBriefBuilderDraft(form);
-  restorePortfolioChecklistDraft(form);
 
   form.addEventListener("input", () => writeDraft(form));
   form.addEventListener("change", () => {
