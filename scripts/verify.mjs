@@ -1,5 +1,6 @@
 import { readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
+import { assetFiles } from "../src/asset-manifest.mjs";
 import { activeBlogPosts, activePages, appPages, jobBoardPage, site, trustPages } from "../src/site-data.mjs";
 
 const dist = new URL("../dist/", import.meta.url);
@@ -97,9 +98,9 @@ for (const needle of [
   }
 }
 
-for (const asset of ["styles.css", "forms.js", "editor-workstation.svg", "video-editor-jobs-og.svg", "favicon.svg"]) {
-  if (!(await exists(join(dist.pathname, "assets", asset)))) {
-    errors.push(`Missing asset: ${asset}`);
+for (const { destination } of assetFiles) {
+  if (!(await exists(join(dist.pathname, destination)))) {
+    errors.push(`Missing asset: ${destination}`);
   }
 }
 

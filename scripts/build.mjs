@@ -6,7 +6,6 @@ import {
   activePages,
   appPages,
   jobBoardPage,
-  keywords,
   nav,
   sampleJobs,
   site,
@@ -14,6 +13,7 @@ import {
 } from "../src/site-data.mjs";
 import { jobFeedMeta as externalJobFeedMeta, liveJobs as externalJobs } from "../src/jobs-data.mjs";
 import { sheetJobFeedMeta, sheetJobs } from "../src/sheet-jobs-data.mjs";
+import { assetFiles } from "../src/asset-manifest.mjs";
 import { defaultIntakeEndpoint, loadLocalEnv } from "./env.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -29,7 +29,7 @@ const jobFeedMeta = {
   sourceCount: new Set([...sheetJobFeedMeta.sources, ...externalJobFeedMeta.sources]).size,
   sources: [...new Set([...sheetJobFeedMeta.sources, ...externalJobFeedMeta.sources])].sort(),
 };
-const assetVersion = "20260629-checkbox";
+const assetVersion = "20260714-plum-bone";
 
 const escapeHtml = (value = "") =>
   String(value)
@@ -248,6 +248,9 @@ function head({ title, description, slug, h1, faq, extraJsonLd = "", robots = "i
     <meta name="twitter:image" content="${site.origin}/assets/video-editor-jobs-og.svg">
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
     <link rel="alternate" type="application/rss+xml" title="${escapeAttr(site.name)} Blog" href="${site.origin}/rss.xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;display=swap">
     <link rel="stylesheet" href="/assets/styles.css?v=${assetVersion}">
     ${baseJsonLd({ title, description, h1, faq }, canonical)}
     ${extraJsonLd}
@@ -560,6 +563,40 @@ function jobCards(jobs = liveJobs, limit = liveJobs.length) {
     .join("");
 }
 
+function homeJobRows(jobs) {
+  const thumbnails = [
+    "/assets/home-reel-mountain.jpg",
+    "/assets/home-reel-editor.jpg",
+    "/assets/home-reel-city.jpg",
+  ];
+
+  return jobs
+    .slice(0, 3)
+    .map((job, index) => {
+      const thumbnail = thumbnails[index % thumbnails.length];
+      const tags = [...new Set([job.roleFamily, ...(job.tags || [])].filter(Boolean))].slice(0, 3);
+
+      return `<article class="home-job-row">
+        <div class="home-job-thumbnail" aria-hidden="true">
+          <img src="${thumbnail}" alt="" loading="lazy">
+        </div>
+        <div class="home-job-main">
+          <h3><a href="${escapeAttr(job.sourceUrl)}" rel="nofollow noopener" target="_blank">${escapeHtml(job.title)}</a></h3>
+          <p>${escapeHtml(job.company)} <span aria-hidden="true">·</span> ${escapeHtml(job.location)}</p>
+          <div class="home-job-tags">
+            ${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}
+          </div>
+        </div>
+        <div class="home-job-posted">
+          <span>Posted</span>
+          <time datetime="${escapeAttr(job.dateListed)}">${escapeHtml(toDisplayDate(job.dateListed))}</time>
+        </div>
+        <a class="home-job-open" href="${escapeAttr(job.sourceUrl)}" rel="nofollow noopener" target="_blank" aria-label="View ${escapeAttr(job.title)} at the original source">&rarr;</a>
+      </article>`;
+    })
+    .join("");
+}
+
 function pageCards(currentSlug) {
   return activePages
     .filter((page) => page.slug && page.slug !== currentSlug)
@@ -624,67 +661,66 @@ function faqMarkup(page) {
 }
 
 function renderLandingPage(page) {
-  const body = `<section class="hero">
-    <div class="hero-copy">
-      <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
-      <h1>${escapeHtml(page.h1)}</h1>
-      <p class="lede">${escapeHtml(page.intro)}</p>
-      <p class="intent">${escapeHtml(page.intent)}</p>
-    </div>
-    <div class="hero-art" aria-label="Video editing timeline and job board preview">
-      <img src="/assets/editor-workstation.svg" alt="Editing timeline beside video editor job listings">
+  const preferredHomeJobs = liveJobs.filter(
+    (job) => job.confidence === "direct" && !/(low pay|partnership|one piece fan)/i.test(job.title)
+  );
+
+  const body = `<section class="home-hero">
+    <div class="home-hero-inner">
+      <div class="home-hero-copy">
+        <h1>${escapeHtml(page.h1)}</h1>
+        <p class="home-hero-lede">${escapeHtml(page.intro)}</p>
+        <p class="home-hero-intent">${escapeHtml(page.intent)}</p>
+        <div class="home-hero-actions">
+          <a class="home-button light" href="/jobs/">Explore jobs <span aria-hidden="true">&rarr;</span></a>
+          <a class="home-button ghost" href="/editors/">Join as editor <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        <div class="home-proof" aria-label="Marketplace signals">
+          <span><strong>${liveJobs.length}</strong> live listings</span>
+          <span>Source-linked</span>
+          <span>Focused on creator teams</span>
+        </div>
+      </div>
+      <div class="home-reel" aria-label="A reel of documentary, podcast, and city production work">
+        <figure>
+          <img src="/assets/home-reel-mountain.jpg" alt="Documentary frame of a creator overlooking a mountain lake" fetchpriority="high">
+        </figure>
+        <figure>
+          <img src="/assets/home-reel-editor.jpg" alt="Video editor and podcast producer working in a warm studio">
+        </figure>
+        <figure>
+          <img src="/assets/home-reel-city.jpg" alt="City skyline at dusk across the water">
+        </figure>
+      </div>
     </div>
   </section>
 
-  <section class="signal-strip" aria-label="Launch search signals">
-    <span>Editor profiles first</span>
-    <span>Hiring briefs in a separate queue</span>
-    <span>Manual matching from real submissions</span>
-  </section>
-
-  <section class="band app-split" id="join">
-    <div class="section-head">
-      <p>Start here</p>
-      <h2>Two paths, one focused market</h2>
-    </div>
-    <div class="path-grid">
-      <article class="path-panel">
-        <span>Editors</span>
-        <h3>Share your portfolio and work preferences</h3>
-        <p>Remote, freelance, YouTube, short-form, podcast, assistant editor, brand, agency, and studio work.</p>
-        <a class="button primary" href="/editors/">Join the editor list</a>
-      </article>
-      <article class="path-panel hire">
-        <span>Hiring teams</span>
-        <h3>Send a brief editors can actually evaluate</h3>
-        <p>Budget, format, deliverables, deadline, software, references, review process, and location or timezone.</p>
-        <a class="button secondary" href="/hire-video-editor/">Submit a hiring brief</a>
-      </article>
+  <section class="home-workflow" aria-labelledby="home-workflow-title">
+    <div class="home-workflow-inner">
+      <div class="home-workflow-title">
+        <span class="home-workflow-icon" aria-hidden="true">&#x2637;</span>
+        <h2 id="home-workflow-title">Match by workflow</h2>
+      </div>
+      <nav class="home-workflow-links" aria-label="Browse jobs by workflow">
+        <a href="/video-editing-jobs/"><span>Format</span><strong>All formats</strong></a>
+        <a href="/freelance-video-editor-jobs/"><span>Turnaround</span><strong>Freelance and contract</strong></a>
+        <a href="/youtube-video-editor-jobs/"><span>Specialty</span><strong>YouTube and creator</strong></a>
+        <a href="/remote-video-editor-jobs/"><span>Location</span><strong>Remote roles</strong></a>
+        <a class="home-workflow-search" href="/jobs/">Search workflows <span aria-hidden="true">&rarr;</span></a>
+      </nav>
     </div>
   </section>
 
-  <section class="band categories">
-    <div class="section-head">
-      <p>Search map</p>
-      <h2>Built around the phrases editors already use</h2>
-    </div>
-    <div class="keyword-grid">
-      ${keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}
-    </div>
-  </section>
-
-  <section class="band live-jobs-preview">
-    <div class="section-head">
-      <p>Live jobs</p>
-      <h2>Real listings with dates and source links</h2>
-    </div>
-    <div class="job-board-summary">
-      <span>${liveJobs.length} listings</span>
-      <span>Updated ${escapeHtml(toDisplayDate(jobFeedMeta.generatedAt.slice(0, 10)))}</span>
-      <span>${jobFeedMeta.sourceCount} attributed sources</span>
-    </div>
-    <div class="live-job-grid compact">${jobCards(liveJobs, 6)}</div>
-    <a class="button primary" href="/jobs/">Browse all jobs</a>
+  <section class="home-opportunities band">
+    <header class="home-opportunities-head">
+      <div>
+        <p>Real listings with dates and source links</p>
+        <h2>Live opportunities <span>${liveJobs.length} live</span></h2>
+      </div>
+      <a href="/jobs/">Browse all jobs <span aria-hidden="true">&rarr;</span></a>
+    </header>
+    <div class="home-job-list">${homeJobRows(preferredHomeJobs)}</div>
+    <p class="home-match-note"><strong>Manual matching from real submissions.</strong> Hiring teams can <a href="/hire-video-editor/">send one clear brief</a> with budget, format, deliverables, and review cadence.</p>
   </section>
 
   <section class="band split">
@@ -695,7 +731,7 @@ function renderLandingPage(page) {
     <div class="job-stack">${sampleJobRows()}</div>
   </section>
 
-  <section class="band editorial">
+  <section class="band editorial home-editorial">
     ${page.sections
       .map(
         (section) => `<article>
@@ -724,7 +760,7 @@ function renderLandingPage(page) {
 
   ${faqMarkup(page)}`;
 
-  return shell({ page, body });
+  return shell({ page, body, extraClass: "home-page" });
 }
 
 function renderCollectionPage(page) {
@@ -1337,10 +1373,8 @@ await writeFile(join(dist, "sitemap.xml"), sitemap());
 await writeFile(join(dist, "robots.txt"), robots());
 await writeFile(join(dist, "rss.xml"), rss());
 await writeFile(join(dist, "llms.txt"), llmsTxt());
-await copyFile(join(root, "src", "styles.css"), join(dist, "assets", "styles.css"));
-await copyFile(join(root, "src", "forms.js"), join(dist, "assets", "forms.js"));
-await copyFile(join(root, "src", "assets", "editor-workstation.svg"), join(dist, "assets", "editor-workstation.svg"));
-await copyFile(join(root, "src", "assets", "video-editor-jobs-og.svg"), join(dist, "assets", "video-editor-jobs-og.svg"));
-await copyFile(join(root, "src", "assets", "favicon.svg"), join(dist, "assets", "favicon.svg"));
+await Promise.all(
+  assetFiles.map(({ source, destination }) => copyFile(join(root, "src", source), join(dist, destination)))
+);
 
 console.log(`Built ${allCrawlPages.length} pages in dist/`);

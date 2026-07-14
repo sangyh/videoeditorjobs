@@ -110,6 +110,10 @@ requireIncludes(hiringHtml, 'name="brief"', "hiring brief field");
 
 requireIncludes(homeHtml, "creator teams", "home creator-team positioning");
 requireIncludes(homeHtml, "Manual matching from real submissions", "home manual matching signal");
+requireIncludes(homeHtml, 'class="home-hero"', "home Plum and Bone hero");
+requireIncludes(homeHtml, "Find editors with the right eye, or work that fits yours.", "home selected direction copy");
+requireIncludes(homeHtml, 'class="home-workflow"', "home workflow navigation");
+requireIncludes(homeHtml, 'class="home-job-list"', "home live opportunity list");
 requireIncludes(homeHtml, 'href="/jobs/"', "home jobs link");
 requireIncludes(homeHtml, "Real listings with dates and source links", "home live jobs section");
 requireIncludes(homeHtml, 'href="/editors/"', "home editor CTA");

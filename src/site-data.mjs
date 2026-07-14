@@ -107,9 +107,9 @@ export const pages = [
     h1: "Video Editor Jobs",
     eyebrow: "A focused job board for editors",
     intro:
-      "One place for editing work: creator teams, agencies, brands, podcasts, studios, and remote-first production teams.",
+      "Find editors with the right eye, or work that fits yours.",
     intent:
-      "The first version collects editor profiles and hiring briefs while crawlable job-category pages start building search demand.",
+      "Source-linked video editor jobs for creator teams, agencies, brands, podcasts, studios, and remote-first production teams.",
     pageType: "home",
     sections: [
       {
