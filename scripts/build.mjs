@@ -29,7 +29,7 @@ const jobFeedMeta = {
   sourceCount: new Set([...sheetJobFeedMeta.sources, ...externalJobFeedMeta.sources]).size,
   sources: [...new Set([...sheetJobFeedMeta.sources, ...externalJobFeedMeta.sources])].sort(),
 };
-const assetVersion = "20260714-mock-parity";
+const assetVersion = "20260714-mock-parity-2";
 
 const escapeHtml = (value = "") =>
   String(value)
@@ -760,7 +760,6 @@ function renderLandingPage(page) {
       <a href="/jobs/">Browse all jobs <span aria-hidden="true">&rarr;</span></a>
     </header>
     <div class="home-job-list">${homeJobRows(preferredHomeJobs)}</div>
-    <p class="home-match-note"><strong>Manual matching from real submissions.</strong> Hiring teams can <a href="/hire-video-editor/">send one clear brief</a> with budget, format, deliverables, and review cadence.</p>
   </section>`;
 
   return shell({ page, body, extraClass: "home-page" });

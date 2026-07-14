@@ -109,7 +109,7 @@ requireIncludes(hiringHtml, 'name="reference_urls"', "hiring reference URLs fiel
 requireIncludes(hiringHtml, 'name="brief"', "hiring brief field");
 
 requireIncludes(homeHtml, "creator teams", "home creator-team positioning");
-requireIncludes(homeHtml, "Manual matching from real submissions", "home manual matching signal");
+requireExcludes(homeHtml, "Manual matching from real submissions", "home post-mock matching note");
 requireIncludes(homeHtml, 'class="home-hero"', "home Plum and Bone hero");
 requireIncludes(homeHtml, "Find editors with the right eye, or work that fits yours.", "home selected direction copy");
 requireIncludes(homeHtml, 'class="home-workflow"', "home workflow navigation");
