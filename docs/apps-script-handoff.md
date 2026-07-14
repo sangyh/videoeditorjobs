@@ -46,7 +46,7 @@ npm run verify:apps-script
 7. Approve Sheets and send-email permissions.
 8. Run `seedCommunityPosts()`.
 9. Run `launchHealthCheck()`.
-10. Confirm it returns `ok: true`, `scriptVersion: "vej-2026-06-30-tight-17p"`, `expectedSeeds: 11`, `presentSeeds: 11`, and no missing headers or seed IDs.
+10. Confirm it returns `ok: true`, `scriptVersion: "vej-2026-07-14-public-jobs-200"`, `expectedSeeds: 11`, `presentSeeds: 11`, and no missing headers or seed IDs.
 11. Run `testSubmission()`.
 12. Confirm planned rows appear in `Community Posts`, one test row appears in `Editors`, one in `Hiring Requests`, at least one `proposed` row appears in `Matches`, `Dashboard` shows live counts, and `Source Summary` counts `apps_script` source plus `integration_test` campaign.
 13. Run `cleanupTestSubmissions()` to remove only generated test rows and proposed test matches.
@@ -69,7 +69,7 @@ Before deployment, run `launchHealthCheck()` inside Apps Script. It safely runs 
 ```json
 {
   "ok": true,
-  "scriptVersion": "vej-2026-06-30-tight-17p",
+  "scriptVersion": "vej-2026-07-14-public-jobs-200",
   "communityPosts": {
     "expectedSeeds": 11,
     "presentSeeds": 11,
@@ -85,7 +85,7 @@ Open the deployed `/exec` URL in a browser. It should return JSON similar to:
 ```json
 {
   "ok": true,
-  "scriptVersion": "vej-2026-06-30-tight-17p",
+  "scriptVersion": "vej-2026-07-14-public-jobs-200",
   "spreadsheetId": "19Hx9jc-cMI2yjYAzSG5NVca8yABCTLygomKs59CuTXI",
   "spreadsheetName": "Video Editor Jobs Intake",
   "sheets": ["Setup", "Editors", "Hiring Requests", "Matches", "Dashboard", "Source Summary"]
@@ -121,7 +121,7 @@ npm run smoke:intake
 Expected:
 
 - the command returns JSON with `ok: true`
-- the command returns `health.scriptVersion` matching `vej-2026-06-30-tight-17p`
+- the command returns `health.scriptVersion` matching `vej-2026-07-14-public-jobs-200`
 - one smoke editor row appears in `Editors`
 - one smoke hiring row appears in `Hiring Requests`
 - `Dashboard` counts update after rows land

@@ -124,6 +124,27 @@ async function getHealth() {
   return json;
 }
 
+async function getPublicJobs() {
+  const url = new URL(endpoint);
+  url.searchParams.set("action", "jobs");
+  const response = await fetch(url);
+  const text = await response.text();
+  const json = JSON.parse(text);
+  if (!response.ok || !json.ok || !Array.isArray(json.jobs)) {
+    throw new Error(`Public jobs check failed. HTTP ${response.status}: ${text.slice(0, 300)}`);
+  }
+  if (json.jobs.length < 200) {
+    throw new Error(`Public jobs check returned ${json.jobs.length} jobs; expected at least 200`);
+  }
+  const forbidden = ["email", "consent", "consentText", "raw_payload", "rawPayload", "brief", "notes"];
+  for (const job of json.jobs) {
+    for (const field of forbidden) {
+      if (Object.prototype.hasOwnProperty.call(job, field)) throw new Error(`Public job exposed forbidden field ${field}`);
+    }
+  }
+  return { jobCount: json.jobs.length, generatedAt: json.generatedAt };
+}
+
 async function post(payload) {
   const response = await fetch(endpoint, {
     method: "POST",
@@ -162,6 +183,7 @@ async function post(payload) {
 }
 
 const health = await getHealth();
+const publicJobs = await getPublicJobs();
 const editorResult = await post(payload("editor"));
 const hiringResult = await post(payload("hiring"));
 
@@ -173,6 +195,7 @@ console.log(
       expectedScriptVersion,
       healthScriptVersion: health.scriptVersion,
       health,
+      publicJobs,
       editorResult,
       hiringResult,
     },

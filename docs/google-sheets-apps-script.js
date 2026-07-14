@@ -12,7 +12,7 @@ const CONFIG = {
   confirmationEmailName: "Video Editor Jobs",
 };
 
-const SCRIPT_VERSION = "vej-2026-06-30-tight-17p";
+const SCRIPT_VERSION = "vej-2026-07-14-public-jobs-200";
 
 const HEADERS = [
   "created_at",
@@ -300,7 +300,11 @@ function doPost(event) {
   }
 }
 
-function doGet() {
+function doGet(event) {
+  if (event && event.parameter && event.parameter.action === "jobs") {
+    return jsonResponse(publicJobs());
+  }
+
   const spreadsheet = SpreadsheetApp.openById(CONFIG.spreadsheetId);
   return jsonResponse({
     ok: true,
@@ -310,6 +314,55 @@ function doGet() {
     sheets: spreadsheet.getSheets().map((sheet) => sheet.getName()),
     checkedAt: new Date().toISOString(),
   });
+}
+
+function publicJobs() {
+  const sheet = getOrCreateSheet(CONFIG.hiringSheetName);
+  const values = sheet.getDataRange().getDisplayValues();
+  const headers = values.shift() || [];
+  const jobs = values
+    .map((row) => rowToObject(row, headers))
+    .filter(
+      (row) =>
+        String(row.kind || "").toLowerCase() === "hiring" &&
+        String(row.source_bucket || "").toLowerCase() === "reddit.com" &&
+        /^https:\/\/(www\.)?reddit\.com\/r\/VideoEditingJobs\/comments\//i.test(String(row.page_url || ""))
+    )
+    .map(toPublicJob)
+    .sort((a, b) => String(b.dateListed).localeCompare(String(a.dateListed)) || String(a.id).localeCompare(String(b.id)));
+
+  return {
+    ok: true,
+    scriptVersion: SCRIPT_VERSION,
+    generatedAt: new Date().toISOString(),
+    jobCount: jobs.length,
+    jobs,
+  };
+}
+
+function rowToObject(row, headers) {
+  const record = {};
+  headers.forEach((header, index) => {
+    if (header) record[header] = row[index];
+  });
+  return record;
+}
+
+function toPublicJob(row) {
+  const username = String(row.name || "").replace(/^u\//i, "").trim();
+  return {
+    id: String(row.submission_id || "").trim(),
+    title: String(row.page_title || row.role_type || row.primary_fit || "Video editor needed").trim(),
+    company: String(row.company || "").trim() || (username ? `u/${username}` : "Reddit hiring post"),
+    location: String(row.location || row.work_preference || "Remote / see post").trim(),
+    dateListed: String(row.created_at || "").slice(0, 10),
+    sourceName: "Reddit: r/VideoEditingJobs",
+    sourceType: "community hiring post",
+    sourceUrl: String(row.page_url || "").trim(),
+    roleFamily: String(row.role_type || row.primary_fit || "Video editing").trim(),
+    confidence: "direct",
+    tags: [row.content_format, row.budget, row.timeline].map((value) => String(value || "").trim()).filter(Boolean).slice(0, 3),
+  };
 }
 
 function setup() {

@@ -233,7 +233,13 @@ for (const scope of ["https://www.googleapis.com/auth/spreadsheets", "https://ww
 }
 
 for (const needle of [
-  "function doGet()",
+  "function doGet(event)",
+  "function publicJobs()",
+  "function rowToObject(row, headers)",
+  "function toPublicJob(row)",
+  "event.parameter.action === \"jobs\"",
+  "source_bucket",
+  "Reddit: r/VideoEditingJobs",
   "function doPost(event)",
   "scriptVersion: SCRIPT_VERSION",
   "LockService.getScriptLock",

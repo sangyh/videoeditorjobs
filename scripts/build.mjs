@@ -12,13 +12,23 @@ import {
   site,
   trustPages,
 } from "../src/site-data.mjs";
-import { jobFeedMeta, liveJobs } from "../src/jobs-data.mjs";
+import { jobFeedMeta as externalJobFeedMeta, liveJobs as externalJobs } from "../src/jobs-data.mjs";
+import { sheetJobFeedMeta, sheetJobs } from "../src/sheet-jobs-data.mjs";
 import { defaultIntakeEndpoint, loadLocalEnv } from "./env.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const dist = join(root, "dist");
 await loadLocalEnv();
 const intakeEndpoint = process.env.VEJ_INTAKE_ENDPOINT || defaultIntakeEndpoint;
+const liveJobs = [...sheetJobs, ...externalJobs].filter(
+  (job, index, jobs) => jobs.findIndex((candidate) => candidate.sourceUrl === job.sourceUrl) === index
+);
+const jobFeedMeta = {
+  generatedAt: [sheetJobFeedMeta.generatedAt, externalJobFeedMeta.generatedAt].sort().at(-1),
+  jobCount: liveJobs.length,
+  sourceCount: new Set([...sheetJobFeedMeta.sources, ...externalJobFeedMeta.sources]).size,
+  sources: [...new Set([...sheetJobFeedMeta.sources, ...externalJobFeedMeta.sources])].sort(),
+};
 const assetVersion = "20260629-checkbox";
 
 const escapeHtml = (value = "") =>
@@ -813,7 +823,7 @@ function renderJobsPage() {
   <section class="band editorial">
     <article>
       <h2>How this feed is seeded</h2>
-      <p>The refresh pipeline pulls public APIs, RSS feeds, and official company job boards, keeps only source-attributed link-out listings, dedupes by company, title, and location, then ranks direct video editing roles first.</p>
+      <p>The refresh pipeline publishes public hiring posts from the Reddit demand tracker alongside public APIs, RSS feeds, and official company job boards. It keeps only source-attributed link-out listings and never exposes private intake fields.</p>
     </article>
     <article>
       <h2>Why some roles are adjacent</h2>

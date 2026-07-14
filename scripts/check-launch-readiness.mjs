@@ -132,7 +132,7 @@ if (canonicalAppsScript !== projectAppsScript) {
 }
 
 for (const needle of [
-  "vej-2026-06-30-tight-17p",
+  "vej-2026-07-14-public-jobs-200",
   "function launchHealthCheck()",
   "portfolio_examples_share",
   "/part-time-video-editor-jobs/",

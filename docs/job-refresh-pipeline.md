@@ -1,10 +1,12 @@
 # Job Refresh Pipeline
 
-The job board is seeded from source-attributed listings, not copied Reddit posts.
+The job board combines public Reddit hiring posts tracked in the private intake sheet with other source-attributed listings.
 
 ## What The Pipeline Does
 
-`npm run refresh:jobs` runs `scripts/refresh-jobs.mjs` and writes `src/jobs-data.mjs`.
+`npm run sync:sheet-jobs` calls the Apps Script `?action=jobs` view and writes `src/sheet-jobs-data.mjs`. That endpoint returns only public job-card fields from Reddit rows; email, consent, notes, and raw payload fields stay private. The Vercel build runs this sync automatically and preserves the committed feed if Google is temporarily unavailable.
+
+`npm run refresh:jobs` runs `scripts/refresh-jobs.mjs` and writes the supplemental `src/jobs-data.mjs` feed.
 
 The script:
 
@@ -13,7 +15,7 @@ The script:
 - classifies each job as `direct`, `near`, or `adjacent`;
 - dedupes by company, title, and location;
 - ranks direct video editing roles first, then creator-side and adjacent creative roles;
-- writes exactly 50 listings by default.
+- writes up to 50 supplemental listings by default.
 
 ## Current Source Mix
 
@@ -54,8 +56,9 @@ Run daily during the seed period. After the site has direct employer submissions
 
 A refresh is good when:
 
-- `src/jobs-data.mjs` has `jobCount: 50`;
+- `src/sheet-jobs-data.mjs` has the expected Reddit inventory and unique source URLs;
+- `src/jobs-data.mjs` has the supplemental public-feed inventory;
 - every job has `dateListed` and `sourceUrl`;
-- `/jobs/` renders 50 cards;
+- `/jobs/` renders the combined Reddit and supplemental inventory;
 - `npm run verify` passes;
 - direct video/editing jobs appear before broad adjacent creative roles.

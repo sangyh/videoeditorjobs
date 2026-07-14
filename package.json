@@ -7,7 +7,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "npm run build && npm run verify && npm run verify:app && npm run verify:apps-script",
-    "vercel-build": "node scripts/build.mjs && node scripts/verify.mjs && node scripts/verify-app.mjs && ls -la dist",
+    "vercel-build": "node scripts/sync-sheet-jobs.mjs && node scripts/build.mjs && node scripts/verify.mjs && node scripts/verify-app.mjs && ls -la dist",
     "verify": "node scripts/verify.mjs",
     "verify:app": "node scripts/verify-app.mjs",
     "verify:apps-script": "node scripts/verify-apps-script-contract.mjs",
@@ -15,6 +15,7 @@
     "smoke:intake": "node scripts/smoke-intake-endpoint.mjs",
     "smoke:live": "node scripts/smoke-live-site.mjs",
     "refresh:jobs": "node scripts/refresh-jobs.mjs",
+    "sync:sheet-jobs": "node scripts/sync-sheet-jobs.mjs",
     "configure:endpoint": "node scripts/configure-intake-endpoint.mjs",
     "prepare:apps-script": "node scripts/prepare-apps-script-deploy.mjs",
     "sync:apps-script": "node scripts/sync-apps-script.mjs",

@@ -125,6 +125,8 @@ requireIncludes(communityHtml, 'href="/editors/"', "community editor CTA");
 requireIncludes(communityHtml, 'href="/hire-video-editor/"', "community hiring CTA");
 requireIncludes(jobsHtml, "<h1>Real video and creator-side jobs</h1>", "jobs h1");
 requireIncludes(jobsHtml, "source-attributed jobs", "jobs count summary");
+requireIncludes(jobsHtml, "250 source-attributed jobs", "combined jobs count");
+requireIncludes(jobsHtml, "Reddit: r/VideoEditingJobs", "Reddit jobs source label");
 requireIncludes(jobsHtml, "View original listing", "jobs outbound links");
 
 requireIncludes(searchHtml, '<meta name="robots" content="noindex, follow">', "search noindex");
@@ -178,7 +180,7 @@ if (canonicalAppsScript !== projectAppsScript) {
 }
 
 for (const needle of [
-  "vej-2026-06-30-tight-17p",
+  "vej-2026-07-14-public-jobs-200",
   "portfolio_examples_share",
   "/part-time-video-editor-jobs/",
   "/blog/freelance-video-editor-rates/",

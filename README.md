@@ -9,7 +9,7 @@ Use [docs/guiding-principles.md](docs/guiding-principles.md) as the ICP and prod
 ## What is included
 
 - Homepage targeting `video editor jobs`
-- `/jobs/` with 50 source-attributed live jobs, date listed, source labels, and outbound application links
+- `/jobs/` with 200 Reddit hiring posts plus the existing source-attributed feed, dates, source labels, and outbound application links
 - A tight crawl set for remote, freelance, YouTube, part-time, community, and creator-workflow searches
 - `/editors/` intake page for video editors
 - `/hire-video-editor/` intake page for hiring teams and post-a-job intent
@@ -46,7 +46,7 @@ npm run prepare:apps-script
 
 `npm run check` runs build, SEO verification, and app-intake verification in sequence.
 
-`npm run refresh:jobs` refreshes `src/jobs-data.mjs` from public APIs, RSS feeds, and official company job-board APIs. Use [docs/job-refresh-pipeline.md](docs/job-refresh-pipeline.md) for source rules, cadence, and cache/debug options.
+`npm run sync:sheet-jobs` refreshes `src/sheet-jobs-data.mjs` from the safe public-jobs view of the Apps Script endpoint. `npm run refresh:jobs` separately refreshes `src/jobs-data.mjs` from public APIs, RSS feeds, and official company job-board APIs. Use [docs/job-refresh-pipeline.md](docs/job-refresh-pipeline.md) for source rules and deployment behavior.
 
 `npm run launch:ready` runs the full local gate and checks the generated launch bundle, Apps Script sync, Sheet setup docs, 18-URL sitemap count, noindex utility pages, and endpoint configuration state.
 
