@@ -113,14 +113,21 @@ requireIncludes(homeHtml, "Manual matching from real submissions", "home manual 
 requireIncludes(homeHtml, 'class="home-hero"', "home Plum and Bone hero");
 requireIncludes(homeHtml, "Find editors with the right eye, or work that fits yours.", "home selected direction copy");
 requireIncludes(homeHtml, 'class="home-workflow"', "home workflow navigation");
+requireIncludes(homeHtml, "Any format", "home format workflow filter");
+requireIncludes(homeHtml, "Any timeframe", "home turnaround workflow filter");
+requireIncludes(homeHtml, "Any software", "home software workflow filter");
+requireIncludes(homeHtml, "Any cadence", "home review cadence workflow filter");
 requireIncludes(homeHtml, 'class="home-job-list"', "home live opportunity list");
 requireIncludes(homeHtml, 'href="/jobs/"', "home jobs link");
 requireIncludes(homeHtml, "Real listings with on-platform applications", "home live jobs section");
-requireIncludes(homeHtml, "On-platform applications", "home application model");
+requireIncludes(homeHtml, "on-platform applications", "home application model");
 requireIncludes(homeHtml, 'href="/editors/"', "home editor CTA");
 requireIncludes(homeHtml, 'href="/hire-video-editor/"', "home hiring CTA");
 requireExcludes(homeHtml, 'href="/post-video-editor-job/"', "home duplicate post-job CTA");
 requireIncludes(homeHtml, 'href="/video-editor-community/"', "home community link");
+requireExcludes(homeHtml, "Categories the feed is learning from", "home post-mock role examples");
+requireExcludes(homeHtml, "Guides that support better matches", "home post-mock guide cards");
+requireExcludes(homeHtml, "The few routes worth testing first", "home post-mock route grid");
 
 requireIncludes(blogHtml, "creator teams scoping recurring work", "blog tight positioning");
 requireIncludes(blogHtml, "Video editor portfolio examples", "blog portfolio examples");
