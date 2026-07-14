@@ -542,6 +542,20 @@ function confidenceLabel(confidence) {
   return "Adjacent creative role";
 }
 
+function jobApplyUrl(job) {
+  const existingId = String(job.id || "");
+  if (/^job-[a-z0-9]+$/i.test(existingId)) {
+    return `/editors/?job=${encodeURIComponent(existingId)}`;
+  }
+
+  let hash = 2166136261;
+  for (const character of `${existingId}|${job.title}|${job.dateListed}`) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return `/editors/?job=job-${(hash >>> 0).toString(36)}`;
+}
+
 function jobCards(jobs = liveJobs, limit = liveJobs.length) {
   return jobs
     .slice(0, limit)
@@ -555,9 +569,9 @@ function jobCards(jobs = liveJobs, limit = liveJobs.length) {
         <p>${escapeHtml(job.company)} · ${escapeHtml(job.location)}</p>
         <div class="job-meta">
           <span>${escapeHtml(job.roleFamily)}</span>
-          <span>${escapeHtml(job.sourceName)}</span>
+          <span>Apply through VideoEditorJobs</span>
         </div>
-        <a href="${escapeAttr(job.sourceUrl)}" rel="nofollow noopener" target="_blank">View original listing</a>
+        <a href="${escapeAttr(jobApplyUrl(job))}">Apply on VideoEditorJobs</a>
       </article>`
     )
     .join("");
@@ -581,7 +595,7 @@ function homeJobRows(jobs) {
           <img src="${thumbnail}" alt="" loading="lazy">
         </div>
         <div class="home-job-main">
-          <h3><a href="${escapeAttr(job.sourceUrl)}" rel="nofollow noopener" target="_blank">${escapeHtml(job.title)}</a></h3>
+          <h3><a href="${escapeAttr(jobApplyUrl(job))}">${escapeHtml(job.title)}</a></h3>
           <p>${escapeHtml(job.company)} <span aria-hidden="true">·</span> ${escapeHtml(job.location)}</p>
           <div class="home-job-tags">
             ${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}
@@ -591,7 +605,7 @@ function homeJobRows(jobs) {
           <span>Posted</span>
           <time datetime="${escapeAttr(job.dateListed)}">${escapeHtml(toDisplayDate(job.dateListed))}</time>
         </div>
-        <a class="home-job-open" href="${escapeAttr(job.sourceUrl)}" rel="nofollow noopener" target="_blank" aria-label="View ${escapeAttr(job.title)} at the original source">&rarr;</a>
+        <a class="home-job-open" href="${escapeAttr(jobApplyUrl(job))}" aria-label="Apply for ${escapeAttr(job.title)} on VideoEditorJobs">&rarr;</a>
       </article>`;
     })
     .join("");
@@ -677,7 +691,7 @@ function renderLandingPage(page) {
         </div>
         <div class="home-proof" aria-label="Marketplace signals">
           <span><strong>${liveJobs.length}</strong> live listings</span>
-          <span>Source-linked</span>
+          <span>On-platform applications</span>
           <span>Focused on creator teams</span>
         </div>
       </div>
@@ -714,7 +728,7 @@ function renderLandingPage(page) {
   <section class="home-opportunities band">
     <header class="home-opportunities-head">
       <div>
-        <p>Real listings with dates and source links</p>
+        <p>Real listings with on-platform applications</p>
         <h2>Live opportunities <span>${liveJobs.length} live</span></h2>
       </div>
       <a href="/jobs/">Browse all jobs <span aria-hidden="true">&rarr;</span></a>
@@ -827,7 +841,7 @@ function renderJobsPage() {
     itemListElement: liveJobs.map((job, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      url: job.sourceUrl,
+      url: `${site.origin}${jobApplyUrl(job)}`,
       name: `${job.title} at ${job.company}`,
     })),
   });
@@ -837,9 +851,9 @@ function renderJobsPage() {
     <h1>${escapeHtml(jobBoardPage.h1)}</h1>
     <p class="lede">${escapeHtml(jobBoardPage.intro)}</p>
     <div class="job-board-summary">
-      <span>${liveJobs.length} source-attributed jobs</span>
+      <span>${liveJobs.length} live opportunities</span>
       <span>Generated ${escapeHtml(toDisplayDate(jobFeedMeta.generatedAt.slice(0, 10)))}</span>
-      <span>${jobFeedMeta.sourceCount} sources</span>
+      <span>Apply without leaving VideoEditorJobs</span>
     </div>
   </section>
 
@@ -859,7 +873,7 @@ function renderJobsPage() {
   <section class="band editorial">
     <article>
       <h2>How this feed is seeded</h2>
-      <p>The refresh pipeline publishes public hiring posts from the Reddit demand tracker alongside public APIs, RSS feeds, and official company job boards. It keeps only source-attributed link-out listings and never exposes private intake fields.</p>
+      <p>The demand pipeline brings relevant opportunities into one marketplace experience. Original acquisition sources stay private, and editors apply through VideoEditorJobs so matching and follow-up remain on-platform.</p>
     </article>
     <article>
       <h2>Why some roles are adjacent</h2>

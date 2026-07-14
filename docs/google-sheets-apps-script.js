@@ -12,7 +12,7 @@ const CONFIG = {
   confirmationEmailName: "Video Editor Jobs",
 };
 
-const SCRIPT_VERSION = "vej-2026-07-14-public-jobs-200";
+const SCRIPT_VERSION = "vej-2026-07-14-onsite-applications";
 
 const HEADERS = [
   "created_at",
@@ -349,16 +349,16 @@ function rowToObject(row, headers) {
 }
 
 function toPublicJob(row) {
-  const username = String(row.name || "").replace(/^u\//i, "").trim();
+  const id = String(row.submission_id || "").trim().replace(/^reddit-/i, "job-");
   return {
-    id: String(row.submission_id || "").trim(),
+    id,
     title: String(row.page_title || row.role_type || row.primary_fit || "Video editor needed").trim(),
-    company: String(row.company || "").trim() || (username ? `u/${username}` : "Reddit hiring post"),
+    company: String(row.company || "").trim() || "Independent creator",
     location: String(row.location || row.work_preference || "Remote / see post").trim(),
     dateListed: String(row.created_at || "").slice(0, 10),
-    sourceName: "Reddit: r/VideoEditingJobs",
-    sourceType: "community hiring post",
-    sourceUrl: String(row.page_url || "").trim(),
+    sourceName: "VideoEditorJobs",
+    sourceType: "marketplace opportunity",
+    sourceUrl: `/editors/?job=${encodeURIComponent(id)}`,
     roleFamily: String(row.role_type || row.primary_fit || "Video editing").trim(),
     confidence: "direct",
     tags: [row.content_format, row.budget, row.timeline].map((value) => String(value || "").trim()).filter(Boolean).slice(0, 3),

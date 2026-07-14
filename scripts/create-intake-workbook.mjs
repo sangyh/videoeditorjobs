@@ -608,7 +608,7 @@ function addSetupSheet(workbook) {
     ["Tabs", "Dashboard, Source Summary, Editors, Hiring Requests, Matches, Community Posts, and Setup are present."],
     [
       "Apps Script",
-      "Paste docs/google-sheets-apps-script.js into Extensions > Apps Script, save, run setup(), run seedCommunityPosts(), approve Sheets/send-email permissions, then run launchHealthCheck(). Confirm ok: true and scriptVersion: vej-2026-07-14-public-jobs-200 before deploying.",
+      "Paste docs/google-sheets-apps-script.js into Extensions > Apps Script, save, run setup(), run seedCommunityPosts(), approve Sheets/send-email permissions, then run launchHealthCheck(). Confirm ok: true and scriptVersion: vej-2026-07-14-onsite-applications before deploying.",
     ],
     [
       "Test Submission",
@@ -616,12 +616,12 @@ function addSetupSheet(workbook) {
     ],
     [
       "Deploy",
-      "Deploy Apps Script as a Web app. Execute as Me. Access Anyone. Copy the /exec URL, open it, and confirm ok: true plus scriptVersion: vej-2026-07-14-public-jobs-200.",
+      "Deploy Apps Script as a Web app. Execute as Me. Access Anyone. Copy the /exec URL, open it, and confirm ok: true plus scriptVersion: vej-2026-07-14-onsite-applications.",
     ],
     ["Environment", "Run npm run configure:endpoint -- <exec-url>, then deploy with VEJ_INTAKE_ENDPOINT set in production."],
     [
       "Smoke Test",
-      "Run npm run smoke:intake after /exec deploy. Confirm health.scriptVersion is vej-2026-07-14-public-jobs-200 and one editor row plus one hiring row land with triage and confirmation results.",
+      "Run npm run smoke:intake after /exec deploy. Confirm health.scriptVersion is vej-2026-07-14-onsite-applications and one editor row plus one hiring row land with triage and confirmation results.",
     ],
     [
       "Launch Gate",

@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 const root = new URL("../", import.meta.url);
 const endpointPattern = /^https:\/\/script\.google\.com\/macros\/s\/[^/\s]+\/exec$/;
 
-export const expectedScriptVersion = "vej-2026-07-14-public-jobs-200";
+export const expectedScriptVersion = "vej-2026-07-14-onsite-applications";
 export const defaultIntakeEndpoint =
   "https://script.google.com/macros/s/AKfycbwdyh29V8B0xaZ58J0-neqUcrQg2ognel8nWT1XcVYjuB0dWOefnhYyRhk19r1hijdJ7A/exec";
 

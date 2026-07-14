@@ -91,7 +91,7 @@ const pageChecks = [
   },
   {
     path: "/jobs/",
-    checks: ["Real video and creator-side jobs", "source-attributed jobs", "View original listing"],
+    checks: ["Real video and creator-side jobs", "live opportunities", "Apply on VideoEditorJobs"],
   },
   {
     path: "/remote-video-editor-jobs/",
@@ -137,6 +137,12 @@ for (const page of pageChecks) {
     requireIncludes(text, needle, `${page.path} ${needle}`);
   }
 }
+
+const jobsPage = await fetchText("/jobs/");
+for (const forbidden of ["reddit.com/r/VideoEditingJobs", "Reddit: r/VideoEditingJobs", "View original listing"]) {
+  requireExcludes(jobsPage.text, forbidden, `/jobs/ source exposure ${forbidden}`);
+}
+requireExcludes(jobsPage.text, "?job=reddit-", "/jobs/ source-revealing job identifiers");
 
 for (const route of cutRoutes.slice(0, 4)) {
   requireExcludes(homeHtml, `href="${route}"`, `home cut route ${route}`);

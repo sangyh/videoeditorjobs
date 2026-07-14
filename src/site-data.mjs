@@ -89,11 +89,11 @@ export const jobBoardPage = {
   changefreq: "daily",
   title: "Video Editor Jobs: Real Creative, Video, and Creator-Side Openings",
   description:
-    "Browse source-attributed video editor, content creator, creative, social, and creator-side jobs with date listed and outbound application links.",
+    "Browse video editor, content creator, creative, social, and creator-side jobs and apply through VideoEditorJobs.",
   h1: "Real video and creator-side jobs",
   eyebrow: "Seeded job board",
   intro:
-    "A source-attributed feed of live creative openings for editors and adjacent creator-side work. Each listing links back to the original source and shows the date it was listed.",
+    "A focused feed of live creative openings for editors and adjacent creator-side work. Each listing keeps the application and matching process on VideoEditorJobs.",
 };
 
 export const pages = [
@@ -109,7 +109,7 @@ export const pages = [
     intro:
       "Find editors with the right eye, or work that fits yours.",
     intent:
-      "Source-linked video editor jobs for creator teams, agencies, brands, podcasts, studios, and remote-first production teams.",
+      "Video editor jobs for creator teams, agencies, brands, podcasts, studios, and remote-first production teams, with applications kept on-platform.",
     pageType: "home",
     sections: [
       {

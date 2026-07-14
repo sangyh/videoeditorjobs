@@ -141,6 +141,12 @@ async function getPublicJobs() {
     for (const field of forbidden) {
       if (Object.prototype.hasOwnProperty.call(job, field)) throw new Error(`Public job exposed forbidden field ${field}`);
     }
+    if (!/^\/editors\/\?job=/.test(job.sourceUrl || "")) {
+      throw new Error(`Public job does not use an on-platform application URL: ${JSON.stringify(job.sourceUrl)}`);
+    }
+    if (/reddit/i.test(`${job.company || ""} ${job.sourceName || ""} ${job.sourceType || ""} ${job.sourceUrl || ""}`)) {
+      throw new Error(`Public job exposed its acquisition source: ${job.id}`);
+    }
   }
   return { jobCount: json.jobs.length, generatedAt: json.generatedAt };
 }

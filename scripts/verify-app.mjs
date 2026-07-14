@@ -115,7 +115,8 @@ requireIncludes(homeHtml, "Find editors with the right eye, or work that fits yo
 requireIncludes(homeHtml, 'class="home-workflow"', "home workflow navigation");
 requireIncludes(homeHtml, 'class="home-job-list"', "home live opportunity list");
 requireIncludes(homeHtml, 'href="/jobs/"', "home jobs link");
-requireIncludes(homeHtml, "Real listings with dates and source links", "home live jobs section");
+requireIncludes(homeHtml, "Real listings with on-platform applications", "home live jobs section");
+requireIncludes(homeHtml, "On-platform applications", "home application model");
 requireIncludes(homeHtml, 'href="/editors/"', "home editor CTA");
 requireIncludes(homeHtml, 'href="/hire-video-editor/"', "home hiring CTA");
 requireExcludes(homeHtml, 'href="/post-video-editor-job/"', "home duplicate post-job CTA");
@@ -128,10 +129,15 @@ requireIncludes(communityHtml, "Video Editor Community", "community h1");
 requireIncludes(communityHtml, 'href="/editors/"', "community editor CTA");
 requireIncludes(communityHtml, 'href="/hire-video-editor/"', "community hiring CTA");
 requireIncludes(jobsHtml, "<h1>Real video and creator-side jobs</h1>", "jobs h1");
-requireIncludes(jobsHtml, "source-attributed jobs", "jobs count summary");
-requireIncludes(jobsHtml, "250 source-attributed jobs", "combined jobs count");
-requireIncludes(jobsHtml, "Reddit: r/VideoEditingJobs", "Reddit jobs source label");
-requireIncludes(jobsHtml, "View original listing", "jobs outbound links");
+requireIncludes(jobsHtml, "250 live opportunities", "combined jobs count");
+requireIncludes(jobsHtml, "Apply on VideoEditorJobs", "on-platform application links");
+requireIncludes(jobsHtml, "Apply through VideoEditorJobs", "on-platform application label");
+requireIncludes(jobsHtml, 'href="/editors/?job=', "job-specific editor intake links");
+for (const forbidden of ["reddit.com/r/VideoEditingJobs", "Reddit: r/VideoEditingJobs", "View original listing"]) {
+  requireExcludes(homeHtml, forbidden, `home source exposure ${forbidden}`);
+  requireExcludes(jobsHtml, forbidden, `jobs source exposure ${forbidden}`);
+}
+requireExcludes(jobsHtml, "?job=reddit-", "source-revealing job identifiers");
 
 requireIncludes(searchHtml, '<meta name="robots" content="noindex, follow">', "search noindex");
 requireIncludes(searchHtml, "site-search-input", "search input");
@@ -184,7 +190,7 @@ if (canonicalAppsScript !== projectAppsScript) {
 }
 
 for (const needle of [
-  "vej-2026-07-14-public-jobs-200",
+  "vej-2026-07-14-onsite-applications",
   "portfolio_examples_share",
   "/part-time-video-editor-jobs/",
   "/blog/freelance-video-editor-rates/",

@@ -9,7 +9,7 @@ Use [docs/guiding-principles.md](docs/guiding-principles.md) as the ICP and prod
 ## What is included
 
 - Homepage targeting `video editor jobs`
-- `/jobs/` with 200 Reddit hiring posts plus the existing source-attributed feed, dates, source labels, and outbound application links
+- `/jobs/` with 200 seeded hiring opportunities plus the existing feed, dates, role labels, and on-platform application links
 - A tight crawl set for remote, freelance, YouTube, part-time, community, and creator-workflow searches
 - `/editors/` intake page for video editors
 - `/hire-video-editor/` intake page for hiring teams and post-a-job intent
@@ -123,7 +123,7 @@ When a full backend is ready, replace the Apps Script endpoint with an authentic
 - visitor type, editor or employer
 - consent timestamp
 
-For job listings, keep source attribution and outbound application links visible. The current `/jobs/` page uses an `ItemList` because the site is indexing link-out listings, not hosting full job descriptions.
+For job listings, keep acquisition provenance private and route applications through VideoEditorJobs. The current `/jobs/` page uses an `ItemList` whose URLs point to job-specific editor intake routes.
 
 ## SEO next steps
 
