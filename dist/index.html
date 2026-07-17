@@ -22,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;display=swap">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260714-plum-bone">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260717-voice-jobs">
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Video Editor Jobs","url":"https://videoeditorjobs.com","potentialAction":{"@type":"SearchAction","target":"https://videoeditorjobs.com/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Video Editor Jobs","url":"https://videoeditorjobs.com","email":"hello@videoeditorjobs.com","description":"A focused intake and matching surface for creator teams that need recurring video editing workflows."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Video Editor Jobs","url":"https://videoeditorjobs.com/","description":"Find video editor jobs and join the early community for remote, freelance, YouTube, social, agency, brand, and post-production editing work."}</script>
@@ -49,15 +49,9 @@
       <div class="home-hero-copy">
         <h1>Video Editor Jobs</h1>
         <p class="home-hero-lede">Find editors with the right eye, or work that fits yours.</p>
-        <p class="home-hero-intent">Video editor jobs for creator teams, agencies, brands, podcasts, studios, and remote-first production teams, with applications kept on-platform.</p>
         <div class="home-hero-actions">
           <a class="home-button light" href="/jobs/">Explore jobs <span aria-hidden="true">&rarr;</span></a>
           <a class="home-button ghost" href="/editors/">Join as editor <span aria-hidden="true">&rarr;</span></a>
-        </div>
-        <div class="home-proof" aria-label="Marketplace signals">
-          <span><strong>250</strong> live listings</span>
-          <span>On-platform applications</span>
-          <span>Focused on creator teams</span>
         </div>
       </div>
       <div class="home-reel" aria-label="A reel of documentary, podcast, and city production work">
@@ -80,20 +74,53 @@
         <span class="home-workflow-icon" aria-hidden="true">&#x2637;</span>
         <h2 id="home-workflow-title">Match by workflow</h2>
       </div>
-      <nav class="home-workflow-links" aria-label="Browse jobs by workflow">
-        <a href="/video-editing-jobs/"><span>Format</span><strong>All formats</strong></a>
-        <a href="/freelance-video-editor-jobs/"><span>Turnaround</span><strong>Freelance and contract</strong></a>
-        <a href="/youtube-video-editor-jobs/"><span>Specialty</span><strong>YouTube and creator</strong></a>
-        <a href="/remote-video-editor-jobs/"><span>Location</span><strong>Remote roles</strong></a>
-        <a class="home-workflow-search" href="/jobs/">Search workflows <span aria-hidden="true">&rarr;</span></a>
-      </nav>
+      <div class="home-workflow-controls" aria-label="Browse jobs by workflow">
+        <details class="home-workflow-filter">
+          <summary><span>Format</span><strong>Any format</strong></summary>
+          <div class="home-workflow-menu">
+            <a href="/video-editing-jobs/">All video editing</a>
+            <a href="/youtube-video-editor-jobs/">YouTube</a>
+            <a href="/search/?q=short-form">Short-form</a>
+            <a href="/search/?q=podcast">Podcast</a>
+          </div>
+        </details>
+        <details class="home-workflow-filter">
+          <summary><span>Turnaround</span><strong>Any timeframe</strong></summary>
+          <div class="home-workflow-menu">
+            <a href="/freelance-video-editor-jobs/">Freelance</a>
+            <a href="/part-time-video-editor-jobs/">Part-time</a>
+            <a href="/remote-video-editor-jobs/">Remote</a>
+          </div>
+        </details>
+        <details class="home-workflow-filter">
+          <summary><span>Software</span><strong>Any software</strong></summary>
+          <div class="home-workflow-menu">
+            <a href="/search/?q=Premiere+Pro">Premiere Pro</a>
+            <a href="/search/?q=DaVinci+Resolve">DaVinci Resolve</a>
+            <a href="/search/?q=Final+Cut+Pro">Final Cut Pro</a>
+          </div>
+        </details>
+        <details class="home-workflow-filter">
+          <summary><span>Review cadence</span><strong>Any cadence</strong></summary>
+          <div class="home-workflow-menu">
+            <a href="/search/?q=weekly">Weekly</a>
+            <a href="/search/?q=daily">Daily</a>
+            <a href="/search/?q=project">Project-based</a>
+          </div>
+        </details>
+        <form class="home-workflow-search" action="/search/" role="search">
+          <label class="sr-only" for="home-workflow-query">Search workflows</label>
+          <span aria-hidden="true"><svg viewBox="0 0 20 20" role="presentation"><circle cx="8.5" cy="8.5" r="5.5"></circle><path d="m12.5 12.5 4 4"></path></svg></span>
+          <input id="home-workflow-query" name="q" type="search" placeholder="Search workflows">
+        </form>
+      </div>
     </div>
   </section>
 
   <section class="home-opportunities band">
     <header class="home-opportunities-head">
       <div>
-        <p>Real listings with on-platform applications</p>
+        <p class="sr-only">Real listings with on-platform applications</p>
         <h2>Live opportunities <span>250 live</span></h2>
       </div>
       <a href="/jobs/">Browse all jobs <span aria-hidden="true">&rarr;</span></a>
@@ -113,7 +140,6 @@
           <span>Posted</span>
           <time datetime="2026-07-14">Jul 14, 2026</time>
         </div>
-        <a class="home-job-open" href="/editors/?job=job-1uw0hvp" aria-label="Apply for Hiring: Short-Form Video Editor / Motion Designer (Faceless Short-Form) on VideoEditorJobs">&rarr;</a>
       </article><article class="home-job-row">
         <div class="home-job-thumbnail" aria-hidden="true">
           <img src="/assets/home-reel-editor.jpg" alt="" loading="lazy">
@@ -129,7 +155,6 @@
           <span>Posted</span>
           <time datetime="2026-07-14">Jul 14, 2026</time>
         </div>
-        <a class="home-job-open" href="/editors/?job=job-1uw1bf0" aria-label="Apply for Looking for a video editor on VideoEditorJobs">&rarr;</a>
       </article><article class="home-job-row">
         <div class="home-job-thumbnail" aria-hidden="true">
           <img src="/assets/home-reel-city.jpg" alt="" loading="lazy">
@@ -145,131 +170,7 @@
           <span>Posted</span>
           <time datetime="2026-07-14">Jul 14, 2026</time>
         </div>
-        <a class="home-job-open" href="/editors/?job=job-1uw1suh" aria-label="Apply for Tamil Video Editor | Long-Term Opportunity on VideoEditorJobs">&rarr;</a>
       </article></div>
-    <p class="home-match-note"><strong>Manual matching from real submissions.</strong> Hiring teams can <a href="/hire-video-editor/">send one clear brief</a> with budget, format, deliverables, and review cadence.</p>
-  </section>
-
-  <section class="band split">
-    <div class="section-head">
-      <p>Role examples</p>
-      <h2>Categories the feed is learning from</h2>
-    </div>
-    <div class="job-stack"><article class="job-row">
-        <div>
-          <span class="job-type">Remote</span>
-          <h3>Long-form to clips editor</h3>
-          <p>Coaches, founders, educators, podcasts</p>
-        </div>
-        <ul>
-          <li>weekly cadence</li><li>clip selection</li><li>caption taste</li>
-        </ul>
-      </article><article class="job-row">
-        <div>
-          <span class="job-type">Remote or hybrid</span>
-          <h3>YouTube channel editor</h3>
-          <p>Long-form YouTube, podcasts, education, creator-led brands</p>
-        </div>
-        <ul>
-          <li>story pacing</li><li>retention edits</li><li>thumbnail collaboration</li>
-        </ul>
-      </article><article class="job-row">
-        <div>
-          <span class="job-type">Contract</span>
-          <h3>Podcast repurposing editor</h3>
-          <p>Founder shows, expert interviews, coaching calls</p>
-        </div>
-        <ul>
-          <li>audio cleanup</li><li>multicam rhythm</li><li>shorts packages</li>
-        </ul>
-      </article><article class="job-row">
-        <div>
-          <span class="job-type">Part-time</span>
-          <h3>Recurring social editor</h3>
-          <p>Monthly content packages for creator-led businesses</p>
-        </div>
-        <ul>
-          <li>brand consistency</li><li>turnaround</li><li>review discipline</li>
-        </ul>
-      </article></div>
-  </section>
-
-  <section class="band editorial home-editorial">
-    <article>
-          <h2>Two focused intake paths</h2>
-          <p>Editors share portfolio, rates, software, availability, and the editing formats they want. Hiring teams share budget, workflow, deliverables, deadline, and examples of the style they need.</p>
-        </article><article>
-          <h2>Why this should be narrower than a generic job board</h2>
-          <p>Editing roles are often posted with unclear expectations. Useful matching starts with workflow, turnaround time, content format, review cadence, source footage quality, and whether the role is creator-side, agency-side, or brand-side.</p>
-        </article>
-  </section>
-
-  <section class="band blog-band">
-    <div class="section-head">
-      <p>Blog</p>
-      <h2>Guides that support better matches</h2>
-    </div>
-    <div class="blog-grid"><article class="blog-card">
-        <a href="/blog/where-to-find-video-editor-jobs/">
-          <span>Editors</span>
-          <h3>Where to find video editor jobs</h3>
-          <p>The best video editor opportunities are split across job boards, private communities, creator teams, agencies, referrals, and local production networks.</p>
-        </a>
-      </article><article class="blog-card">
-        <a href="/blog/how-to-hire-a-video-editor/">
-          <span>Hiring teams</span>
-          <h3>How to hire a video editor</h3>
-          <p>The fastest way to hire a strong editor is to write a brief that filters for the actual workflow, not just taste.</p>
-        </a>
-      </article><article class="blog-card">
-        <a href="/blog/video-editor-job-description-template/">
-          <span>Hiring teams</span>
-          <h3>Video editor job description template</h3>
-          <p>Most editing job posts are too vague. This structure helps editors self-select before either side wastes time.</p>
-        </a>
-      </article></div>
-  </section>
-
-  <section class="band routes">
-    <div class="section-head">
-      <p>Browse</p>
-      <h2>The few routes worth testing first</h2>
-    </div>
-    <div class="route-grid"><a class="route-link" href="/remote-video-editor-jobs/">
-        <span>Remote editing work</span>
-        <strong>Remote Video Editor Jobs</strong>
-      </a><a class="route-link" href="/freelance-video-editor-jobs/">
-        <span>Contract editing work</span>
-        <strong>Freelance Video Editor Jobs</strong>
-      </a><a class="route-link" href="/youtube-video-editor-jobs/">
-        <span>Creator channel work</span>
-        <strong>YouTube Video Editor Jobs</strong>
-      </a><a class="route-link" href="/part-time-video-editor-jobs/">
-        <span>Flexible editing work</span>
-        <strong>Part-Time Video Editor Jobs</strong>
-      </a><a class="route-link" href="/video-editor-community/">
-        <span>Early community</span>
-        <strong>Video Editor Community</strong>
-      </a></div>
-  </section>
-
-  <section class="band faq" id="faq">
-    <div class="section-head">
-      <p>Answers</p>
-      <h2>Questions editors and hiring teams ask first</h2>
-    </div>
-    <div class="faq-list">
-      <details>
-            <summary>What kinds of video editor jobs will be listed?</summary>
-            <p>The first version focuses on remote, freelance, YouTube, social video, podcast, brand, agency, and assistant editor roles.</p>
-          </details><details>
-            <summary>Can editors join before jobs are public?</summary>
-            <p>Yes. Editors can submit a portfolio and work preferences now so the early community has talent supply before public job listings scale.</p>
-          </details><details>
-            <summary>Can employers post roles?</summary>
-            <p>Yes. Hiring teams can submit an early brief with role type, editing stack, content format, compensation, timezone, and portfolio requirements.</p>
-          </details>
-    </div>
   </section></main>
     <footer class="site-footer">
     <div class="footer-inner">
@@ -304,6 +205,6 @@
       </nav>
     </div>
   </footer>
-    <script src="/assets/forms.js?v=20260714-plum-bone" defer></script>
+    <script src="/assets/forms.js?v=20260717-voice-jobs" defer></script>
   </body>
 </html>

@@ -30,7 +30,7 @@ const jobFeedMeta = {
   sourceCount: new Set([...sheetJobFeedMeta.sources, ...externalJobFeedMeta.sources]).size,
   sources: [...new Set([...sheetJobFeedMeta.sources, ...externalJobFeedMeta.sources])].sort(),
 };
-const assetVersion = "20260714-plum-bone";
+const assetVersion = "20260717-voice-jobs";
 const voiceProfileCampaign = "voice_profile_interest";
 const voiceProfileHref = `/voice-profile/?utm_campaign=${voiceProfileCampaign}&utm_medium=site`;
 
@@ -871,7 +871,6 @@ function homeJobRows(jobs) {
           <span>Posted</span>
           <time datetime="${escapeAttr(job.dateListed)}">${escapeHtml(toDisplayDate(job.dateListed))}</time>
         </div>
-        <a class="home-job-open" href="${escapeAttr(jobApplyUrl(job))}" aria-label="Apply for ${escapeAttr(job.title)} on VideoEditorJobs">&rarr;</a>
       </article>`;
     })
     .join("");
@@ -950,15 +949,9 @@ function renderLandingPage(page) {
       <div class="home-hero-copy">
         <h1>${escapeHtml(page.h1)}</h1>
         <p class="home-hero-lede">${escapeHtml(page.intro)}</p>
-        <p class="home-hero-intent">${escapeHtml(page.intent)}</p>
         <div class="home-hero-actions">
           <a class="home-button light" href="/jobs/">Explore jobs <span aria-hidden="true">&rarr;</span></a>
           <a class="home-button ghost" href="/editors/">Join as editor <span aria-hidden="true">&rarr;</span></a>
-        </div>
-        <div class="home-proof" aria-label="Marketplace signals">
-          <span><strong>${liveJobs.length}</strong> live listings</span>
-          <span>On-platform applications</span>
-          <span>Focused on creator teams</span>
         </div>
       </div>
       <div class="home-reel" aria-label="A reel of documentary, podcast, and city production work">
@@ -981,64 +974,59 @@ function renderLandingPage(page) {
         <span class="home-workflow-icon" aria-hidden="true">&#x2637;</span>
         <h2 id="home-workflow-title">Match by workflow</h2>
       </div>
-      <nav class="home-workflow-links" aria-label="Browse jobs by workflow">
-        <a href="/video-editing-jobs/"><span>Format</span><strong>All formats</strong></a>
-        <a href="/freelance-video-editor-jobs/"><span>Turnaround</span><strong>Freelance and contract</strong></a>
-        <a href="/youtube-video-editor-jobs/"><span>Specialty</span><strong>YouTube and creator</strong></a>
-        <a href="/remote-video-editor-jobs/"><span>Location</span><strong>Remote roles</strong></a>
-        <a class="home-workflow-search" href="/jobs/">Search workflows <span aria-hidden="true">&rarr;</span></a>
-      </nav>
+      <div class="home-workflow-controls" aria-label="Browse jobs by workflow">
+        <details class="home-workflow-filter">
+          <summary><span>Format</span><strong>Any format</strong></summary>
+          <div class="home-workflow-menu">
+            <a href="/video-editing-jobs/">All video editing</a>
+            <a href="/youtube-video-editor-jobs/">YouTube</a>
+            <a href="/search/?q=short-form">Short-form</a>
+            <a href="/search/?q=podcast">Podcast</a>
+          </div>
+        </details>
+        <details class="home-workflow-filter">
+          <summary><span>Turnaround</span><strong>Any timeframe</strong></summary>
+          <div class="home-workflow-menu">
+            <a href="/freelance-video-editor-jobs/">Freelance</a>
+            <a href="/part-time-video-editor-jobs/">Part-time</a>
+            <a href="/remote-video-editor-jobs/">Remote</a>
+          </div>
+        </details>
+        <details class="home-workflow-filter">
+          <summary><span>Software</span><strong>Any software</strong></summary>
+          <div class="home-workflow-menu">
+            <a href="/search/?q=Premiere+Pro">Premiere Pro</a>
+            <a href="/search/?q=DaVinci+Resolve">DaVinci Resolve</a>
+            <a href="/search/?q=Final+Cut+Pro">Final Cut Pro</a>
+          </div>
+        </details>
+        <details class="home-workflow-filter">
+          <summary><span>Review cadence</span><strong>Any cadence</strong></summary>
+          <div class="home-workflow-menu">
+            <a href="/search/?q=weekly">Weekly</a>
+            <a href="/search/?q=daily">Daily</a>
+            <a href="/search/?q=project">Project-based</a>
+          </div>
+        </details>
+        <form class="home-workflow-search" action="/search/" role="search">
+          <label class="sr-only" for="home-workflow-query">Search workflows</label>
+          <span aria-hidden="true"><svg viewBox="0 0 20 20" role="presentation"><circle cx="8.5" cy="8.5" r="5.5"></circle><path d="m12.5 12.5 4 4"></path></svg></span>
+          <input id="home-workflow-query" name="q" type="search" placeholder="Search workflows">
+        </form>
+      </div>
     </div>
   </section>
 
   <section class="home-opportunities band">
     <header class="home-opportunities-head">
       <div>
-        <p>Real listings with on-platform applications</p>
+        <p class="sr-only">Real listings with on-platform applications</p>
         <h2>Live opportunities <span>${liveJobs.length} live</span></h2>
       </div>
       <a href="/jobs/">Browse all jobs <span aria-hidden="true">&rarr;</span></a>
     </header>
     <div class="home-job-list">${homeJobRows(preferredHomeJobs)}</div>
-    <p class="home-match-note"><strong>Manual matching from real submissions.</strong> Hiring teams can <a href="/hire-video-editor/">send one clear brief</a> with budget, format, deliverables, and review cadence.</p>
-  </section>
-
-  <section class="band split">
-    <div class="section-head">
-      <p>Role examples</p>
-      <h2>Categories the feed is learning from</h2>
-    </div>
-    <div class="job-stack">${sampleJobRows()}</div>
-  </section>
-
-  <section class="band editorial home-editorial">
-    ${page.sections
-      .map(
-        (section) => `<article>
-          <h2>${escapeHtml(section.heading)}</h2>
-          <p>${escapeHtml(section.body)}</p>
-        </article>`
-      )
-      .join("")}
-  </section>
-
-  <section class="band blog-band">
-    <div class="section-head">
-      <p>Blog</p>
-      <h2>Guides that support better matches</h2>
-    </div>
-    <div class="blog-grid">${blogCards(3)}</div>
-  </section>
-
-  <section class="band routes">
-    <div class="section-head">
-      <p>Browse</p>
-      <h2>The few routes worth testing first</h2>
-    </div>
-    <div class="route-grid">${pageCards(page.slug)}</div>
-  </section>
-
-  ${faqMarkup(page)}`;
+  </section>`;
 
   return shell({ page, body, extraClass: "home-page" });
 }
