@@ -1,9 +1,28 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { activeBlogPosts, activePages, appPages, jobBoardPage, site, trustPages } from "../src/site-data.mjs";
+import {
+  activeBlogPosts,
+  activePages,
+  appPages,
+  jobBoardPage,
+  site,
+  trustPages,
+  voiceProfilePage,
+} from "../src/site-data.mjs";
+import { liveJobs as externalJobs } from "../src/jobs-data.mjs";
+import { sheetJobs } from "../src/sheet-jobs-data.mjs";
 
 const dist = new URL("../dist/", import.meta.url);
 const errors = [];
+
+const liveJobs = [...sheetJobs, ...externalJobs].filter(
+  (job, index, jobs) => jobs.findIndex((candidate) => candidate.sourceUrl === job.sourceUrl) === index
+);
+
+const isMarketplaceJob = (job) =>
+  job.sourceType === "marketplace opportunity" || String(job.sourceUrl || "").startsWith("/");
+const marketplaceSample = liveJobs.find(isMarketplaceJob);
+const externalSample = liveJobs.find((job) => !isMarketplaceJob(job));
 
 async function readDist(...parts) {
   return readFile(join(dist.pathname, ...parts), "utf8");
@@ -25,13 +44,17 @@ function requireExcludes(html, needle, label) {
   }
 }
 
+const jobRoutes = liveJobs.map((job) => `/jobs/${job.id}/`);
+
 const crawlRoutes = [
   ...activePages.map((page) => `/${page.slug ? `${page.slug}/` : ""}`),
   `/${jobBoardPage.slug}/`,
   ...appPages.map((page) => `/${page.slug}/`),
+  `/${voiceProfilePage.slug}/`,
   "/blog/",
   ...activeBlogPosts.map((post) => `/blog/${post.slug}/`),
   ...trustPages.map((page) => `/${page.slug}/`),
+  ...jobRoutes,
 ];
 
 const cutRoutes = [
@@ -61,6 +84,10 @@ const [
   termsHtml,
   thanksEditorHtml,
   thanksHiringHtml,
+  thanksVoiceHtml,
+  voiceHtml,
+  editorMarketplaceJobHtml,
+  externalJobHtml,
   sitemap,
   robots,
   formsJs,
@@ -83,6 +110,10 @@ const [
   readDist("terms", "index.html"),
   readDist("thanks-editor", "index.html"),
   readDist("thanks-hiring", "index.html"),
+  readDist("thanks-voice", "index.html"),
+  readDist("voice-profile", "index.html"),
+  readDist("jobs", marketplaceSample.id, "index.html"),
+  readDist("jobs", externalSample.id, "index.html"),
   readDist("sitemap.xml"),
   readDist("robots.txt"),
   readDist("assets", "forms.js"),
@@ -145,6 +176,37 @@ requireIncludes(privacyHtml, "<h1>Privacy Policy</h1>", "privacy h1");
 requireIncludes(termsHtml, "<h1>Terms</h1>", "terms h1");
 requireIncludes(thanksEditorHtml, '<meta name="robots" content="noindex, follow">', "editor thanks noindex");
 requireIncludes(thanksHiringHtml, '<meta name="robots" content="noindex, follow">', "hiring thanks noindex");
+requireIncludes(thanksVoiceHtml, '<meta name="robots" content="noindex, follow">', "voice thanks noindex");
+requireIncludes(thanksEditorHtml, voiceProfilePage.slug, "editor thanks voice CTA");
+
+// Voice-verified profile interest page and its demand-test wiring.
+requireIncludes(voiceHtml, `<h1>${voiceProfilePage.h1}</h1>`, "voice-profile h1");
+requireIncludes(voiceHtml, '<meta name="robots" content="index, follow', "voice-profile indexable");
+requireIncludes(voiceHtml, 'data-intake-kind="editor"', "voice-profile form routes to editors tab");
+requireIncludes(voiceHtml, 'data-utm-campaign="voice_profile_interest"', "voice-profile campaign override");
+requireIncludes(voiceHtml, 'data-success-path="/thanks-voice/"', "voice-profile success path");
+requireIncludes(voiceHtml, 'name="consent" type="checkbox"', "voice-profile consent checkbox");
+requireIncludes(voiceHtml, 'name="website"', "voice-profile honeypot");
+requireIncludes(editorHtml, "utm_campaign=voice_profile_interest", "editor page voice CTA campaign");
+requireIncludes(formsJs, "data-utm-campaign", "forms campaign override support");
+
+// Per-job pages: JSON-LD, apply flow, interlinking, and no scraped-source leakage.
+requireIncludes(editorMarketplaceJobHtml, '"@type":"JobPosting"', "marketplace job posting JSON-LD");
+requireIncludes(editorMarketplaceJobHtml, '"directApply":true', "marketplace job directApply");
+requireIncludes(editorMarketplaceJobHtml, `href="/editors/?job=${marketplaceSample.id}"`, "marketplace job on-platform apply");
+requireIncludes(editorMarketplaceJobHtml, 'href="/jobs/"', "marketplace job back link");
+requireIncludes(editorMarketplaceJobHtml, "voice-profile", "marketplace job voice CTA");
+requireIncludes(externalJobHtml, '"@type":"JobPosting"', "external job posting JSON-LD");
+requireIncludes(externalJobHtml, 'rel="nofollow noopener"', "external job attributed link-out");
+requireIncludes(externalJobHtml, `href="${externalSample.sourceUrl}"`, "external job source URL");
+
+for (const forbidden of ["reddit.com/r/VideoEditingJobs", "Reddit: r/VideoEditingJobs", "View original listing"]) {
+  requireExcludes(editorMarketplaceJobHtml, forbidden, `marketplace job source exposure ${forbidden}`);
+  requireExcludes(externalJobHtml, forbidden, `external job source exposure ${forbidden}`);
+  requireExcludes(voiceHtml, forbidden, `voice-profile source exposure ${forbidden}`);
+}
+requireExcludes(editorMarketplaceJobHtml, "marketplace opportunity", "marketplace job source-type leak");
+requireExcludes(editorMarketplaceJobHtml, "?job=reddit-", "marketplace job source-revealing identifier");
 
 for (const route of crawlRoutes) {
   requireIncludes(sitemap, `<loc>${site.origin}${route}</loc>`, `sitemap route ${route}`);

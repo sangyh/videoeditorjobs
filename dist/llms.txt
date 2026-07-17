@@ -9,9 +9,10 @@ A focused intake and matching surface for creator teams that need recurring vide
 
 ## Primary Routes
 
-- [Jobs](https://videoeditorjobs.com/jobs/): Source-attributed video, creator-side, and adjacent creative jobs with date listed.
+- [Jobs](https://videoeditorjobs.com/jobs/): Video, creator-side, and adjacent creative jobs with date listed. Every job has its own dedicated page under /jobs/<job-id>/ with a summary, structured details, and apply link.
 - [Editor intake](https://videoeditorjobs.com/editors/): Video editors can join the early talent list.
 - [Hiring intake](https://videoeditorjobs.com/hire-video-editor/): Hiring teams can submit editing briefs and role details.
+- [Voice-verified profile](https://videoeditorjobs.com/voice-profile/): Editors can request early access to a voice-verified public profile built from a 15-minute call.
 - [Search](https://videoeditorjobs.com/search/): Search current guides and intake routes.
 - [Blog](https://videoeditorjobs.com/blog/): Guides for editors and hiring teams.
 - [Sitemap](https://videoeditorjobs.com/sitemap.xml): XML sitemap for crawl discovery.

@@ -107,6 +107,16 @@ function serializeForm(form) {
   return fields;
 }
 
+function resolveTracking(form) {
+  const tracking = { ...getTrackingParams() };
+  const campaign = form.getAttribute("data-utm-campaign");
+  if (campaign) {
+    tracking.utm_campaign = campaign;
+    if (!tracking.utm_medium) tracking.utm_medium = "site";
+  }
+  return tracking;
+}
+
 function makePayload(form) {
   const kind = form.getAttribute("data-intake-kind") || "general";
   const fields = serializeForm(form);
@@ -125,7 +135,7 @@ function makePayload(form) {
     consent: consentGiven ? "yes" : "",
     consent_at: consentGiven ? createdAt : "",
     consent_text: consentGiven ? consentText : "",
-    tracking: getTrackingParams(),
+    tracking: resolveTracking(form),
     fields,
   };
 }

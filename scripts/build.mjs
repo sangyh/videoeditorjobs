@@ -10,6 +10,7 @@ import {
   sampleJobs,
   site,
   trustPages,
+  voiceProfilePage,
 } from "../src/site-data.mjs";
 import { jobFeedMeta as externalJobFeedMeta, liveJobs as externalJobs } from "../src/jobs-data.mjs";
 import { sheetJobFeedMeta, sheetJobs } from "../src/sheet-jobs-data.mjs";
@@ -30,6 +31,8 @@ const jobFeedMeta = {
   sources: [...new Set([...sheetJobFeedMeta.sources, ...externalJobFeedMeta.sources])].sort(),
 };
 const assetVersion = "20260714-plum-bone";
+const voiceProfileCampaign = "voice_profile_interest";
+const voiceProfileHref = `/voice-profile/?utm_campaign=${voiceProfileCampaign}&utm_medium=site`;
 
 const escapeHtml = (value = "") =>
   String(value)
@@ -80,6 +83,12 @@ const utilityPages = [
       "Your profile is in the review queue. We will use your portfolio, editing fit, availability, and source details to understand where you fit best.",
     primaryCta: ["Review your profile", "/editors/"],
     secondaryCta: ["See portfolio examples", "/blog/video-editor-portfolio-examples/"],
+    featureCta: {
+      eyebrow: "New: voice-verified profiles",
+      title: "Want hirers to hear the real you?",
+      body: "A 15-minute voice conversation builds a public profile with real voice snippets, your reel front and center, and verified credits. It is free during early access, and spots are invite-limited.",
+      cta: ["Get early access", voiceProfileHref],
+    },
     nextSteps: [
       "Keep your portfolio link current and easy to scan.",
       "Reply quickly if we reach out about a matching brief.",
@@ -151,12 +160,46 @@ const utilityPages = [
       },
     ],
   },
+  {
+    slug: "thanks-voice",
+    title: "You're on the voice-verified list | Video Editor Jobs",
+    description: "Confirmation page for Video Editor Jobs voice-verified profile early-access requests.",
+    h1: "You're on the list",
+    eyebrow: "Early access requested",
+    intro:
+      "You're on the list for a voice-verified profile. We'll email you to schedule your 15-minute call, then build your public page for you to review before it goes live.",
+    primaryCta: ["Explore live jobs", "/jobs/"],
+    secondaryCta: ["Review the offer", "/voice-profile/"],
+    nextSteps: [
+      "Watch your inbox for an email to book your 15-minute call.",
+      "Have your reel and best clips handy so we can feature them.",
+      "Think about the formats you edit best and the work you want more of.",
+    ],
+    shareLinks: [
+      {
+        label: "Invite another editor",
+        href: `/voice-profile/?utm_source=referral&utm_medium=thank_you&utm_campaign=${voiceProfileCampaign}`,
+        text: "Know an editor who deserves to be heard, not skimmed? Send them the early-access page.",
+      },
+      {
+        label: "Join the editor list",
+        href: "/editors/?utm_source=referral&utm_medium=thank_you&utm_campaign=editor_invite",
+        text: "Get considered for creator teams that need reliable weekly editing while your profile is built.",
+      },
+      {
+        label: "See portfolio examples",
+        href: "/blog/video-editor-portfolio-examples/?utm_source=referral&utm_medium=thank_you&utm_campaign=portfolio_examples_share",
+        text: "Sharpen your reel before your call so the profile shows your strongest work.",
+      },
+    ],
+  },
 ];
 
 const allCrawlPages = [
   ...activePages,
   jobBoardPage,
   ...appPages,
+  voiceProfilePage,
   blogIndexPage,
   ...activeBlogPosts.map((post) => ({
     ...post,
@@ -519,6 +562,38 @@ function hiringForm({ compact = false } = {}) {
   </form>`;
 }
 
+function voiceInterestForm() {
+  return `<form class="intake-form voice-form" data-intake-kind="editor" data-utm-campaign="${voiceProfileCampaign}" data-mail-subject="Video Editor Jobs voice-verified profile interest" data-success-path="/thanks-voice/">
+    ${hiddenTracking("editor")}
+    <input type="hidden" name="interest" value="voice-verified profile">
+    <div class="form-grid">
+      <label>
+        Name
+        <input name="name" autocomplete="name" placeholder="Your name" required>
+      </label>
+      <label>
+        Email
+        <input name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+      </label>
+      <label>
+        Portfolio or reel
+        <input name="portfolio_url" type="url" placeholder="https:// (optional)">
+      </label>
+    </div>
+    <label>
+      Anything you want hirers to know
+      <textarea name="notes" rows="4" placeholder="Optional: the formats you edit best, the work you want more of, or what makes your style yours."></textarea>
+    </label>
+    <label class="check">
+      <input name="consent" type="checkbox" value="yes" required>
+      <span>I want early access to a voice-verified profile and agree to be contacted to schedule my call. I accept the <a href="/terms/">terms</a> and <a href="/privacy/">privacy policy</a>.</span>
+    </label>
+    <button class="button primary" type="submit">Request early access</button>
+    ${formStatus()}
+    <p class="form-note">Invite-limited early access. We will email you to schedule your 15-minute call.</p>
+  </form>`;
+}
+
 function sampleJobRows() {
   return sampleJobs
     .map(
@@ -556,6 +631,194 @@ function jobApplyUrl(job) {
   return `/editors/?job=job-${(hash >>> 0).toString(36)}`;
 }
 
+function isMarketplaceJob(job) {
+  return job.sourceType === "marketplace opportunity" || String(job.sourceUrl || "").startsWith("/");
+}
+
+function jobPageUrl(job) {
+  return `/jobs/${job.id}/`;
+}
+
+function jobIsRemote(job) {
+  const haystack = `${job.location || ""} ${(job.tags || []).join(" ")}`;
+  return /remote|worldwide|anywhere|telecommute|distributed|work from home|wfh|global/i.test(haystack);
+}
+
+function jobTags(job) {
+  return [...new Set((job.tags || []).map((tag) => String(tag).trim()).filter(Boolean))];
+}
+
+function addDays(isoDate, days) {
+  const date = new Date(`${isoDate}T12:00:00.000Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
+function jobSummary(job) {
+  const roleFamily = (job.roleFamily || "video editing").toLowerCase();
+  const listed = toDisplayDate(job.dateListed);
+  const locationClause = jobIsRemote(job) ? "open to remote editors" : `based in ${job.location}`;
+  const tags = jobTags(job).slice(0, 3);
+  const tagSentence = tags.length
+    ? `Noted in the listing: ${tags.join(", ")}.`
+    : "Full scope is confirmed once you connect with the hiring team.";
+  const applySentence = isMarketplaceJob(job)
+    ? "Apply with your portfolio and rate on VideoEditorJobs, where matching and follow-up stay on-platform."
+    : `Sourced from ${job.sourceName}; apply on the original listing with your portfolio and rate.`;
+  return `${job.title} is a ${roleFamily} role, ${locationClause}, listed ${listed} on VideoEditorJobs. ${tagSentence} ${applySentence}`;
+}
+
+function relatedJobs(job, count = 4) {
+  const others = liveJobs.filter((candidate) => candidate.id !== job.id);
+  const sameFamily = others.filter((candidate) => candidate.roleFamily === job.roleFamily);
+  const byRecent = [...others].sort((a, b) => (a.dateListed < b.dateListed ? 1 : -1));
+  const seen = new Set();
+  const picked = [];
+  for (const candidate of [...sameFamily, ...byRecent]) {
+    if (seen.has(candidate.id)) continue;
+    seen.add(candidate.id);
+    picked.push(candidate);
+    if (picked.length >= count) break;
+  }
+  return picked;
+}
+
+function renderJobPage(job) {
+  const marketplace = isMarketplaceJob(job);
+  const remote = jobIsRemote(job);
+  const summary = jobSummary(job);
+  const tags = jobTags(job);
+  const canonicalSlug = `jobs/${job.id}`;
+  const canonical = toUrl(canonicalSlug);
+  const applyHref = marketplace ? jobApplyUrl(job) : job.sourceUrl;
+  const applyLabel = marketplace ? "Apply on VideoEditorJobs" : `Apply on ${job.sourceName}`;
+  const applyAttrs = marketplace ? "" : ' rel="nofollow noopener" target="_blank"';
+
+  const jobPostingJsonLd = jsonScript({
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    description: summary,
+    datePosted: job.dateListed,
+    validThrough: `${addDays(job.dateListed, 60)}T23:59:59Z`,
+    employmentType: "CONTRACTOR",
+    hiringOrganization: {
+      "@type": "Organization",
+      name: job.company || "Independent creator",
+    },
+    ...(remote ? { jobLocationType: "TELECOMMUTE" } : {}),
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: job.location || "Remote",
+      },
+    },
+    ...(marketplace ? { directApply: true } : {}),
+  });
+
+  const breadcrumbJsonLd = jsonScript({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: site.origin + "/" },
+      { "@type": "ListItem", position: 2, name: jobBoardPage.h1, item: toUrl("jobs") },
+      { "@type": "ListItem", position: 3, name: job.title, item: canonical },
+    ],
+  });
+
+  const detailRows = [
+    ["Role family", job.roleFamily],
+    ["Location", job.location],
+    ["Date listed", toDisplayDate(job.dateListed)],
+    ["Company", job.company],
+    tags.length ? ["Tags", tags.join(", ")] : null,
+  ].filter(Boolean);
+
+  const related = relatedJobs(job);
+
+  const page = {
+    slug: canonicalSlug,
+    title: `${job.title} | Video Editor Jobs`,
+    description: summary.length > 300 ? `${summary.slice(0, 297)}...` : summary,
+    h1: job.title,
+    extraJsonLd: `${jobPostingJsonLd}\n${breadcrumbJsonLd}`,
+  };
+
+  const body = `<nav class="crumbs" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span aria-hidden="true">/</span>
+    <a href="/jobs/">Jobs</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">${escapeHtml(job.roleFamily || "Video editing")}</span>
+  </nav>
+
+  <section class="compact-hero job-detail-hero">
+    <p class="eyebrow">${escapeHtml(confidenceLabel(job.confidence))}</p>
+    <h1>${escapeHtml(job.title)}</h1>
+    <p class="lede">${escapeHtml(summary)}</p>
+    <div class="job-board-summary">
+      <span>${escapeHtml(job.roleFamily || "Video editing")}</span>
+      <span>${escapeHtml(job.location || "Remote / see brief")}</span>
+      <time datetime="${escapeAttr(job.dateListed)}">${escapeHtml(toDisplayDate(job.dateListed))}</time>
+    </div>
+    <div class="hero-actions">
+      <a class="button primary" href="${escapeAttr(applyHref)}"${applyAttrs}>${escapeHtml(applyLabel)}</a>
+      <a class="button secondary" href="/jobs/">Back to all jobs</a>
+    </div>
+    <p class="job-stand-out"><a href="${escapeAttr(voiceProfileHref)}">Want to stand out? Create a voice-verified profile &rarr;</a></p>
+  </section>
+
+  <section class="band job-detail-band">
+    <div class="section-head">
+      <p>Details</p>
+      <h2>What we know about this role</h2>
+    </div>
+    <dl class="job-detail-list">
+      ${detailRows
+        .map(
+          ([label, value]) => `<div>
+            <dt>${escapeHtml(label)}</dt>
+            <dd>${escapeHtml(value)}</dd>
+          </div>`
+        )
+        .join("")}
+    </dl>
+    <div class="job-detail-apply">
+      <a class="button primary" href="${escapeAttr(applyHref)}"${applyAttrs}>${escapeHtml(applyLabel)}</a>
+      ${
+        marketplace
+          ? `<p class="form-note">Applications stay on VideoEditorJobs so matching and follow-up happen in one place.</p>`
+          : `<p class="form-note">This opens the original listing on ${escapeHtml(job.sourceName)}.</p>`
+      }
+    </div>
+  </section>
+
+  <section class="band related-jobs-band">
+    <div class="section-head">
+      <p>Related roles</p>
+      <h2>More editing work to explore</h2>
+    </div>
+    <div class="live-job-grid">
+      ${related
+        .map(
+          (item) => `<a class="live-job-card ${escapeAttr(item.confidence)}" href="${escapeAttr(jobPageUrl(item))}">
+            <div class="live-job-card-head">
+              <span>${escapeHtml(confidenceLabel(item.confidence))}</span>
+              <time datetime="${escapeAttr(item.dateListed)}">${escapeHtml(toDisplayDate(item.dateListed))}</time>
+            </div>
+            <h3>${escapeHtml(item.title)}</h3>
+            <p>${escapeHtml(item.company)} &middot; ${escapeHtml(item.location)}</p>
+          </a>`
+        )
+        .join("")}
+    </div>
+    <p class="related-jobs-back"><a href="/jobs/">Browse all ${liveJobs.length} live jobs &rarr;</a></p>
+  </section>`;
+
+  return shell({ page, body, extraClass: "job-detail-page" });
+}
+
 function jobCards(jobs = liveJobs, limit = liveJobs.length) {
   return jobs
     .slice(0, limit)
@@ -565,13 +828,16 @@ function jobCards(jobs = liveJobs, limit = liveJobs.length) {
           <span>${escapeHtml(confidenceLabel(job.confidence))}</span>
           <time datetime="${escapeAttr(job.dateListed)}">${escapeHtml(toDisplayDate(job.dateListed))}</time>
         </div>
-        <h3>${escapeHtml(job.title)}</h3>
+        <h3><a href="${escapeAttr(jobPageUrl(job))}">${escapeHtml(job.title)}</a></h3>
         <p>${escapeHtml(job.company)} · ${escapeHtml(job.location)}</p>
         <div class="job-meta">
           <span>${escapeHtml(job.roleFamily)}</span>
           <span>Apply through VideoEditorJobs</span>
         </div>
-        <a href="${escapeAttr(jobApplyUrl(job))}">Apply on VideoEditorJobs</a>
+        <div class="live-job-card-actions">
+          <a href="${escapeAttr(jobPageUrl(job))}">View role details</a>
+          <a href="${escapeAttr(jobApplyUrl(job))}">Apply on VideoEditorJobs</a>
+        </div>
       </article>`
     )
     .join("");
@@ -930,6 +1196,19 @@ function renderAppPage(page) {
     ${form}
   </section>
 
+  ${
+    isEditor
+      ? `<section class="band voice-banner">
+    <div>
+      <p class="eyebrow">New: voice-verified profiles</p>
+      <h2>Stand out to hirers with a voice-verified profile</h2>
+      <p>A 15-minute voice conversation builds a public profile with real voice snippets, your reel front and center, and verified credits. Hirers hear the real you, not another AI-written bio.</p>
+    </div>
+    <a class="button primary" href="${escapeAttr(voiceProfileHref)}">Get early access</a>
+  </section>`
+      : ""
+  }
+
   <section class="band blog-band">
     <div class="section-head">
       <p>Useful guides</p>
@@ -939,6 +1218,59 @@ function renderAppPage(page) {
   </section>`;
 
   return shell({ page, body, extraClass: "app-page" });
+}
+
+function renderVoiceProfilePage() {
+  const page = voiceProfilePage;
+  const body = `<section class="app-hero voice-hero">
+    <div>
+      <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
+      <h1>${escapeHtml(page.h1)}</h1>
+      <p class="lede">${escapeHtml(page.intro)}</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#voice-interest">Request early access</a>
+        <a class="button secondary" href="/editors/">Join the editor list</a>
+      </div>
+    </div>
+    <aside class="proof-panel" aria-label="What's on your profile">
+      <h2>What's on your profile</h2>
+      <ul>${page.profileItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+    </aside>
+  </section>
+
+  <section class="band voice-steps">
+    <div class="section-head">
+      <p>How it works</p>
+      <h2>From a 15-minute call to a profile hirers trust</h2>
+    </div>
+    <div class="voice-step-grid">
+      ${page.steps
+        .map(
+          (step) => `<article>
+            <h3>${escapeHtml(step.heading)}</h3>
+            <p>${escapeHtml(step.body)}</p>
+          </article>`
+        )
+        .join("")}
+    </div>
+  </section>
+
+  <section class="band intake-page" id="voice-interest">
+    <div class="intake-copy">
+      <h2>Get on the early-access list</h2>
+      <p>We are inviting a limited group of editors first. Add your details and we will email you to schedule your 15-minute call.</p>
+      <ol class="steps">
+        <li>Tell us where to reach you.</li>
+        <li>We email you to book the 15-minute call.</li>
+        <li>We build your voice-verified profile and you approve it before it goes live.</li>
+      </ol>
+    </div>
+    ${voiceInterestForm()}
+  </section>
+
+  ${faqMarkup(page)}`;
+
+  return shell({ page, body, extraClass: "app-page voice-profile-page" });
 }
 
 function renderBlogIndex() {
@@ -1220,6 +1552,19 @@ function renderUtilityPage(page) {
     </div>
   </section>
 
+  ${
+    page.featureCta
+      ? `<section class="band voice-banner">
+    <div>
+      <p class="eyebrow">${escapeHtml(page.featureCta.eyebrow)}</p>
+      <h2>${escapeHtml(page.featureCta.title)}</h2>
+      <p>${escapeHtml(page.featureCta.body)}</p>
+    </div>
+    <a class="button primary" href="${escapeAttr(page.featureCta.cta[1])}">${escapeHtml(page.featureCta.cta[0])}</a>
+  </section>`
+      : ""
+  }
+
   <section class="band thanks-panel">
     <div class="section-head">
       <p>Next</p>
@@ -1263,8 +1608,20 @@ function sitemap() {
     )
     .join("");
 
+  const jobUrls = liveJobs
+    .map(
+      (job) => `
+  <url>
+    <loc>${toUrl(`jobs/${job.id}`)}</loc>
+    <lastmod>${job.dateListed}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>`
+    )
+    .join("");
+
   return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}${jobUrls}
 </urlset>
 `;
 }
@@ -1279,9 +1636,10 @@ Sitemap: ${site.origin}/sitemap.xml
 
 function llmsTxt() {
   const primaryRoutes = [
-    ["Jobs", "/jobs/", "Source-attributed video, creator-side, and adjacent creative jobs with date listed."],
+    ["Jobs", "/jobs/", "Video, creator-side, and adjacent creative jobs with date listed. Every job has its own dedicated page under /jobs/<job-id>/ with a summary, structured details, and apply link."],
     ["Editor intake", "/editors/", "Video editors can join the early talent list."],
     ["Hiring intake", "/hire-video-editor/", "Hiring teams can submit editing briefs and role details."],
+    ["Voice-verified profile", "/voice-profile/", "Editors can request early access to a voice-verified public profile built from a 15-minute call."],
     ["Search", "/search/", "Search current guides and intake routes."],
     ["Blog", "/blog/", "Guides for editors and hiring teams."],
     ["Sitemap", "/sitemap.xml", "XML sitemap for crawl discovery."],
@@ -1364,9 +1722,15 @@ for (const page of activePages) {
 
 await writePage(jobBoardPage.slug, renderJobsPage());
 
+for (const job of liveJobs) {
+  await writePage(`jobs/${job.id}`, renderJobPage(job));
+}
+
 for (const page of appPages) {
   await writePage(page.slug, renderAppPage(page));
 }
+
+await writePage(voiceProfilePage.slug, renderVoiceProfilePage());
 
 await writePage("blog", renderBlogIndex());
 await writePage("search", renderSearchPage());
@@ -1391,4 +1755,4 @@ await Promise.all(
   assetFiles.map(({ source, destination }) => copyFile(join(root, "src", source), join(dist, destination)))
 );
 
-console.log(`Built ${allCrawlPages.length} pages in dist/`);
+console.log(`Built ${allCrawlPages.length} core pages + ${liveJobs.length} job pages in dist/`);

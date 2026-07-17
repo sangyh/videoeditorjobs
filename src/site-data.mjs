@@ -96,6 +96,64 @@ export const jobBoardPage = {
     "A focused feed of live creative openings for editors and adjacent creator-side work. Each listing keeps the application and matching process on VideoEditorJobs.",
 };
 
+export const voiceProfilePage = {
+  slug: "voice-profile",
+  priority: "0.7",
+  changefreq: "weekly",
+  title: "Voice-Verified Editor Profiles: Stand Out to Hirers | Video Editor Jobs",
+  description:
+    "Book a 15-minute voice conversation and get a public voice-verified profile: real voice snippets about your style, your reel front and center, and verified credits.",
+  h1: "Get a voice-verified editor profile",
+  eyebrow: "Early access for editors",
+  intro:
+    "A 15-minute voice conversation builds your public profile: real voice snippets about your style and how you work, your reel front and center, and verified credits. Hirers hear the real you, not another AI-written bio.",
+  steps: [
+    {
+      heading: "1. Talk for 15 minutes",
+      body:
+        "Book a short voice call and walk through how you edit, the formats you own, the tools you reach for, and the work you want more of. No script, just a real conversation.",
+    },
+    {
+      heading: "2. We build your page",
+      body:
+        "We turn the call into a public profile: short voice snippets in your own words, your reel embedded up top, and the credits you can verify. You approve it before it goes live.",
+    },
+    {
+      heading: "3. Hirers shortlist you",
+      body:
+        "Hiring teams browsing for editors hear how you think about the work before they ever email you, so you get shortlisted for the right briefs instead of getting lost in a stack of identical bios.",
+    },
+  ],
+  profileItems: [
+    "Short voice snippets about your editing style, taste, and workflow.",
+    "Your reel and best clips front and center, not buried under text.",
+    "Verified credits and the formats you actually ship.",
+    "Rates, availability, and how you like to work with a team.",
+  ],
+  faq: [
+    {
+      question: "Why voice instead of a written bio?",
+      answer:
+        "Anyone can generate a polished paragraph now, so written bios all read the same. A short voice snippet shows how you actually think about an edit, which is what hiring teams are really trying to judge.",
+    },
+    {
+      question: "Is my reel still the main thing?",
+      answer:
+        "Yes. Your reel stays front and center on the profile. The voice snippets sit alongside it to explain your choices and taste, so a hirer understands the work instead of guessing.",
+    },
+    {
+      question: "What does it cost?",
+      answer:
+        "It is free during early access. We are inviting a limited group of editors first so we can build the profiles carefully and get the format right before opening it up.",
+    },
+    {
+      question: "Who sees my profile?",
+      answer:
+        "Your profile is public and built to be shared with hiring teams and creators looking for editors. You review and approve everything before it goes live, and you can ask us to take it down anytime.",
+    },
+  ],
+};
+
 export const pages = [
   {
     slug: "",
