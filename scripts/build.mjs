@@ -219,11 +219,6 @@ function baseJsonLd(page, canonical) {
       "@type": "WebSite",
       name: site.name,
       url: site.origin,
-      potentialAction: {
-        "@type": "SearchAction",
-        target: `${site.origin}/search/?q={search_term_string}`,
-        "query-input": "required name=search_term_string",
-      },
     },
     {
       "@context": "https://schema.org",

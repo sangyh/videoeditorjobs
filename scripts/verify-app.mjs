@@ -179,6 +179,8 @@ requireExcludes(jobsHtml, "?job=reddit-", "source-revealing job identifiers");
 
 requireIncludes(searchHtml, '<meta name="robots" content="noindex, follow">', "search noindex");
 requireIncludes(searchHtml, "site-search-input", "search input");
+requireIncludes(homeHtml, '"@type":"WebSite"', "home WebSite structured data");
+requireExcludes(homeHtml, '"@type":"SearchAction"', "obsolete SearchAction structured data");
 requireIncludes(privacyHtml, "<h1>Privacy Policy</h1>", "privacy h1");
 requireIncludes(termsHtml, "<h1>Terms</h1>", "terms h1");
 requireIncludes(thanksEditorHtml, '<meta name="robots" content="noindex, follow">', "editor thanks noindex");
