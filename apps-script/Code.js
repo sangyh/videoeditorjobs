@@ -12,7 +12,7 @@ const CONFIG = {
   confirmationEmailName: "Video Editor Jobs",
 };
 
-const SCRIPT_VERSION = "vej-2026-07-14-onsite-applications";
+const SCRIPT_VERSION = "vej-2026-07-20-intake-summary";
 
 const HEADERS = [
   "created_at",
@@ -305,6 +305,10 @@ function doGet(event) {
     return jsonResponse(publicJobs());
   }
 
+  if (event && event.parameter && event.parameter.action === "summary") {
+    return jsonResponse(intakeSummary());
+  }
+
   const spreadsheet = SpreadsheetApp.openById(CONFIG.spreadsheetId);
   return jsonResponse({
     ok: true,
@@ -314,6 +318,53 @@ function doGet(event) {
     sheets: spreadsheet.getSheets().map((sheet) => sheet.getName()),
     checkedAt: new Date().toISOString(),
   });
+}
+
+function intakeSummary() {
+  const tabs = [
+    { key: "editors", sheetName: CONFIG.editorSheetName },
+    { key: "hiring", sheetName: CONFIG.hiringSheetName },
+  ];
+  const summary = { ok: true, scriptVersion: SCRIPT_VERSION, generatedAt: new Date().toISOString() };
+
+  tabs.forEach((tab) => {
+    const sheet = getOrCreateSheet(tab.sheetName);
+    const values = sheet.getDataRange().getDisplayValues();
+    const headers = values.shift() || [];
+    const rows = values.map((row) => rowToObject(row, headers)).filter((row) => row.submission_id);
+    const countBy = (field) => {
+      const counts = {};
+      rows.forEach((row) => {
+        const value = String(row[field] || "").trim() || "(empty)";
+        counts[value] = (counts[value] || 0) + 1;
+      });
+      return counts;
+    };
+    // Aggregates and non-identifying fields only — no names, emails, or free text.
+    summary[tab.key] = {
+      total: rows.length,
+      bySource: countBy("source_bucket"),
+      byCampaign: countBy("utm_campaign"),
+      byLocation: countBy("location"),
+      recent: rows
+        .slice()
+        .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)))
+        .slice(0, 25)
+        .map((row) => ({
+          created_at: row.created_at,
+          source_bucket: row.source_bucket,
+          utm_campaign: row.utm_campaign,
+          page_path: row.page_path,
+          location: row.location,
+          rate_range: row.rate_range,
+          budget: row.budget,
+          has_portfolio: Boolean(String(row.portfolio_url || "").trim()),
+          lead_score: row.lead_score,
+        })),
+    };
+  });
+
+  return summary;
 }
 
 function publicJobs() {
@@ -794,8 +845,10 @@ function ensureDashboard() {
 
 function ensureSourceSummary() {
   const sheet = getOrCreateSheet(CONFIG.sourceSummarySheetName);
-  const sources = ["reddit", "facebook", "forum", "community", "referral", "organic", "direct", "apps_script", "smoke", "manual"];
+  const sources = ["reddit", "reddit.com", "chatgpt.com", "perplexity.ai", "facebook", "forum", "community", "referral", "organic", "direct", "apps_script", "smoke", "manual"];
   const campaigns = [
+    "voice_profile_interest",
+    "editor_supply_2026_07",
     "early_editor_list",
     "early_hiring_briefs",
     "early_community",
@@ -815,6 +868,7 @@ function ensureSourceSummary() {
   const pages = [
     "/",
     "/editors/",
+    "/voice-profile/",
     "/hire-video-editor/",
     "/video-editor-community/",
     "/remote-video-editor-jobs/",

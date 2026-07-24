@@ -261,7 +261,7 @@ if (canonicalAppsScript !== projectAppsScript) {
 }
 
 for (const needle of [
-  "vej-2026-07-14-onsite-applications",
+  "vej-2026-07-20-intake-summary",
   "portfolio_examples_share",
   "/part-time-video-editor-jobs/",
   "/blog/freelance-video-editor-rates/",

@@ -515,8 +515,10 @@ function countByHeaderFormula(sheetName, headerName, value) {
 
 function addSourceSummarySheet(workbook) {
   const sheet = workbook.worksheets.add("Source Summary");
-  const sources = ["reddit", "facebook", "forum", "community", "referral", "organic", "direct", "apps_script", "smoke", "manual"];
+  const sources = ["reddit", "reddit.com", "chatgpt.com", "perplexity.ai", "facebook", "forum", "community", "referral", "organic", "direct", "apps_script", "smoke", "manual"];
   const campaigns = [
+    "voice_profile_interest",
+    "editor_supply_2026_07",
     "early_editor_list",
     "early_hiring_briefs",
     "early_community",
@@ -536,6 +538,7 @@ function addSourceSummarySheet(workbook) {
   const pages = [
     "/",
     "/editors/",
+    "/voice-profile/",
     "/hire-video-editor/",
     "/video-editor-community/",
     "/remote-video-editor-jobs/",
@@ -608,7 +611,7 @@ function addSetupSheet(workbook) {
     ["Tabs", "Dashboard, Source Summary, Editors, Hiring Requests, Matches, Community Posts, and Setup are present."],
     [
       "Apps Script",
-      "Paste docs/google-sheets-apps-script.js into Extensions > Apps Script, save, run setup(), run seedCommunityPosts(), approve Sheets/send-email permissions, then run launchHealthCheck(). Confirm ok: true and scriptVersion: vej-2026-07-14-onsite-applications before deploying.",
+      "Paste docs/google-sheets-apps-script.js into Extensions > Apps Script, save, run setup(), run seedCommunityPosts(), approve Sheets/send-email permissions, then run launchHealthCheck(). Confirm ok: true and scriptVersion: vej-2026-07-20-intake-summary before deploying.",
     ],
     [
       "Test Submission",
@@ -616,12 +619,12 @@ function addSetupSheet(workbook) {
     ],
     [
       "Deploy",
-      "Deploy Apps Script as a Web app. Execute as Me. Access Anyone. Copy the /exec URL, open it, and confirm ok: true plus scriptVersion: vej-2026-07-14-onsite-applications.",
+      "Deploy Apps Script as a Web app. Execute as Me. Access Anyone. Copy the /exec URL, open it, and confirm ok: true plus scriptVersion: vej-2026-07-20-intake-summary.",
     ],
     ["Environment", "Run npm run configure:endpoint -- <exec-url>, then deploy with VEJ_INTAKE_ENDPOINT set in production."],
     [
       "Smoke Test",
-      "Run npm run smoke:intake after /exec deploy. Confirm health.scriptVersion is vej-2026-07-14-onsite-applications and one editor row plus one hiring row land with triage and confirmation results.",
+      "Run npm run smoke:intake after /exec deploy. Confirm health.scriptVersion is vej-2026-07-20-intake-summary and one editor row plus one hiring row land with triage and confirmation results.",
     ],
     [
       "Launch Gate",
